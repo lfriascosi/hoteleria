@@ -3,7 +3,6 @@ package hoteleria.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -17,24 +16,16 @@ public class InvUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INV_USUARIOS_IDUSUARIO_GENERATOR", sequenceName="SEQ_INV_USUARIOS")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_USUARIOS_IDUSUARIO_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer idusuario;
 
-	@Column(nullable=false, length=50)
 	private String apellidosusuario;
 
-	@Column(nullable=false, length=300)
 	private String clave;
 
-	@Column(nullable=false, length=200)
 	private String correo;
 
-	@Column(length=100)
 	private String direccion;
 
-	@Column(nullable=false)
 	private Integer estado;
 
 	@Temporal(TemporalType.DATE)
@@ -43,23 +34,12 @@ public class InvUsuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
-	@Column(nullable=false, length=50)
 	private String nombresusuario;
 
-	@Column(length=20)
 	private String telefono;
 
-	//bi-directional many-to-one association to Bitacora
-	@OneToMany(mappedBy="invUsuario")
-	private List<Bitacora> bitacoras;
-
-	//bi-directional many-to-one association to FacReserva
-	@OneToMany(mappedBy="invUsuario")
-	private List<FacReserva> facReservas;
-
-	//bi-directional many-to-one association to InvRolesusuario
-	@OneToMany(mappedBy="invUsuario")
-	private List<InvRolesusuario> invRolesusuarios;
+	@Column(name="tipo_usuario")
+	private String tipoUsuario;
 
 	public InvUsuario() {
 	}
@@ -144,70 +124,12 @@ public class InvUsuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<Bitacora> getBitacoras() {
-		return this.bitacoras;
+	public String getTipoUsuario() {
+		return this.tipoUsuario;
 	}
 
-	public void setBitacoras(List<Bitacora> bitacoras) {
-		this.bitacoras = bitacoras;
-	}
-
-	public Bitacora addBitacora(Bitacora bitacora) {
-		getBitacoras().add(bitacora);
-		bitacora.setInvUsuario(this);
-
-		return bitacora;
-	}
-
-	public Bitacora removeBitacora(Bitacora bitacora) {
-		getBitacoras().remove(bitacora);
-		bitacora.setInvUsuario(null);
-
-		return bitacora;
-	}
-
-	public List<FacReserva> getFacReservas() {
-		return this.facReservas;
-	}
-
-	public void setFacReservas(List<FacReserva> facReservas) {
-		this.facReservas = facReservas;
-	}
-
-	public FacReserva addFacReserva(FacReserva facReserva) {
-		getFacReservas().add(facReserva);
-		facReserva.setInvUsuario(this);
-
-		return facReserva;
-	}
-
-	public FacReserva removeFacReserva(FacReserva facReserva) {
-		getFacReservas().remove(facReserva);
-		facReserva.setInvUsuario(null);
-
-		return facReserva;
-	}
-
-	public List<InvRolesusuario> getInvRolesusuarios() {
-		return this.invRolesusuarios;
-	}
-
-	public void setInvRolesusuarios(List<InvRolesusuario> invRolesusuarios) {
-		this.invRolesusuarios = invRolesusuarios;
-	}
-
-	public InvRolesusuario addInvRolesusuario(InvRolesusuario invRolesusuario) {
-		getInvRolesusuarios().add(invRolesusuario);
-		invRolesusuario.setInvUsuario(this);
-
-		return invRolesusuario;
-	}
-
-	public InvRolesusuario removeInvRolesusuario(InvRolesusuario invRolesusuario) {
-		getInvRolesusuarios().remove(invRolesusuario);
-		invRolesusuario.setInvUsuario(null);
-
-		return invRolesusuario;
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 }
