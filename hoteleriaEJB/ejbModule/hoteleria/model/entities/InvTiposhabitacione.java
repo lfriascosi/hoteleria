@@ -16,7 +16,7 @@ public class InvTiposhabitacione implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INV_TIPOSHABITACIONES_IDTIPOHABITACION_GENERATOR", sequenceName="SEQ_INV_TIPOSHABITACIONES")
+	@SequenceGenerator(name="INV_TIPOSHABITACIONES_IDTIPOHABITACION_GENERATOR", sequenceName="SEQ_INV_TIPOSHABITACIONES", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_TIPOSHABITACIONES_IDTIPOHABITACION_GENERATOR")
 	@Column(unique=true, nullable=false)
 	private Integer idtipohabitacion;
