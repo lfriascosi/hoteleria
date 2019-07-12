@@ -2,10 +2,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</h:head> 
 <body> 
-<h1>HOLA CLIENTE</h1>
+<h:form>
+		<p:menubar>
+			<p:menuitem value="Bello Amanecer"></p:menuitem>
+			<p:menuitem value="Facturas" action="facturas" icon="fa fa-bars"></p:menuitem>
+			<f:facet name="options">
+				<p:outputLabel value="#{beanLogin.correo}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br/>
+
+
+<div class="Container">
+	<div class="jumbotron"><h3 class="text-secondary">HABITACIONES</h3></div>
+<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form id="form2">
+	<p:multiSelectListbox value="#{beanHabitaciones.listaHabitacion.get(1)}" style="display:block;
+    position:relative;left:45%; text-align:center">
+      
+    </p:multiSelectListbox>
+ 
+    <p:commandButton value="Seleccionar" icon="pi pi-check"  style="display:block;margin:10px 0; 
+     position:relative;left:46%; text-align:center"/>
+     
+	</h:form>
+</div>
+
+
 </body> 
 </html>

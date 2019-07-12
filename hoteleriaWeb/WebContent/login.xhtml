@@ -6,17 +6,29 @@
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Ingreso de usuarios</title>
+<title>Bello Amanecer</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </h:head> 
 <body> 
+<h:form>
+		<p:menubar>
+		
+			<p:menuitem value="Hotel Bello Amanecer">sasa</p:menuitem>
+		
+		</p:menubar>
+	</h:form>
+	<br/>
+
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-		<p:panel header=" - Autentificación de usuarios operadores">
+		<p:panel header=" Iniciar Sesión">
 			<h:panelGrid columns="2">
-				<h:outputText value="Código de usuario:" />
+				<h:outputText value="Correo:" />
 				<p:inputText value="#{beanLogin.codigoUsuario}" required="true"
 					size="20" maxlength="20"
 					requiredMessage="Debe ingresar su codigo de usuario." />

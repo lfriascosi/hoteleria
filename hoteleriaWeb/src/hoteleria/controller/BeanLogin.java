@@ -17,6 +17,7 @@ public class BeanLogin implements Serializable{
 	private String codigoUsuario;
 	private String clave;
 	private String tipoUsuario;
+	private String correo;
 	private boolean acceso;
 	@EJB
 	private ManagerSeguridad managerSeguridad;
@@ -36,6 +37,7 @@ public class BeanLogin implements Serializable{
 			loginDTO=managerSeguridad.accederSistema(codigoUsuario, clave);
 			//verificamos el acceso del usuario:
 			tipoUsuario=loginDTO.getTipoUsuario();
+			correo = loginDTO.getCorreo(); 
 			//redireccion dependiendo del tipo de usuario:
 			return loginDTO.getRutaAcceso()+"?faces-redirect=true";
 		} catch (Exception e) {
@@ -82,4 +84,11 @@ public class BeanLogin implements Serializable{
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String usuario) {
+		this.correo = usuario;
+	}
+	
 }

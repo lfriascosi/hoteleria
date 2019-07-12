@@ -5,6 +5,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import hoteleria.model.dto.LoginDTO;
+import hoteleria.model.entities.InvRole;
 import hoteleria.model.entities.InvUsuario;
 
 /**
@@ -41,10 +42,9 @@ public class ManagerSeguridad {
 			throw new Exception("Error en usuario y/o clave.");
 		
 		LoginDTO loginDTO=new LoginDTO();
-		System.out.println("Crear objeto Usuario");
-		
+		System.out.println("metodo buscar roles");
 		loginDTO.setIdUsuario(usuario.getIdusuario());
-		loginDTO.setUsuario(usuario.getNombresusuario());
+		loginDTO.setUsuario(usuario.getNombresusuario()+" "+usuario.getApellidosusuario());
 		loginDTO.setCorreo(usuario.getCorreo());
 		loginDTO.setTipoUsuario(usuario.getTipoUsuario());
 		

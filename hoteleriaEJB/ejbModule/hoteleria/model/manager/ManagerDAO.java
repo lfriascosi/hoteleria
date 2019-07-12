@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import hoteleria.model.entities.FacReserva;
+import hoteleria.model.entities.InvRole;
 import hoteleria.model.entities.InvUsuario;
 import hoteleria.model.util.ModelUtil;
 
@@ -124,6 +125,7 @@ public class ManagerDAO {
 		}
 		return o;
 	}
+	
 
 	/**
 	 * Finder generico que permite aplicar clausulas where y order by. <b>Atencion</b>: este metodo
