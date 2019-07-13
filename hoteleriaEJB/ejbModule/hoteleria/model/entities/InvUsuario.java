@@ -3,6 +3,7 @@ package hoteleria.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -40,6 +41,23 @@ public class InvUsuario implements Serializable {
 
 	@Column(name="tipo_usuario")
 	private String tipoUsuario;
+
+	//bi-directional many-to-one association to Bitacora
+	@OneToMany(mappedBy="invUsuario")
+	private List<Bitacora> bitacoras;
+
+	//bi-directional many-to-one association to FacReserva
+	@OneToMany(mappedBy="invUsuario")
+	private List<FacReserva> facReservas;
+
+	//bi-directional many-to-one association to InvRolesusuario
+	@OneToMany(mappedBy="invUsuario")
+	private List<InvRolesusuario> invRolesusuarios;
+
+	//bi-directional many-to-one association to InvRole
+	@ManyToOne
+	@JoinColumn(name="idrol")
+	private InvRole invRole;
 
 	public InvUsuario() {
 	}
@@ -130,6 +148,80 @@ public class InvUsuario implements Serializable {
 
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public List<Bitacora> getBitacoras() {
+		return this.bitacoras;
+	}
+
+	public void setBitacoras(List<Bitacora> bitacoras) {
+		this.bitacoras = bitacoras;
+	}
+
+	public Bitacora addBitacora(Bitacora bitacora) {
+		getBitacoras().add(bitacora);
+		bitacora.setInvUsuario(this);
+
+		return bitacora;
+	}
+
+	public Bitacora removeBitacora(Bitacora bitacora) {
+		getBitacoras().remove(bitacora);
+		bitacora.setInvUsuario(null);
+
+		return bitacora;
+	}
+
+	public List<FacReserva> getFacReservas() {
+		return this.facReservas;
+	}
+
+	public void setFacReservas(List<FacReserva> facReservas) {
+		this.facReservas = facReservas;
+	}
+
+	public FacReserva addFacReserva(FacReserva facReserva) {
+		getFacReservas().add(facReserva);
+		facReserva.setInvUsuario(this);
+
+		return facReserva;
+	}
+
+	public FacReserva removeFacReserva(FacReserva facReserva) {
+		getFacReservas().remove(facReserva);
+		facReserva.setInvUsuario(null);
+
+		return facReserva;
+	}
+
+	public List<InvRolesusuario> getInvRolesusuarios() {
+		return this.invRolesusuarios;
+	}
+
+	public void setInvRolesusuarios(List<InvRolesusuario> invRolesusuarios) {
+		this.invRolesusuarios = invRolesusuarios;
+	}
+
+	public InvRolesusuario addInvRolesusuario(InvRolesusuario invRolesusuario) {
+		getInvRolesusuarios().add(invRolesusuario);
+		invRolesusuario.setInvUsuario(this);
+
+		return invRolesusuario;
+	}
+
+	public InvRolesusuario removeInvRolesusuario(InvRolesusuario invRolesusuario) {
+		getInvRolesusuarios().remove(invRolesusuario);
+		invRolesusuario.setInvUsuario(null);
+
+		return invRolesusuario;
+	}
+
+	public InvRole getInvRole() {
+		return this.invRole;
+	}
+
+	public void setInvRole(InvRole invRole) {
+		this.invRole = invRole;
 	}
 
 }

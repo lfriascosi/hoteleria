@@ -18,19 +18,13 @@ public class FacReserva implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="FAC_RESERVAS_IDRESERVA_GENERATOR", sequenceName="SEQ_FAC_RESERVAS")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAC_RESERVAS_IDRESERVA_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer idreserva;
 
-	@Column(nullable=false)
 	private Integer estadopago;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date fechareserva;
 
-	@Column(nullable=false)
 	private Time horareserva;
 
 	//bi-directional many-to-one association to FacDetalle
@@ -39,12 +33,12 @@ public class FacReserva implements Serializable {
 
 	//bi-directional many-to-one association to FacParametro
 	@ManyToOne
-	@JoinColumn(name="descuento", nullable=false)
+	@JoinColumn(name="descuento")
 	private FacParametro facParametro;
 
 	//bi-directional many-to-one association to InvUsuario
 	@ManyToOne
-	@JoinColumn(name="idusuario", nullable=false)
+	@JoinColumn(name="idusuario")
 	private InvUsuario invUsuario;
 
 	public FacReserva() {

@@ -16,29 +16,23 @@ public class FacDetalle implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="FAC_DETALLES_IDDETALLE_GENERATOR", sequenceName="SEQ_FAC_DETALLES")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAC_DETALLES_IDDETALLE_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer iddetalle;
 
-	@Column(nullable=false)
 	private Integer diasestadia;
 
-	@Column(nullable=false)
 	private Integer estadoreserva;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date fechauso;
 
 	//bi-directional many-to-one association to FacReserva
 	@ManyToOne
-	@JoinColumn(name="idreserva", nullable=false)
+	@JoinColumn(name="idreserva")
 	private FacReserva facReserva;
 
 	//bi-directional many-to-one association to InvHabitacione
 	@ManyToOne
-	@JoinColumn(name="idhabitacion", nullable=false)
+	@JoinColumn(name="idhabitacion")
 	private InvHabitacione invHabitacione;
 
 	public FacDetalle() {

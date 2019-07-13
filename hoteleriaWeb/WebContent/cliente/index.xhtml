@@ -15,9 +15,14 @@
 </h:head> 
 <body> 
 <h:form>
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
 		<p:menubar>
 			<p:menuitem value="Bello Amanecer"></p:menuitem>
-			<p:menuitem value="Facturas" action="facturas" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Reservas" action="facturas" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
 				<p:outputLabel value="#{beanLogin.correo}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
@@ -33,10 +38,28 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form id="form2">
-	<p:multiSelectListbox value="#{beanHabitaciones.listaHabitacion.get(1)}" style="display:block;
+	<p:multiSelectListbox value="#{beanHabitaciones.listaHabitacion}" style="display:block;
     position:relative;left:45%; text-align:center">
       
     </p:multiSelectListbox>
+          <p:outputLabel for="advanced" value="Advanced:" />
+        <p:selectOneMenu id="advanced" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{beanHabitaciones.listaHabitacion}" var="theme" itemLabel="#{theme.nombretipohabitacion}" itemValue="#{theme}" />
+ 
+            <p:column style="width:10%">
+                <h:graphicImage name="/imagenes/cama.jpg" styleClass="ui-theme" />
+            </p:column>
+ 
+            <p:column>
+                <h:outputText value="sa" />
+            </p:column>
+        </p:selectOneMenu>
+  <p:outputLabel for="city" value="Editable: " />
+        <p:selectOneMenu id="city" value="#{beanHabitaciones.habitacionSeleccionada}" effect="fold" editable="true">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItems value="#{beanHabitaciones.listaHabitacion}" />
+        </p:selectOneMenu>
  
     <p:commandButton value="Seleccionar" icon="pi pi-check"  style="display:block;margin:10px 0; 
      position:relative;left:46%; text-align:center"/>
