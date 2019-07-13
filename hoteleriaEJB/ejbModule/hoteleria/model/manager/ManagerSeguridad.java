@@ -46,14 +46,10 @@ public class ManagerSeguridad {
 		loginDTO.setIdUsuario(usuario.getIdusuario());
 		loginDTO.setUsuario(usuario.getNombresusuario()+" "+usuario.getApellidosusuario());
 		loginDTO.setCorreo(usuario.getCorreo());
-		loginDTO.setTipoUsuario(usuario.getTipoUsuario());
+		loginDTO.setRoles(usuario.getInvRolesusuarios());
 		
 		
-		//dependiendo del tipo de usuario, configuramos la ruta de acceso a las pags web:
-		if(usuario.getTipoUsuario().equals("recep"))
-			loginDTO.setRutaAcceso("/recepcionista/reservas.xhtml");
-		else if(usuario.getTipoUsuario().equals("cli"))
-			loginDTO.setRutaAcceso("/cliente/index.xhtml");
+		
 		return loginDTO;
 	}
 	

@@ -4,13 +4,25 @@ package hoteleria.model.dto;
  * @author RogerVaca
  *
  */
+import hoteleria.model.entities.InvRolesusuario;
+import java.util.List;
+
 public class LoginDTO {
 	private String usuario;
 	private int idUsuario;
 	private String correo;
 	private String tipoUsuario;
 	private String rutaAcceso;
+	private List<InvRolesusuario> roles;
 	
+	
+	
+	public List<InvRolesusuario> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<InvRolesusuario> roles) {
+		this.roles = roles;
+	}
 	public String getUsuario() {
 		return usuario;
 	}

@@ -39,9 +39,6 @@ public class InvUsuario implements Serializable {
 
 	private String telefono;
 
-	@Column(name="tipo_usuario")
-	private String tipoUsuario;
-
 	//bi-directional many-to-one association to Bitacora
 	@OneToMany(mappedBy="invUsuario")
 	private List<Bitacora> bitacoras;
@@ -51,13 +48,8 @@ public class InvUsuario implements Serializable {
 	private List<FacReserva> facReservas;
 
 	//bi-directional many-to-one association to InvRolesusuario
-	@OneToMany(mappedBy="invUsuario")
+	@OneToMany(mappedBy="invUsuario",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<InvRolesusuario> invRolesusuarios;
-
-	//bi-directional many-to-one association to InvRole
-	@ManyToOne
-	@JoinColumn(name="idrol")
-	private InvRole invRole;
 
 	public InvUsuario() {
 	}
@@ -142,14 +134,6 @@ public class InvUsuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public String getTipoUsuario() {
-		return this.tipoUsuario;
-	}
-
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
-	}
-
 	public List<Bitacora> getBitacoras() {
 		return this.bitacoras;
 	}
@@ -214,14 +198,6 @@ public class InvUsuario implements Serializable {
 		invRolesusuario.setInvUsuario(null);
 
 		return invRolesusuario;
-	}
-
-	public InvRole getInvRole() {
-		return this.invRole;
-	}
-
-	public void setInvRole(InvRole invRole) {
-		this.invRole = invRole;
 	}
 
 }

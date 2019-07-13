@@ -4,7 +4,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
-
 <h:head>
 <title>Bello Amanecer</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
@@ -12,11 +11,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </h:head> 
-<body> 
+<body style="background-image:url(imagenes/hotel.jpg);opacity:0.8;"> 
 <h:form>
 		<p:menubar>
 		
-			<p:menuitem value="Hotel Bello Amanecer">sasa</p:menuitem>
+			<p:menuitem value="Hotel Bello Amanecer"></p:menuitem>
 		
 		</p:menubar>
 	</h:form>
@@ -26,7 +25,7 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-		<p:panel header=" Iniciar Sesión">
+		<p:panel header=" Iniciar Sesión" style="position: absolute;top:30%;left:35%;width:500px;">
 			<h:panelGrid columns="2">
 				<h:outputText value="Correo:" />
 				<p:inputText value="#{beanLogin.codigoUsuario}" required="true"

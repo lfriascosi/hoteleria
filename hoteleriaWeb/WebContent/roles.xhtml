@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+<h:head>
+<title>Bello Amanecer</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</h:head> 
+<body style="background-image:url(imagenes/hotel.jpg);opacity:0.8;" onload="nobackbutton();"> 
+<h:form>
+		<p:menubar>
+			<p:menuitem value="Hotel Bello Amanecer"></p:menuitem>
+			<f:facet name="options">
+				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br/>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+		
+	
+	<h:form style="display:block;position:relative;text-align:center;"> 
+	<h2 class="text-primary" style="display:block;position:relative;left:1%;">Seleccionar Rol</h2>
+		<p:multiSelectListbox value="#{beanLogin.rolSeleccionado}"  effect="slide" style="display:block;position:relative;left:45%;">
+			<f:selectItems value="#{beanLogin.listadoRoles}" />
+		</p:multiSelectListbox>
+		
+		<p:commandButton value="Seleccionar" icon="pi pi-check" update="rol" action="#{beanLogin.ir()}" style="display:block;margin:10px 0; 
+     position:relative;left:45%; text-align:center"/>
+      <h:outputText id="rol" value="#{beanLogin.rolSeleccionado}" />
+     </h:form> 
+     
+     <!-- <h:form>
+     <p:selectOneMenu id="advanced" value="#{beanLogin.rol}" converter="rolConverter" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{beanLogin.nominaRol}" var="theme" itemLabel="#{theme.nombrerolvista}" itemValue="#{theme}" />
+        
+        </p:selectOneMenu>
+        <p:commandButton value="Save" icon="pi pi-check" update="out" style="display:block;margin:10px 0" />
+        <h:outputText id="out" value="#{beanLogin.rol.nombrerolvista}" />
+     </h:form> -->
+
+
+	<!-- Bloquea el boton de regresar del navegador -->     
+	<script>
+  function nobackbutton(){
+   window.location.hash="no-back-button";
+   window.location.hash="Again-No-back-button" //chrome
+   window.onhashchange=function(){window.location.hash="no-back-button";}
+  }
+  </script>
+</body> 
+</html>

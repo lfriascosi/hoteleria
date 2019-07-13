@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import hoteleria.model.entities.InvHabitacione;
 import hoteleria.model.entities.InvTiposhabitacione;
 
 
@@ -28,6 +29,13 @@ public class ManagerHabitaciones {
     public List<InvTiposhabitacione> findAllHabitaciones() {
 		String consulta = "select o from InvTiposhabitacione o order by o.fechacreacion";
 		Query q = em.createQuery(consulta, InvTiposhabitacione.class);
+		return q.getResultList();
+
+	}
+    
+    public List<InvHabitacione> findHabitaciones() {
+		String consulta = "select o from InvHabitacione o order by o.fechacreacion";
+		Query q = em.createQuery(consulta, InvHabitacione.class);
 		return q.getResultList();
 
 	}

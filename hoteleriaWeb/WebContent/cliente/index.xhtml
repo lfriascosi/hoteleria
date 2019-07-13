@@ -4,7 +4,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
 <h:head>
     <meta charset="utf-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
@@ -13,7 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </h:head> 
-<body> 
+<body onload="nobackbutton();"> 
 <h:form>
 <style type="text/css">
     .value {
@@ -24,7 +27,7 @@
 			<p:menuitem value="Bello Amanecer"></p:menuitem>
 			<p:menuitem value="Reservas" action="facturas" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
-				<p:outputLabel value="#{beanLogin.correo}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
 			</f:facet>
 		</p:menubar>
@@ -33,40 +36,41 @@
 
 
 <div class="Container">
-	<div class="jumbotron"><h3 class="text-secondary">HABITACIONES</h3></div>
+	<div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div>
 <p:growl>
 		<p:autoUpdate />
 	</p:growl>
 	<h:form id="form2">
-	<p:multiSelectListbox value="#{beanHabitaciones.listaHabitacion}" style="display:block;
-    position:relative;left:45%; text-align:center">
-      
-    </p:multiSelectListbox>
-          <p:outputLabel for="advanced" value="Advanced:" />
-        <p:selectOneMenu id="advanced" panelStyle="width:180px"
-                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
-            <f:selectItems value="#{beanHabitaciones.listaHabitacion}" var="theme" itemLabel="#{theme.nombretipohabitacion}" itemValue="#{theme}" />
- 
-            <p:column style="width:10%">
-                <h:graphicImage name="/imagenes/cama.jpg" styleClass="ui-theme" />
-            </p:column>
- 
-            <p:column>
-                <h:outputText value="sa" />
-            </p:column>
-        </p:selectOneMenu>
-  <p:outputLabel for="city" value="Editable: " />
-        <p:selectOneMenu id="city" value="#{beanHabitaciones.habitacionSeleccionada}" effect="fold" editable="true">
-            <f:selectItem itemLabel="Select One" itemValue="" />
-            <f:selectItems value="#{beanHabitaciones.listaHabitacion}" />
-        </p:selectOneMenu>
- 
-    <p:commandButton value="Seleccionar" icon="pi pi-check"  style="display:block;margin:10px 0; 
-     position:relative;left:46%; text-align:center"/>
-     
+		<p:panel header="Habitaciones Disponibles">
+			<p:dataTable value="#{beanHabitaciones.listadoHabitaciones}" reflow="true"
+				var="habitaciones" >
+				<p:column headerText="Tipo Habitación" 
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{habitaciones.descripcion}" />
+				</p:column>
+				<p:column headerText="Número Habitación" 
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{habitaciones.numerohabitacion}" />
+				</p:column>
+				<p:column headerText="Número Piso" priority="2">
+					<h:outputText value="#{habitaciones.numeropiso}" />
+				</p:column>
+				<p:column headerText="Precio" priority="3">
+					<h:outputText value="#{habitaciones.precio}" />
+				</p:column>
+				
+			</p:dataTable>
+		</p:panel>
 	</h:form>
 </div>
 
-
+<!-- Bloquea el boton de regresar del navegador -->     
+	<script>
+  function nobackbutton(){
+   window.location.hash="no-back-button";
+   window.location.hash="Again-No-back-button" //chrome
+   window.onhashchange=function(){window.location.hash="no-back-button";}
+  }
+  </script>
 </body> 
 </html>

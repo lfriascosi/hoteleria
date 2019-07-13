@@ -5,7 +5,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-
+import hoteleria.model.entities.InvHabitacione;
 import hoteleria.model.entities.InvTiposhabitacione;
 import hoteleria.model.manager.ManagerHabitaciones;
 
@@ -19,6 +19,7 @@ public class BeanHabitaciones implements Serializable {
 	@EJB
 	private ManagerHabitaciones managerHabitaciones;
 	private List<InvTiposhabitacione> listaHabitacion;
+	private List<InvHabitacione> listadoHabitaciones;
 	private InvTiposhabitacione habitacion;
 	private boolean panelColapsado;
 	private InvTiposhabitacione habitacionSeleccionada;
@@ -26,6 +27,7 @@ public class BeanHabitaciones implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		listaHabitacion = managerHabitaciones.findAllHabitaciones();
+		listadoHabitaciones = managerHabitaciones.findHabitaciones();
 		habitacion = new InvTiposhabitacione();
 		panelColapsado = true;
 	}
@@ -71,6 +73,14 @@ public class BeanHabitaciones implements Serializable {
 	
 
 	
+	public List<InvHabitacione> getListadoHabitaciones() {
+		return listadoHabitaciones;
+	}
+
+	public void setListadoHabitaciones(List<InvHabitacione> listadoHabitaciones) {
+		this.listadoHabitaciones = listadoHabitaciones;
+	}
+
 	public List<InvTiposhabitacione> getListaHabitacion() {
 		return listaHabitacion;
 	}

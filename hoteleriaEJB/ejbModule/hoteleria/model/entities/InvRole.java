@@ -35,10 +35,6 @@ public class InvRole implements Serializable {
 	@OneToMany(mappedBy="invRole")
 	private List<InvRolesusuario> invRolesusuarios;
 
-	//bi-directional many-to-one association to InvUsuario
-	@OneToMany(mappedBy="invRole")
-	private List<InvUsuario> invUsuarios;
-
 	public InvRole() {
 	}
 
@@ -110,28 +106,6 @@ public class InvRole implements Serializable {
 		invRolesusuario.setInvRole(null);
 
 		return invRolesusuario;
-	}
-
-	public List<InvUsuario> getInvUsuarios() {
-		return this.invUsuarios;
-	}
-
-	public void setInvUsuarios(List<InvUsuario> invUsuarios) {
-		this.invUsuarios = invUsuarios;
-	}
-
-	public InvUsuario addInvUsuario(InvUsuario invUsuario) {
-		getInvUsuarios().add(invUsuario);
-		invUsuario.setInvRole(this);
-
-		return invUsuario;
-	}
-
-	public InvUsuario removeInvUsuario(InvUsuario invUsuario) {
-		getInvUsuarios().remove(invUsuario);
-		invUsuario.setInvRole(null);
-
-		return invUsuario;
 	}
 
 }

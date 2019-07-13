@@ -2,13 +2,20 @@ package hoteleria.controller;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import hoteleria.model.dto.LoginDTO;
+import hoteleria.model.entities.InvRole;
+import hoteleria.model.entities.InvRolesusuario;
 import hoteleria.model.manager.ManagerSeguridad;
+import hoteleria.model.util.ModelUtil;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @javax.enterprise.context.SessionScoped
@@ -17,8 +24,14 @@ public class BeanLogin implements Serializable{
 	private String codigoUsuario;
 	private String clave;
 	private String tipoUsuario;
+	private String usuario;
 	private String correo;
-	private boolean acceso;
+	private List<InvRolesusuario> listaRoles;
+	private List<String> listadoRoles = new ArrayList<String>();
+	private String rolSeleccionado;
+	private InvRole rol;
+	private List<InvRole> nominaRol = new ArrayList<InvRole>();
+	private boolean acceso=false;
 	@EJB
 	private ManagerSeguridad managerSeguridad;
 	private LoginDTO loginDTO;
@@ -38,11 +51,61 @@ public class BeanLogin implements Serializable{
 			//verificamos el acceso del usuario:
 			tipoUsuario=loginDTO.getTipoUsuario();
 			correo = loginDTO.getCorreo(); 
+			usuario = loginDTO.getUsuario();
+			listaRoles = loginDTO.getRoles();
+			listadoRoles = new ArrayList<String>();
+			nominaRol = new ArrayList<InvRole>();
+			for(InvRolesusuario rolUsu:listaRoles) {
+				// InvRole rol = new InvRole();
+				// rol=rolUsu.getInvRole();
+				// rol.setNombrerolvista(rolUsu.getInvRole().getNombrerolvista());
+				listadoRoles.add(rolUsu.getInvRole().getNombrerolvista());
+				
+				// nominaRol.add(rol);
+		        }
+			
 			//redireccion dependiendo del tipo de usuario:
-			return loginDTO.getRutaAcceso()+"?faces-redirect=true";
+			// return loginDTO.getRutaAcceso()+"?faces-redirect=true";
+			return "roles?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.crearMensajeERROR(e.getMessage());
+		}
+		return "";
+	}
+	
+	public InvRole getInvRoleBean(Integer id) {
+        if (id == null){
+            throw new IllegalArgumentException("no id provided");
+        }
+        for (InvRole rol : nominaRol ){
+            if (id.equals(rol.getIdrol())){
+                return rol;
+            }
+        }
+        return null;
+    }
+	
+	
+	public String ir() {
+		try{
+			//dependiendo del tipo de usuario, configuramos la ruta de acceso a las pags web:		
+			if(this.rolSeleccionado.equals("Recepcionista")) {
+				//FacesContext contex = FacesContext.getCurrentInstance();
+	            // contex.getExternalContext().redirect("../administrador/usuarios.xhtml" );
+				loginDTO.setRutaAcceso("/recepcionista/reservas.xhtml");
+			} else if(this.rolSeleccionado.equals("Cliente")) {
+				loginDTO.setRutaAcceso("/cliente/index.xhtml");
+			}else {
+				FacesContext contex = FacesContext.getCurrentInstance();
+	            contex.getExternalContext().redirect("index.html" );
+				
+			}
+			//redireccion dependiendo del tipo de usuario:
+			 return loginDTO.getRutaAcceso()+"?faces-redirect=true";
+            
+		}catch(  Exception e ){
+			System.out.println( "Me voy al carajo, no funciona esta redireccion" );
 		}
 		return "";
 	}
@@ -56,7 +119,71 @@ public class BeanLogin implements Serializable{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/index.html?faces-redirect=true";
 	}
+	
+	public void actionVerificarLogin(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String requestPath=ec.getRequestPathInfo();
+		try {
+			//si no paso por login:
+			if(loginDTO==null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())){
+				ec.redirect(ec.getRequestContextPath() + "/index.html");
+			}else{
+				//validar las rutas de acceso:
+				if(requestPath.contains("/recepcionista") && loginDTO.getRutaAcceso().startsWith("/recepcionista"))
+					return;
+				if(requestPath.contains("/cliente") && loginDTO.getRutaAcceso().startsWith("/cliente"))
+					return;
+				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
+				ec.redirect(ec.getRequestContextPath() + "/index.html");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
+	public List<String> getListadoRoles() {
+		return listadoRoles;
+	}
+	public void setListadoRoles(List<String> listadoRoles) {
+		this.listadoRoles = listadoRoles;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	
+	
+
+	public InvRole getRol() {
+		return rol;
+	}
+	public void setRol(InvRole rol) {
+		this.rol = rol;
+	}
+	public List<InvRole> getNominaRol() {
+		return nominaRol;
+	}
+	public void setNominaRol(List<InvRole> nominaRol) {
+		this.nominaRol = nominaRol;
+	}
+	public String getRolSeleccionado() {
+		return rolSeleccionado;
+	}
+	public void setRolSeleccionado(String rolSeleccionado) {
+		this.rolSeleccionado = rolSeleccionado;
+	}
+	public List<InvRolesusuario> getListaRoles() {
+		return listaRoles;
+	}
+	public void setListaRoles(List<InvRolesusuario> listaRoles) {
+		this.listaRoles = listaRoles;
+	}
 	public String getCodigoUsuario() {
 		return codigoUsuario;
 	}
