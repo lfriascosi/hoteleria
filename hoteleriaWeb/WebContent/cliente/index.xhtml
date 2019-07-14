@@ -8,13 +8,14 @@
 	<f:event listener="#{beanLogin.actionVerificarLogin()}"
 		type="preRenderView"></f:event>
 </f:metadata>
-<h:head>
     <meta charset="utf-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<h:head>
+
 </h:head> 
 <body onload="nobackbutton();"> 
 <h:form>
@@ -34,50 +35,59 @@
 	</h:form>
 	<br/>
 
-
-<div class="Container">
-	<div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div>
-<p:growl>
-		<p:autoUpdate />
-	</p:growl>
-	<h:form id="form">
-		<p:panel header="Habitaciones Disponibles">
-			<p:dataTable value="#{beanHabitaciones.listadoHabitaciones}" reflow="true"
-				var="habitaciones" >
-				<p:column headerText="Tipo Habitación" 
-					filterMatchMode="contains" priority="1">
-					<h:outputText value="#{habitaciones.descripcion}" />
-				</p:column>
-				<p:column headerText="Número Habitación" 
-					filterMatchMode="contains" priority="1">
-					<h:outputText value="#{habitaciones.numerohabitacion}" />
-				</p:column>
-				<p:column headerText="Número Piso" priority="2">
-					<h:outputText value="#{habitaciones.numeropiso}" />
-				</p:column>
-				<p:column headerText="Precio" priority="3">
-					<h:outputText value="#{habitaciones.precio}" />
-				</p:column>
-				
-			</p:dataTable>
-		</p:panel>
-	</h:form>
-
-	<h:form id="form2">
-			<p:panel header="Detalle de Habitaciones">
-				<p:panelGrid columns="5" border="1">
-					<h:outputText value="Producto:" />
-					<p:selectOneMenu value="sa">
-						<f:selectItem itemLabel="Seleccione una habitación..." itemValue="-1"
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanReserva.listaHabitacionesSI}" />
-						<p:ajax 
-							listener="#{beanReserva.verificarExistencia()}"></p:ajax>
-					</p:selectOneMenu>
-				</p:panelGrid>
+	<div class="Container">
+		<div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div>
+	<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<!-- <h:form id="form">
+			<p:panel header="Habitaciones Disponibles">
+				<p:dataTable value="#{beanHabitaciones.listadoHabitaciones}" reflow="true"
+					var="habitaciones" >
+					<p:column headerText="Tipo Habitación" 
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{habitaciones.descripcion}" />
+					</p:column>
+					<p:column headerText="Número Habitación" 
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{habitaciones.numerohabitacion}" />
+					</p:column>
+					<p:column headerText="Número Piso" priority="2">
+						<h:outputText value="#{habitaciones.numeropiso}" />
+					</p:column>
+					<p:column headerText="Precio" priority="3">
+						<h:outputText value="#{habitaciones.precio}" />
+					</p:column>
+					
+				</p:dataTable>
 			</p:panel>
-		</h:form>
-</div>
+		</h:form> -->
+	
+		
+		<p:panel header="Detalle de Habitaciones">
+			<p:panelGrid columns="4" border="1">
+				<h:form id="form2">
+					<h:outputText value="Tipo habitación" />
+					<p:selectOneMenu value="#{beanReserva.idTipoHabitacion}">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="#{beanReserva.tipoHabitaciones}"  />
+					<p:ajax update=":form3"></p:ajax>
+					</p:selectOneMenu>
+				</h:form>
+				<h:form id="form3">
+					<h:outputText value="Habitación: " />
+					<p:selectOneMenu value="#{beanReserva.idHabitacion}">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+							noSelectionOption="true" />
+					<f:selectItems value="#{beanReserva.listaHabitacionesSI}" />
+					</p:selectOneMenu>
+					<h:outputText value="#{beanReserva.habitacion}" />
+				</h:form>
+				<h:commandButton  value="Agregar" />
+			</p:panelGrid>
+		</p:panel>
+	</div>
 
 <!-- Bloquea el boton de regresar del navegador -->     
 	<script>

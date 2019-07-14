@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import hoteleria.model.entities.InvHabitacione;
 import hoteleria.model.entities.InvTiposhabitacione;
+import hoteleria.model.entities.InvUsuario;
 
 
 /**
@@ -42,6 +43,15 @@ public class ManagerHabitaciones {
 		return q.getResultList();
 
 	}
+    
+    public List<InvHabitacione> findHabitacionesPerTipo(Integer th) {
+		String consulta = "select a from InvHabitacione a where idtipohabitacion='"+th+"'";
+		Query q = em.createQuery(consulta, InvHabitacione.class);
+		return q.getResultList();
+
+	}    
+    
+    
     public InvTiposhabitacione findHabitacionById(int idtipohabitacion) {
 		return em.find(InvTiposhabitacione.class, idtipohabitacion);
 	}
