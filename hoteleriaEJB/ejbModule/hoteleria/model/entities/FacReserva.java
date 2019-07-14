@@ -20,6 +20,8 @@ public class FacReserva implements Serializable {
 	@Id
 	private Integer idreserva;
 
+	private String codigoreserva;
+
 	private Integer estadopago;
 
 	@Temporal(TemporalType.DATE)
@@ -50,6 +52,14 @@ public class FacReserva implements Serializable {
 
 	public void setIdreserva(Integer idreserva) {
 		this.idreserva = idreserva;
+	}
+
+	public String getCodigoreserva() {
+		return this.codigoreserva;
+	}
+
+	public void setCodigoreserva(String codigoreserva) {
+		this.codigoreserva = codigoreserva;
 	}
 
 	public Integer getEstadopago() {

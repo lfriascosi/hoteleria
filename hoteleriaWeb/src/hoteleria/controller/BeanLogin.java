@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @Named
 @javax.enterprise.context.SessionScoped
@@ -51,7 +52,7 @@ public class BeanLogin implements Serializable{
 			//verificamos el acceso del usuario:
 			tipoUsuario=loginDTO.getTipoUsuario();
 			correo = loginDTO.getCorreo(); 
-			usuario = loginDTO.getUsuario();
+			usuario = loginDTO.getUsuario(); // DigestUtils.sha256Hex(loginDTO.getUsuario());
 			listaRoles = loginDTO.getRoles();
 			listadoRoles = new ArrayList<String>();
 			nominaRol = new ArrayList<InvRole>();

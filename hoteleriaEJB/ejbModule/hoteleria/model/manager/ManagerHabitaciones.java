@@ -2,6 +2,7 @@ package hoteleria.model.manager;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +21,8 @@ import hoteleria.model.entities.InvTiposhabitacione;
 public class ManagerHabitaciones {
 	@PersistenceContext
 	private EntityManager em;
+	@EJB
+	private ManagerDAO managerDAO;
     /**
      * Default constructor. 
      */
@@ -75,5 +78,19 @@ public  InvTiposhabitacione InsertarHabitacion(InvTiposhabitacione habitacion)  
 		em.merge(h);
 			}
 	
-	
+	public int obtenerExistencia(Integer idHabitacion) throws Exception{
+  		InvHabitacione h;
+  		h=findTheHabitacionById(idHabitacion);
+  		return h.getEstado().intValue();
+  	}
+	  	/**
+  	 * Metodo finder para consulta de productos.
+  	 * Hace uso del componente {@link marketdemo.model.manager.ManagerDAO ManagerDAO} de la capa model.
+  	 * @param codigoProducto codigo del producto que se desea buscar.
+  	 * @return el producto encontrado.
+  	 * @throws Exception
+  	 */
+  	public InvHabitacione findTheHabitacionById(Integer idHabitacion) throws Exception{
+  		return (InvHabitacione) managerDAO.findById(InvHabitacione.class, idHabitacion);
+  	}
 }

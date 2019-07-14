@@ -21,6 +21,8 @@ public class InvHabitacione implements Serializable {
 
 	private String descripcion;
 
+	private Integer estado;
+
 	@Temporal(TemporalType.DATE)
 	private Date fechaactualizacion;
 
@@ -63,6 +65,14 @@ public class InvHabitacione implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Integer getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
 	}
 
 	public Date getFechaactualizacion() {

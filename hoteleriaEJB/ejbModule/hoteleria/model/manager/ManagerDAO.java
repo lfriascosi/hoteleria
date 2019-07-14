@@ -109,6 +109,21 @@ public class ManagerDAO {
 			throw new Exception("Debe especificar el codigo para buscar el dato.");
 		Object o;
 		try {
+			o = em.find(clase, pID);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Error al buscar la informacion especificada (" + pID + ") : " + e.getMessage());
+		}
+		return o;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Object findUser(Class clase, Object pID) throws Exception {
+		mostrarLog(this.getClass(),"findById", clase.getSimpleName() + " : " + pID);
+		if (pID == null)
+			throw new Exception("Debe especificar el codigo para buscar el dato.");
+		Object o;
+		try {
 			 // o = em.find(clase, pID);
 			String consulta="select u from InvUsuario u where correo='"+pID+"'";
 	    	Query q = em.createQuery(consulta,InvUsuario.class);

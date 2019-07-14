@@ -33,8 +33,7 @@ public class ManagerSeguridad {
 	 * un error con la consulta a la base de datos.
 	 */
 	public LoginDTO accederSistema(String codigoUsuario,String clave) throws Exception{
-		InvUsuario usuario=(InvUsuario)managerDAO.findById(InvUsuario.class, codigoUsuario);
-		
+		InvUsuario usuario=(InvUsuario)managerDAO.findUser(InvUsuario.class, codigoUsuario);
 		if(usuario==null)
 			throw new Exception("Error en usuario y/o clave.");
 		
@@ -46,10 +45,7 @@ public class ManagerSeguridad {
 		loginDTO.setIdUsuario(usuario.getIdusuario());
 		loginDTO.setUsuario(usuario.getNombresusuario()+" "+usuario.getApellidosusuario());
 		loginDTO.setCorreo(usuario.getCorreo());
-		loginDTO.setRoles(usuario.getInvRolesusuarios());
-		
-		
-		
+		loginDTO.setRoles(usuario.getInvRolesusuarios());		
 		return loginDTO;
 	}
 	

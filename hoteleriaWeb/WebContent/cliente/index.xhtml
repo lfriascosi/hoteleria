@@ -40,7 +40,7 @@
 <p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<h:form id="form2">
+	<h:form id="form">
 		<p:panel header="Habitaciones Disponibles">
 			<p:dataTable value="#{beanHabitaciones.listadoHabitaciones}" reflow="true"
 				var="habitaciones" >
@@ -62,6 +62,21 @@
 			</p:dataTable>
 		</p:panel>
 	</h:form>
+
+	<h:form id="form2">
+			<p:panel header="Detalle de Habitaciones">
+				<p:panelGrid columns="5" border="1">
+					<h:outputText value="Producto:" />
+					<p:selectOneMenu value="sa">
+						<f:selectItem itemLabel="Seleccione una habitación..." itemValue="-1"
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanReserva.listaHabitacionesSI}" />
+						<p:ajax 
+							listener="#{beanReserva.verificarExistencia()}"></p:ajax>
+					</p:selectOneMenu>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
 </div>
 
 <!-- Bloquea el boton de regresar del navegador -->     

@@ -48,7 +48,7 @@ public class InvUsuario implements Serializable {
 	private List<FacReserva> facReservas;
 
 	//bi-directional many-to-one association to InvRolesusuario
-	@OneToMany(mappedBy="invUsuario",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="invUsuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<InvRolesusuario> invRolesusuarios;
 
 	public InvUsuario() {
