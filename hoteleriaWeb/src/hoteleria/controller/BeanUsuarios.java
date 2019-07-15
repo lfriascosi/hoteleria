@@ -35,7 +35,6 @@ public class BeanUsuarios implements Serializable {
 	public void actionListenerCOlapsarPanel() {
 		panelColapsado = !panelColapsado;
 	}
-
 	public void actionListenerInsertarUsuario() {
 		try {
 			managerUsuarios.insertarInvUsuario(usuario);

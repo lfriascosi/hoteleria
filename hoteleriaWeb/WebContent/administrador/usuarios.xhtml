@@ -87,12 +87,18 @@
 					<p:commandButton icon="fa fa-close" title="eliminar" update="@form"
 						actionListener="#{beanUsuarios.actionListenerELiminarUsuario(usuarios.idusuario)}">
 						<p:confirm header="Confimacion" message="Desea eliminar"
-							icon="fa fa-exclamation-triangle">
-						</p:confirm>
+							icon="fa fa-exclamation-triangle"></p:confirm>
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 	</h:form>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="NO" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+
+	</p:confirmDialog>
 </body>
 </html>

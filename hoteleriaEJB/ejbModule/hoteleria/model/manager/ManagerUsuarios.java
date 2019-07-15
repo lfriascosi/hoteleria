@@ -46,7 +46,6 @@ public class ManagerUsuarios {
     	em.persist(usuarios);
     	return usuarios;
     }
-    
     public void EliminarInvUsuario (Integer idusuario) {
     	InvUsuario usuario = findInvUsuarioById(idusuario);
     	if(usuario!=null)
