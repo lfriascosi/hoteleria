@@ -17,6 +17,7 @@ import java.util.List;
 @SessionScoped
 public class BeanUsuarios implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	@EJB
 	private ManagerUsuarios managerUsuarios;
 	private List<InvUsuario> listaInvUsuarios;

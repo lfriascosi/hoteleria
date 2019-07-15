@@ -32,7 +32,6 @@ public class ManagerUsuarios {
     public InvUsuario findInvUsuarioById(int idusuario) {
     	return em.find(InvUsuario.class, idusuario);
     }
-    
     public InvUsuario insertarInvUsuario(InvUsuario usuario) {
     	InvUsuario usuarios = new InvUsuario();
     	usuarios.setApellidosusuario(usuario.getApellidosusuario());
