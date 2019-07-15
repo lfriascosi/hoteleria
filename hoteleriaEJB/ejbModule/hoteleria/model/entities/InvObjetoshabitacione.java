@@ -15,18 +15,22 @@ public class InvObjetoshabitacione implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="INV_OBJETOSHABITACIONES_IDTIPOHABITACION_GENERATOR", sequenceName="SEQ_INV_OBJETOSHABITACIONES",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_OBJETOSHABITACIONES_IDTIPOHABITACION_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idtipohabitacion;
 
+	@Column(nullable=false)
 	private Integer cantidad;
 
 	//bi-directional many-to-one association to InvObjeto
 	@ManyToOne
-	@JoinColumn(name="idobjeto")
+	@JoinColumn(name="idobjeto", nullable=false)
 	private InvObjeto invObjeto;
 
 	//bi-directional one-to-one association to InvTiposhabitacione
 	@OneToOne
-	@JoinColumn(name="idtipohabitacion")
+	@JoinColumn(name="idtipohabitacion", nullable=false, insertable=false, updatable=false)
 	private InvTiposhabitacione invTiposhabitacione;
 
 	public InvObjetoshabitacione() {
