@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Lista Clientes</title>
+</h:head>
+
+<body>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Inicio" action="index" icon="fa fa-home"></p:menuitem>
+			<p:menuitem value="Reservas" action="gerente"
+				icon="fa fa fa-bed"></p:menuitem>
+			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>
+			<p:menuitem value="Lista de Precios" action="precios"
+				icon="fa fa-bars"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<f:facet name="first">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no " />
+		<title>Listado de Usuarios</title>
+	</f:facet>
+</h:head> 
+<body> 
+<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Inicio" action="index" icon="fa fa-home"></p:menuitem>
+			
+			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>
+			<p:menuitem value="Lista de Precios" action="precios" icon="fa fa-bars"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br/>
+	<h:form id="form2">
+		<p:panel header="Listado de usuarios">
+	<p:dataTable value="#{beanGerencia.listausuario}" var="usuarios">
+				
+				<p:column headerText="Apellido Usuario" style="width:50px">
+					<h:outputText value="#{usuarios.apellidosusuario}" /> 
+				</p:column>
+				<p:column headerText="correo">
+					<h:outputText
+						value="#{usuarios.correo}" />
+				</p:column>
+				<p:column headerText="Dirección">
+					<h:outputText value="#{usuarios.direccion}" />
+				</p:column>
+				<p:column headerText="Estado">
+					<h:outputText
+						value="#{usuarios.estado}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+
+</body> 
+</html>
