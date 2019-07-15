@@ -39,8 +39,16 @@
 					actionListener="#{beanHabitaciones.actionListenerCOlapsarPanel()}"></p:commandButton>
 			</f:facet>
 			<p:panelGrid columns="2">
-				<h:outputText value="Tipo de habitación:" />
-				<p:inputText value="#{beanHabitaciones.habitacion.nombretipohabitacion}" />
+			
+			 <h:outputText value="Tipo de habitación:" />
+			<p:selectOneMenu id="console" value="#{beanHabitaciones.habitacion.nombretipohabitacion}" style="width:125px">
+            <f:selectItem itemLabel="Matrimonial" itemValue="Matrimonial" />
+            <f:selectItem itemLabel="Individual" itemValue="Individual" />
+            <f:selectItem itemLabel="Familiar" itemValue="Familiar}" />
+            <f:selectItem itemLabel="De Lujo" itemValue="De Lujo" />
+            </p:selectOneMenu>
+			
+				
 				<h:outputText value="Fecha creación:" />
 				<p:calendar  value="#{beanHabitaciones.habitacion.fechacreacion}" navigator="true" pattern="yyyy-MMM-dd" />
 				<h:outputText value="Fecha Actualizacion:" />
