@@ -58,9 +58,6 @@
 	<h:form id="form2">
 		<p:panel header="Datos de usuarios">
 			<p:dataTable value="#{beanUsuarios.listaInvUsuarios}" var="usuarios">
-				<p:column headerText="Id usuario" style="width:50px">
-					<h:outputText value="#{usuarios.idusuario}" />
-				</p:column>
 				<p:column headerText="Nombre usuario">
 					<h:outputText
 						value="#{usuarios.nombresusuario} #{usuarios.apellidosusuario}" />
