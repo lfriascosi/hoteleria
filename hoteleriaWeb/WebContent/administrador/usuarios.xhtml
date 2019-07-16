@@ -16,6 +16,18 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
+	<h:form>
+	<p:menubar>
+			<p:menuitem value="Administrador" action="index" icon="fa fa-wrench"></p:menuitem>
+			<p:menuitem value="Habitaciones" action="habitaciones" icon="fa fa-bed"></p:menuitem>
+			<p:menuitem value="Usuarios" action="usuarios" icon="fa fa-user-plus"></p:menuitem>
+			
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+		</h:form>
 	<h:form id="form1">
 		<p:messages>
 			<p:autoUpdate />
