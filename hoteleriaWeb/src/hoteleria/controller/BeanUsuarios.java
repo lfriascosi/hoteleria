@@ -56,6 +56,17 @@ public class BeanUsuarios implements Serializable {
 	public void actionListenerSelecionarUsuarios(InvUsuario usuario) {
 		usuarioSeleccionada = usuario;
 	}
+	
+	public void actionListenerActualizarUsuario() {
+		try {
+			managerUsuarios.actualizarInvUsuarios(usuarioSeleccionada);
+			listaInvUsuarios = managerUsuarios.findAllInvUsuarios();
+			JSFUtil.crearMensajeInfo("Datos actualizados");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public List<InvUsuario> getListaInvUsuarios() {
 		return listaInvUsuarios;

@@ -52,5 +52,20 @@ public class ManagerUsuarios {
     		em.remove(usuario);
     }
     
+    public void actualizarInvUsuarios(InvUsuario usuario) throws Exception{
+    	InvUsuario h=findInvUsuarioById(usuario.getIdusuario());
+    	if(h==null)
+    		throw new Exception("No existe el usuario con el id especificado");
+    	h.setApellidosusuario(usuario.getApellidosusuario());
+    	h.setNombresusuario(usuario.getNombresusuario());
+    	h.setClave(usuario.getClave());
+    	h.setCorreo(usuario.getCorreo());
+    	h.setDireccion(usuario.getDireccion());
+    	h.setEstado(usuario.getEstado());
+    	h.setTelefono(usuario.getTelefono());
+    	h.setFechaactualizacion(usuario.getFechaactualizacion()); 
+    	em.merge(h);
+    }
+    
 
 }
