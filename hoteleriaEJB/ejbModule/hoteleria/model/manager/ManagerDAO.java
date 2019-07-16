@@ -141,7 +141,32 @@ public class ManagerDAO {
 		return o;
 	}
 	
-
+	@SuppressWarnings("rawtypes")
+	public Object findRol(Class clase, Object pID) throws Exception {
+		
+		mostrarLog(this.getClass(),"findByNombreRol", clase.getSimpleName() + " : " + pID);
+		if (pID == null)
+			throw new Exception("Debe especificar el codigo para buscar el dato.");
+		Object o;
+		try {
+			 // o = em.find(clase, pID);
+			String nrol="cli";
+			String consulta="select u from InvRole u where nombrerol='"+nrol+"'";
+	    	Query q = em.createQuery(consulta,InvRole.class);
+	    	 System.out.println("HIIIIIIIIIIIIII");
+	    	List<InvRole> roles = q.getResultList();
+	    	  for (InvRole r : roles) {
+	    	      System.out.println("ROLLES: "+r.getNombrerol());
+	    	  }
+	    	
+	    	  o = roles.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Error al buscar la informacion especificada (" + pID + ") : " + e.getMessage());
+		}
+		return o;
+	}
+	
 	/**
 	 * Finder generico que permite aplicar clausulas where y order by. <b>Atencion</b>: este metodo
 	 * puede ser atacado por el metodo de INYECCION SQL, por lo cual se considera inseguro.

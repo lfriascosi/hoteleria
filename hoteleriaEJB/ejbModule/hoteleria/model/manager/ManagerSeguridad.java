@@ -3,9 +3,12 @@ package hoteleria.model.manager;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import hoteleria.model.dto.LoginDTO;
 import hoteleria.model.entities.InvRole;
+import hoteleria.model.entities.InvRolesusuario;
 import hoteleria.model.entities.InvUsuario;
 
 /**
@@ -16,6 +19,8 @@ import hoteleria.model.entities.InvUsuario;
 public class ManagerSeguridad {
 	@EJB
 	private ManagerDAO managerDAO;
+	@PersistenceContext
+	private EntityManager em;
     /**
      * Default constructor. 
      */
@@ -53,5 +58,27 @@ public class ManagerSeguridad {
 		InvUsuario usuario=(InvUsuario)managerDAO.findById(InvUsuario.class, codigoUsuario);
 		return usuario;
 	}
+	
+	 public InvUsuario registrarUsuario(InvUsuario usuario) throws Exception {
+		 	System.out.println("-------------------------------------- Antes ----------------------------");
+	    	InvUsuario usuarios = new InvUsuario();
+	    	usuarios.setApellidosusuario(usuario.getApellidosusuario());
+	    	usuarios.setNombresusuario(usuario.getNombresusuario());
+	    	usuarios.setClave(usuario.getClave());
+	    	usuarios.setCorreo(usuario.getCorreo());
+	    	usuarios.setDireccion(usuario.getDireccion());
+	    	usuarios.setEstado(usuario.getEstado());
+	    	usuarios.setTelefono(usuario.getTelefono());
+	    	//usuarios.setFechacreacion(usuario.getFechacreacion());
+	    	//usuarios.setFechaactualizacion(usuario.getFechaactualizacion());
+	    	em.persist(usuarios);
+	    	InvRole rolQ=(InvRole)managerDAO.findRol(InvRole.class,"cli");
+	    	InvRolesusuario rolusuario = new InvRolesusuario();
+	    	rolusuario.setInvUsuario(usuarios);
+	    	rolusuario.setInvRole(rolQ);
+	    	em.persist(rolusuario);
+	    	System.out.println("-------------------------------------- después ----------------------------");
+	    	return usuarios;
+	    }
 
 }

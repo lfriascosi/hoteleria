@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head><title>Bello Amanecer</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</h:head> 
+<body style="background-image:url(imagenes/cama.jpg);opacity:0.8;"> 
+<h:form>
+		<p:menubar>
+		
+			<p:menuitem value="Hotel Bello Amanecer"></p:menuitem>
+		
+		</p:menubar>
+	</h:form>
+	<br/>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:panel header=" Registro" style="position: absolute;top:30%;left:35%;width:500px;">
+			<h:panelGrid columns="2">
+			<h:outputText value="Nombres" />
+				<p:inputText value="#{beanRegistro.nombres}" required="true"
+					size="30" maxlength="30"
+					requiredMessage="Debe ingresar sus nombres." />
+					<h:outputText value="Apellidos:" />
+				<p:inputText value="#{beanRegistro.apellidos}" required="true"
+					size="30" maxlength="30"
+					requiredMessage="Debe ingresar sus apellidos." />
+				<h:outputText value="Domicilio" />
+				<p:inputText value="#{beanRegistro.domicilio}" required="true"
+					size="30" maxlength="30"
+					requiredMessage="Debe ingresar su domicilio." />
+				<h:outputText value="Teléfono" />
+				<p:inputText value="#{beanRegistro.telefono}" required="true"
+					size="30" maxlength="30"
+					requiredMessage="Debe ingresar su número telefónico." />
+				<h:outputText value="Correo:" />
+				<p:inputText value="#{beanRegistro.correo}" required="true"
+					size="30" maxlength="20"
+					requiredMessage="Debe ingresar su correo." />
+				<h:outputText value="Clave:" />
+				<p:password value="#{beanRegistro.clave}" required="true" size="20"
+					maxlength="10" requiredMessage="Debe registrar una clave de acceso." />
+				<p:commandButton value="Ingresar" icon="fa fa-key"
+					action="#{beanRegistro.registrarUsuario()}" update="mensajes" />
+				<p:messages id="mensajes" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</body> 
+</html>
