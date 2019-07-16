@@ -17,8 +17,9 @@
 	</p:growl>
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Inicio" action="index" icon="fa fa-home"></p:menuitem>
-			
+			<p:menuitem value="Gerente" action="index" icon="fa fa-gears"></p:menuitem>
+			<p:menuitem value="Clientes" action="usuarios" icon="fa fa-group"></p:menuitem>
+			<p:menuitem value="Reservas" action="gerente" icon="fa fa-bed"></p:menuitem>
 			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>
 			<p:menuitem value="Lista de Precios" action="precios" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
@@ -30,19 +31,19 @@
 	<br/>
 	<h:form id="form2">
 		<p:panel header="Listado de usuarios">
-	<p:dataTable value="#{beanGerencia.listausuario}" var="usuarios">
+	<p:dataTable value="#{beanUsuarios.listaInvUsuarios}" var="usuarios">
 				
-				<p:column headerText="Apellido Usuario" style="width:50px">
-					<h:outputText value="#{usuarios.apellidosusuario}" /> 
+				<p:column headerText="Nombre Usuario" style="width:200px">
+					<h:outputText value="#{usuarios.nombresusuario} #{usuarios.apellidosusuario}" />
 				</p:column>
 				<p:column headerText="correo">
 					<h:outputText
 						value="#{usuarios.correo}" />
 				</p:column>
-				<p:column headerText="Dirección">
+				<p:column headerText="Dirección" style="width:300px">
 					<h:outputText value="#{usuarios.direccion}" />
 				</p:column>
-				<p:column headerText="Estado">
+				<p:column headerText="Estado" style="width:100px">
 					<h:outputText
 						value="#{usuarios.estado}" />
 				</p:column>

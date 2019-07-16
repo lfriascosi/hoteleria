@@ -12,17 +12,48 @@
 <body>
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Inicio" action="index" icon="fa fa-home"></p:menuitem>
-			<p:menuitem value="Reservas" action="gerente"
-				icon="fa fa fa-bed"></p:menuitem>
+			<p:menuitem value="Gerente" action="index" icon="fa fa-gears"></p:menuitem>
+			<p:menuitem value="Clientes" action="usuarios" icon="fa fa-group"></p:menuitem>
+			<p:menuitem value="Reservas" action="gerente" icon="fa fa-bed"></p:menuitem>
 			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>
-			<p:menuitem value="Lista de Precios" action="precios"
-				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Lista de Precios" action="precios" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
 					icon="fa fa-sign-out" />
 			</f:facet>
 		</p:menubar>
 	</h:form>
+	<br/>
+	<h:form id="form2">
+		<p:panel header="Listado de reservas">
+	<p:dataTable value="#{beanReserva.listaHabitaciones}" var="detalles">
+				
+				<p:column headerText="Código reserva" style="width:50px">
+					<h:outputText value="#{detalles.descripcion}" />
+				</p:column>
+				<p:column headerText="Nombre usuario">
+					<h:outputText
+						value="#{detalles.}" />
+				</p:column>
+				<p:column headerText="Número habitación">
+					<h:outputText value="#{detalles.invHabitacione.numerohabitacion}" />
+				</p:column>
+				<p:column headerText="Tipo habitación">
+					<h:outputText
+						value="#{detalles.invHabitacione.invTiposhabitacione.nombretipohabitacion}" />
+				</p:column>
+				<p:column headerText="Dias de estadia">
+					<h:outputText value="#{detalles.diasestadia}" />
+				</p:column>
+				<p:column headerText="Fecha uso">
+					<h:outputText value="#{detalles.fechauso}" />
+				</p:column>
+				<p:column headerText="Estado reserva" style="width:50px">
+					<h:outputText value="#{detalles.estadoreserva}" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+	
 </body>
 </html>
