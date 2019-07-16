@@ -22,6 +22,7 @@ public class BeanParametros implements Serializable {
 	private List<FacParametro> listaParametros;
 	private FacParametro parametro;
 	private boolean panelColapsado;
+	private FacParametro parametroSeleccionado;
 	
 	@PostConstruct
 	public void inicializar() {
@@ -51,6 +52,21 @@ public class BeanParametros implements Serializable {
 		listaParametros = managerParametros.findAllFacParametro();
 		JSFUtil.crearMensajeInfo("Parametro eliminado");
 	}
+	
+	public void actionListenerSelecionarParametro(FacParametro parametro) {
+		parametroSeleccionado = parametro;
+	}
+	
+	public void actionListenerActualizarParametro() {
+		try {
+			managerParametros.actualizarFacParametro(parametroSeleccionado);
+			listaParametros = managerParametros.findAllFacParametro();
+			JSFUtil.crearMensajeInfo("Datos actualizados.");
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public List<FacParametro> getListaParametros() {
 		return listaParametros;
@@ -75,7 +91,14 @@ public class BeanParametros implements Serializable {
 	public void setPanelColapsado(boolean panelColapsado) {
 		this.panelColapsado = panelColapsado;
 	}
-	
+
+	public FacParametro getParametroSeleccionado() {
+		return parametroSeleccionado;
+	}
+
+	public void setParametroSeleccionado(FacParametro parametroSeleccionado) {
+		this.parametroSeleccionado = parametroSeleccionado;
+	}
 	
 
 }

@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.wildfly.security.sasl.util.UsernamePasswordHashUtil;
+
 import hoteleria.model.entities.FacParametro;
 
 /**
@@ -46,6 +48,16 @@ public class ManagerParametros {
     	FacParametro parametro = findFacParametroById(idparametro);
     	if(parametro != null)
     		em.remove(parametro);
+    }
+    
+    public void actualizarFacParametro(FacParametro parametro) throws Exception {
+    	FacParametro h = findFacParametroById(parametro.getIdparametro());
+    	if(h==null)
+    		throw new Exception("No existe el parametro con el id especificado.");
+    	h.setNombreparametro(parametro.getNombreparametro());
+    	h.setValorparametro(parametro.getValorparametro());
+    	h.setDescripcion(parametro.getDescripcion());
+    	em.merge(h);
     }
 
 }
