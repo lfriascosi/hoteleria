@@ -8,56 +8,34 @@
 	<f:event listener="#{beanLogin.actionVerificarLogin()}"
 		type="preRenderView"></f:event>
 </f:metadata>
-<h:head><title>Recepción</title></h:head>
+<h:head>
+<f:facet name="first">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no " />
+		<title>Recepción</title>
+	</f:facet>
+	
+</h:head>
 <body onload="nobackbutton();">
-<h:form>
+	<h:form>
 		<p:menubar>
 			<p:menuitem value="Bello Amanecer"></p:menuitem>
-			<p:menuitem value="Reservas" action="facturas" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Reservas" action="reservas" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
-				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
-				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+				<p:outputLabel value="#{beanLogin.usuario}"
+					style="Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
 			</f:facet>
 		</p:menubar>
 	</h:form>
-	<br/>
+	<br />
 	<h1 align="center">Reservas</h1>
 	<h:form id="form1">
-		<p:panel header="Datos de facturas">
-			<p:dataTable value="#{beanReservas.listaFacReservas}" var="reservas">
-				<p:column headerText="Id reserva" style="width:60px">
-					<h:outputText value="#{reservas.idreserva}" />
-				</p:column>
-				<p:column headerText="Nombre usuario">
-					<h:outputText value="#{reservas.invUsuario.nombresusuario} #{reservas.invUsuario.apellidosusuario}" />
-				</p:column>
-				<p:column headerText="Fecha reserva">
-					<h:outputText value="#{reservas.fechareserva}" />
-				</p:column>
-				<p:column headerText="Hora">
-					<h:outputText value="#{reservas.horareserva}" />
-				</p:column>
-				<p:column headerText="Estado pago">
-					<h:outputText value="#{reservas.estadopago}" />
-				</p:column>
-				<p:column headerText="Descuento">
-					<h:outputText value="#{reservas.facParametro.nombreparametro}" />
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-	</h:form>
-	<h:form id="form2">
-		<p:panel header="Datos de detalles">
+		<p:panel header="Datos de personalizados">
 			<p:dataTable value="#{beanReservas.listaFacDetalles}" var="detalles">
-				<p:column headerText="Id detalle" style="width:50px">
-					<h:outputText value="#{detalles.iddetalle}" />
-				</p:column>
-				<p:column headerText="Id reserva" style="width:50px">
+				<p:column headerText="Codigo reserva" style="width:50px">
 					<h:outputText value="#{detalles.facReserva.idreserva}" />
-				</p:column>
-				<p:column headerText="Nombre usuario">
-					<h:outputText
-						value="#{detalles.facReserva.invUsuario.nombresusuario} #{detalles.facReserva.invUsuario.apellidosusuario}" />
 				</p:column>
 				<p:column headerText="Número habitación">
 					<h:outputText value="#{detalles.invHabitacione.numerohabitacion}" />
@@ -66,50 +44,34 @@
 					<h:outputText
 						value="#{detalles.invHabitacione.invTiposhabitacione.nombretipohabitacion}" />
 				</p:column>
-				<p:column headerText="Dias de estadia">
+				<p:column headerText="Fecha reserva">
+					<h:outputText value="#{detalles.facReserva.fechareserva}" />
+				</p:column>
+				<p:column headerText="Hora">
+					<h:outputText value="#{detalles.facReserva.horareserva}" />
+				</p:column>
+				<p:column headerText="Estado pago">
+					<h:outputText
+						value="#{beanReservas.estadoPago(detalles.facReserva.estadopago)}" />
+				</p:column>
+				<p:column headerText="Nombre usuario">
+					<h:outputText
+						value="#{detalles.facReserva.invUsuario.nombresusuario} #{detalles.facReserva.invUsuario.apellidosusuario}" />
+				</p:column>
+				<p:column headerText="Dias de estadia" style="width:50px">
 					<h:outputText value="#{detalles.diasestadia}" />
 				</p:column>
 				<p:column headerText="Fecha uso">
 					<h:outputText value="#{detalles.fechauso}" />
 				</p:column>
 				<p:column headerText="Estado reserva" style="width:50px">
-					<h:outputText value="#{detalles.estadoreserva}" />
+					<h:outputText value="#{beanReservas.estadoReserva(detalles.estadoreserva)}" />
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 	</h:form>
-	<h:form id="form3">
-		<p:panel header="Datos de usuarios">
-			<p:dataTable value="#{beanReservas.listaInvUsuarios}" var="usuarios">
-				<p:column headerText="Id usuario" style="width:50px">
-					<h:outputText value="#{usuarios.idusuario}" />
-				</p:column>
-				<p:column headerText="Nombre usuario">
-					<h:outputText value="#{usuarios.nombresusuario} #{usuarios.apellidosusuario}" />
-				</p:column>
-				<p:column headerText="Correo">
-					<h:outputText value="#{usuarios.correo}" />
-				</p:column>
-				<p:column headerText="Dirección">
-					<h:outputText value="#{usuarios.direccion}" />
-				</p:column>
-				<p:column headerText="Telefono">
-					<h:outputText value="#{usuarios.telefono}" />
-				</p:column>
-				<p:column headerText="Fecha creación">
-					<h:outputText value="#{usuarios.fechacreacion}" />
-				</p:column>
-				<p:column headerText="Fechas actualización">
-					<h:outputText value="#{usuarios.fechaactualizacion}" />
-				</p:column>
-				<p:column headerText="Estado" style="width:50px">
-					<h:outputText value="#{usuarios.estado}" />
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-	</h:form>
-	
-		<!-- Bloquea el boton de regresar del navegador -->     
+
+	<!-- Bloquea el boton de regresar del navegador -->
 	<script>
   function nobackbutton(){
    window.location.hash="no-back-button";
