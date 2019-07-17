@@ -25,7 +25,7 @@
     }
 </style>
 		<p:menubar>
-			<p:menuitem value="Bello Amanecer"></p:menuitem>
+			<p:menuitem value="Cliente" style="Color:maroon;"></p:menuitem>
 			<p:menuitem value="Reservas" action="facturas" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
 				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
@@ -36,7 +36,7 @@
 	<br/>
 
 	<div class="Container">
-		<div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div>
+	<!-- <div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div> -->
 	<p:growl>
 			<p:autoUpdate />
 		</p:growl>
@@ -84,7 +84,7 @@
 					</p:selectOneMenu>
 					<h:outputText value="#{beanReserva.habitacion}" />
 				</h:form>
-				<h:commandButton  value="Agregar" />
+			<!-- <h:commandButton  value="Agregar" /> -->	
 			</p:panelGrid>
 		</p:panel>
 	</div>

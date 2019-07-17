@@ -122,7 +122,7 @@ public class BeanReserva implements Serializable {
 		List<InvHabitacione> listadoHabitaciones=managerHabitaciones.findHabitacionesPerTipo(idTipoHabitacion);
 		
 		for(InvHabitacione h:listadoHabitaciones){
-			SelectItem item=new SelectItem(h.getIdhabitacion(),h.getInvTiposhabitacione().getNombretipohabitacion()+" - nro: "+ h.getNumerohabitacion());
+			SelectItem item=new SelectItem(h.getIdhabitacion(),"Nro: "+ h.getNumerohabitacion()+",Piso: "+h.getNumeropiso());
 			System.out.println("HABITACIOOON: "+h.getIdhabitacion()+" Descripcioon: "+h.getDescripcion());
 			listadoSI.add(item);
 		}
