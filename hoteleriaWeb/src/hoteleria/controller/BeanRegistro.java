@@ -1,6 +1,7 @@
 package hoteleria.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -25,7 +26,7 @@ public class BeanRegistro implements Serializable{
 	private String clave;
 	private InvUsuario usuario = new InvUsuario(); 
 	
-	public String registrarUsuario() {
+	public void registrarUsuario() {
 		try {
 			usuario.setNombresusuario(nombres);
 			usuario.setApellidosusuario(apellidos);
@@ -34,17 +35,25 @@ public class BeanRegistro implements Serializable{
 			usuario.setCorreo(correo);
 			usuario.setClave(clave);
 			usuario.setEstado(1);
+			usuario.setFechacreacion(new Date());
+			usuario.setFechaactualizacion(new Date());
 			usuario = managerSeguridad.registrarUsuario(usuario);
-			if(usuario==null)
-				throw new Exception("NO SE REGISTRÓ PANA");
-			else
-				JSFUtil.crearMensajeInfo("Usuario registrado.");
-			return "login?faces-redirect=true";
+			if(usuario==null) {
+				throw new Exception("No se encuentran llenos todos los datos");}
+			else {
+				JSFUtil.crearMensajeInfo("Usuario registrado ahora Inicie la Sesión.");
+				nombres="";
+				apellidos="";
+				domicilio="";
+				telefono="";
+				correo="";
+				clave="";
+			}
+			// return "login?faces-redirect=true";
 		} catch (Exception e) {
-			JSFUtil.crearMensajeError(e.getMessage());
+			JSFUtil.crearMensajeError("Error al registrar, verifique el formato de los valores");
 			e.printStackTrace();
 		}
-		return "";
 	}
 	
 	

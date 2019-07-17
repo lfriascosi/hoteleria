@@ -34,9 +34,9 @@
 			<f:selectItems value="#{beanLogin.listadoRoles}" />
 		</p:multiSelectListbox>
 		
-		<p:commandButton value="Seleccionar" icon="pi pi-check" update="rol" action="#{beanLogin.ir()}" style="display:block;margin:10px 0; 
+		<p:commandButton value="Seleccionar" icon="pi pi-check" action="#{beanLogin.ir()}" style="display:block;margin:10px 0; 
      position:relative;left:45%; text-align:center"/>
-      <h:outputText id="rol" value="#{beanLogin.rolSeleccionado}" />
+     <!--  <h:outputText id="rol" value="#{beanLogin.rolSeleccionado}" /> -->
      </h:form> 
      
      <!-- <h:form>

@@ -69,8 +69,8 @@ public class ManagerSeguridad {
 	    	usuarios.setDireccion(usuario.getDireccion());
 	    	usuarios.setEstado(usuario.getEstado());
 	    	usuarios.setTelefono(usuario.getTelefono());
-	    	//usuarios.setFechacreacion(usuario.getFechacreacion());
-	    	//usuarios.setFechaactualizacion(usuario.getFechaactualizacion());
+	    	usuarios.setFechacreacion(usuario.getFechacreacion());
+	    	usuarios.setFechaactualizacion(usuario.getFechaactualizacion());
 	    	em.persist(usuarios);
 	    	InvRole rolQ=(InvRole)managerDAO.findRol(InvRole.class,"cli");
 	    	InvRolesusuario rolusuario = new InvRolesusuario();

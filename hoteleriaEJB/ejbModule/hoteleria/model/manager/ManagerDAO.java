@@ -136,7 +136,7 @@ public class ManagerDAO {
 	    	  o = usuarios.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Error al buscar la informacion especificada (" + pID + ") : " + e.getMessage());
+			throw new Exception("El valor '" + pID + "' no existe en nuestros registros");
 		}
 		return o;
 	}
@@ -162,7 +162,7 @@ public class ManagerDAO {
 	    	  o = roles.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Error al buscar la informacion especificada (" + pID + ") : " + e.getMessage());
+			throw new Exception("El valor '" + pID + "' no existe en nuestros registros");
 		}
 		return o;
 	}

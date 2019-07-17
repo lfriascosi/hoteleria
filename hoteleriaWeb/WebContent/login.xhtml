@@ -14,9 +14,10 @@
 <body style="background-image:url(imagenes/hotel.jpg);opacity:0.8;"> 
 <h:form>
 		<p:menubar>
-		
-			<p:menuitem value="Hotel Bello Amanecer"></p:menuitem>
-		
+			<p:menuitem value="Hotel Bello Amanecer" action="#{beanLogin.irInicio()}"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Crear Cuenta" action="#{beanLogin.irRegistro()}" icon="fa fa-user"/>
+			</f:facet>
 		</p:menubar>
 	</h:form>
 	<br/>
@@ -36,8 +37,8 @@
 					maxlength="10" requiredMessage="Debe ingresar su contraseña." />
 				<p:commandButton value="Ingresar" icon="fa fa-key"
 					action="#{beanLogin.accederSistema()}" update="mensajes" />
-				<p:messages id="mensajes" />
 			</h:panelGrid>
+			<p:messages id="mensajes" />
 		</p:panel>
 	</h:form>
 </body> 

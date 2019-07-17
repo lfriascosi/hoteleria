@@ -4,6 +4,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Opciones Gerente</title>
@@ -11,7 +15,7 @@
 <body>
 	<h:form>
 		<p:menubar>
-		    <p:menuitem value="Gerente" action="usuarios" icon="fa fa-gears"></p:menuitem>
+		    <p:menuitem value="Gerente" style="Color:maroon;" action="usuarios"></p:menuitem>
 			<p:menuitem value="Clientes" action="usuarios" icon="fa fa-group"></p:menuitem>
 			<p:menuitem value="Reservas" action="gerente" icon="fa fa-bed"></p:menuitem>
 			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>

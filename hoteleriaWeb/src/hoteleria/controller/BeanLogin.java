@@ -87,6 +87,15 @@ public class BeanLogin implements Serializable{
         return null;
     }
 	
+	public String irLogin() {
+		return "/login.xhtml?faces-redirect=true";
+	}
+	public String irInicio() {
+		return "/index.html?faces-redirect=true";
+	}
+	public String irRegistro() {
+		return "/registro.xhtml?faces-redirect=true";
+	}
 	
 	public String ir() {
 		try{
@@ -97,6 +106,10 @@ public class BeanLogin implements Serializable{
 				loginDTO.setRutaAcceso("/recepcionista/reservas.xhtml");
 			} else if(this.rolSeleccionado.equals("Cliente")) {
 				loginDTO.setRutaAcceso("/cliente/index.xhtml");
+			} else if(this.rolSeleccionado.equals("Administrador")) {
+				loginDTO.setRutaAcceso("/administrador/indexadmin.xhtml");
+			} else if(this.rolSeleccionado.equals("Gerente")) {
+				loginDTO.setRutaAcceso("/Gerente/index.xhtml");	
 			}else {
 				FacesContext contex = FacesContext.getCurrentInstance();
 	            contex.getExternalContext().redirect("index.html" );
@@ -106,7 +119,7 @@ public class BeanLogin implements Serializable{
 			 return loginDTO.getRutaAcceso()+"?faces-redirect=true";
             
 		}catch(  Exception e ){
-			System.out.println( "Me voy al carajo, no funciona esta redireccion" );
+			JSFUtil.crearMensajeERROR( "Seleccione un rol por favor" );
 		}
 		return "";
 	}
@@ -133,6 +146,10 @@ public class BeanLogin implements Serializable{
 				if(requestPath.contains("/recepcionista") && loginDTO.getRutaAcceso().startsWith("/recepcionista"))
 					return;
 				if(requestPath.contains("/cliente") && loginDTO.getRutaAcceso().startsWith("/cliente"))
+					return;
+				if(requestPath.contains("/Gerente") && loginDTO.getRutaAcceso().startsWith("/Gerente"))
+					return;
+				if(requestPath.contains("/administrador") && loginDTO.getRutaAcceso().startsWith("/administrador"))
 					return;
 				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
 				ec.redirect(ec.getRequestContextPath() + "/index.html");

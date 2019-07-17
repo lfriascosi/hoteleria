@@ -15,8 +15,10 @@
 <h:form>
 		<p:menubar>
 		
-			<p:menuitem value="Hotel Bello Amanecer"></p:menuitem>
-		
+			<p:menuitem value="Hotel Bello Amanecer" action="#{beanLogin.irInicio()}"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Iniciar Sesión" action="#{beanLogin.irLogin()}" icon="fa fa-key"/>
+			</f:facet>
 		</p:menubar>
 	</h:form>
 	<br/>
@@ -25,35 +27,37 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-		<p:panel header=" Registro" style="position: absolute;top:30%;left:35%;width:500px;">
-			<h:panelGrid columns="2">
-			<h:outputText value="Nombres" />
+		<p:panel header=" Registro" style="position: absolute;top:20%;left:35%;width:500px;">
+			<h:panelGrid columns="3">
+			<h:outputText value="Nombres" /> <label style="Color:red;">*</label>
 				<p:inputText value="#{beanRegistro.nombres}" required="true"
 					size="30" maxlength="30"
 					requiredMessage="Debe ingresar sus nombres." />
-					<h:outputText value="Apellidos:" />
+					<h:outputText value="Apellidos:" /><label style="Color:red;">*</label>
 				<p:inputText value="#{beanRegistro.apellidos}" required="true"
 					size="30" maxlength="30"
 					requiredMessage="Debe ingresar sus apellidos." />
-				<h:outputText value="Domicilio" />
+				<h:outputText value="Domicilio" /><label style="Color:red;">*</label>
 				<p:inputText value="#{beanRegistro.domicilio}" required="true"
 					size="30" maxlength="30"
 					requiredMessage="Debe ingresar su domicilio." />
-				<h:outputText value="Teléfono" />
+				<h:outputText value="Teléfono" /><label style="Color:red;">*</label>
 				<p:inputText value="#{beanRegistro.telefono}" required="true"
-					size="30" maxlength="30"
+					size="30" maxlength="10"
 					requiredMessage="Debe ingresar su número telefónico." />
-				<h:outputText value="Correo:" />
+				<h:outputText value="Correo:" /><label style="Color:red;">*</label>
 				<p:inputText value="#{beanRegistro.correo}" required="true"
 					size="30" maxlength="20"
 					requiredMessage="Debe ingresar su correo." />
-				<h:outputText value="Clave:" />
-				<p:password value="#{beanRegistro.clave}" required="true" size="20"
-					maxlength="10" requiredMessage="Debe registrar una clave de acceso." />
-				<p:commandButton value="Ingresar" icon="fa fa-key"
+				<h:outputText value="Clave:" /><label style="Color:red;">*</label>
+				<p:password value="#{beanRegistro.clave}" required="true" size="30"
+					maxlength="20" requiredMessage="Debe registrar una clave de acceso.">
+					<f:validateLength minimum="8"></f:validateLength>	
+				</p:password>
+				<p:commandButton value="Confirmar" 
 					action="#{beanRegistro.registrarUsuario()}" update="mensajes" />
-				<p:messages id="mensajes" />
 			</h:panelGrid>
+			<p:messages id="mensajes" />
 		</p:panel>
 	</h:form>
 </body> 
