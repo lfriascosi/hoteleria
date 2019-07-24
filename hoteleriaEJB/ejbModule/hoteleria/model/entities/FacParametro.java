@@ -18,16 +18,12 @@ public class FacParametro implements Serializable {
 	@Id
 	@SequenceGenerator(name="FAC_PARAMETROS_IDPARAMETRO_GENERATOR", sequenceName="SEQ_FAC_PARAMETROS",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAC_PARAMETROS_IDPARAMETRO_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer idparametro;
 
-	@Column(length=30)
 	private String descripcion;
 
-	@Column(nullable=false, length=20)
 	private String nombreparametro;
 
-	@Column(nullable=false)
 	private double valorparametro;
 
 	//bi-directional many-to-one association to FacReserva

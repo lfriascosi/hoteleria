@@ -2,7 +2,6 @@ package hoteleria.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -20,21 +19,16 @@ public class FacReserva implements Serializable {
 	@Id
 	@SequenceGenerator(name="FAC_RESERVAS_IDRESERVA_GENERATOR", sequenceName="SEQ_FAC_RESERVAS",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAC_RESERVAS_IDRESERVA_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer idreserva;
 
-	@Column(length=17)
 	private String codigoreserva;
 
-	@Column(nullable=false)
 	private Integer estadopago;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date fechareserva;
 
-	@Column(nullable=false)
-	private Time horareserva;
+	private String horareserva;
 
 	//bi-directional many-to-one association to FacDetalle
 	@OneToMany(mappedBy="facReserva")
@@ -42,12 +36,12 @@ public class FacReserva implements Serializable {
 
 	//bi-directional many-to-one association to FacParametro
 	@ManyToOne
-	@JoinColumn(name="descuento", nullable=false)
+	@JoinColumn(name="descuento")
 	private FacParametro facParametro;
 
 	//bi-directional many-to-one association to InvUsuario
 	@ManyToOne
-	@JoinColumn(name="idusuario", nullable=false)
+	@JoinColumn(name="idusuario")
 	private InvUsuario invUsuario;
 
 	public FacReserva() {
@@ -85,11 +79,11 @@ public class FacReserva implements Serializable {
 		this.fechareserva = fechareserva;
 	}
 
-	public Time getHorareserva() {
+	public String getHorareserva() {
 		return this.horareserva;
 	}
 
-	public void setHorareserva(Time horareserva) {
+	public void setHorareserva(String horareserva) {
 		this.horareserva = horareserva;
 	}
 

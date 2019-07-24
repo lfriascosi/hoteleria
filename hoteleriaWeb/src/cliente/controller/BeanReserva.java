@@ -1,6 +1,7 @@
 package cliente.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -30,7 +31,7 @@ import java.io.Serializable;
 @SessionScoped
 public class BeanReserva implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String cedulaCliente;
+	private Integer idCliente;
 	@EJB
 	private ManagerReserva managerReserva;
 	@EJB
@@ -38,11 +39,13 @@ public class BeanReserva implements Serializable {
 	
 	private Integer idHabitacion = 0;
 	private Integer idTipoHabitacion=0;
-	private Integer cantidadProducto;
+	private Integer dias;
+	private Date fecha;
 	private FacReserva facturaCabTmp;
 	private InvHabitacione Habitacion;
 	private List<InvHabitacione> listaHabitaciones = new ArrayList<InvHabitacione>();;
 	private boolean facturaCabTmpGuardada;
+	private boolean activForm=false;
 	
 	// Inyeccion de beans manejados:
 	@Inject
@@ -52,6 +55,50 @@ public class BeanReserva implements Serializable {
 		
 	}
 	
+	public String crearNuevaReserva(){
+		facturaCabTmp=managerReserva.crearFacturaTmp();
+		idCliente=0;
+		idHabitacion=0;
+		dias=0;
+		fecha=null;
+		facturaCabTmpGuardada=false;
+		this.activForm = true;
+		System.out.println("ACTIVEEE:" +this.activForm);
+		return "";
+	}
+	
+		/**
+	 * Action que adiciona un item a una factura temporal.
+	 * Hace uso del componente {@link model.manager.ManagerFacturacion ManagerFacturacion} de la capa model.
+	 * @return
+	 */
+	public String insertarDetalle(){
+		if(facturaCabTmpGuardada==true){
+			JSFUtil.crearMensajeWaring("La reserva ya fue guardada.");
+			return "";
+		}
+		try {
+			managerReserva.agregarDetalleFacturaTmp(facturaCabTmp,idHabitacion,dias,fecha);
+			idHabitacion=0;
+			dias=0;
+			fecha=null;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}		
+		return "";
+	}
+	
+	public Date getFecha() {
+		return fecha;
+	}
+	
+	public Integer getDias() {
+		return dias;
+	}
+	
+	public boolean isActivForm() {
+		return activForm;
+	}
 	
     public InvHabitacione getHabitacion() {
 		return Habitacion;

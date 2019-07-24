@@ -11,7 +11,6 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="bitacora")
 @NamedQuery(name="Bitacora.findAll", query="SELECT b FROM Bitacora b")
 public class Bitacora implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,25 +18,20 @@ public class Bitacora implements Serializable {
 	@Id
 	@SequenceGenerator(name="BITACORA_IDBITACORA_GENERATOR", sequenceName="SEQ_BITACORA",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BITACORA_IDBITACORA_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer idbitacora;
 
-	@Column(nullable=false, length=40)
 	private String descripcionevento;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date fechaevento;
 
-	@Column(nullable=false)
 	private Time horaevento;
 
-	@Column(nullable=false, length=50)
 	private String ipusuario;
 
 	//bi-directional many-to-one association to InvUsuario
 	@ManyToOne
-	@JoinColumn(name="idusuario", nullable=false)
+	@JoinColumn(name="idusuario")
 	private InvUsuario invUsuario;
 
 	public Bitacora() {

@@ -19,13 +19,10 @@ public class InvHabitacione implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_HABITACIONES_IDHABITACION_GENERATOR", sequenceName="SEQ_INV_HABITACIONES",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_HABITACIONES_IDHABITACION_GENERATOR")
-	@Column(unique=true, nullable=false)
 	private Integer idhabitacion;
 
-	@Column(length=500)
 	private String descripcion;
 
-	@Column(nullable=false)
 	private Integer estado;
 
 	@Temporal(TemporalType.DATE)
@@ -34,19 +31,14 @@ public class InvHabitacione implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
-	@Column(length=2147483647)
 	private String fotografia;
 
-	@Column(nullable=false)
 	private Integer idtipohabitacion;
 
-	@Column(nullable=false, length=30)
 	private String numerohabitacion;
 
-	@Column(length=4)
 	private String numeropiso;
 
-	@Column(nullable=false)
 	private double precio;
 
 	//bi-directional many-to-one association to FacDetalle
@@ -55,7 +47,7 @@ public class InvHabitacione implements Serializable {
 
 	//bi-directional one-to-one association to InvTiposhabitacione
 	@OneToOne
-	@JoinColumn(name="idhabitacion", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="idhabitacion")
 	private InvTiposhabitacione invTiposhabitacione;
 
 	public InvHabitacione() {

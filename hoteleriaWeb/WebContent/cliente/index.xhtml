@@ -15,7 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <h:head>
-
+	<title>Cliente</title>
 </h:head> 
 <body onload="nobackbutton();"> 
 <h:form>
@@ -62,13 +62,18 @@
 				</p:dataTable>
 			</p:panel>
 		</h:form> -->
-	
+	<h:form id="form1">
+	<p:commandButton action="#{beanReserva.crearNuevaReserva()}"
+					value="Crear nueva reserva" 
+					icon="fa fa-file-o" update="form1: form2"
+					disabled="#{beanReserva.activForm==true}"/>
+	</h:form>
 		
-		<p:panel header="Detalle de Habitaciones">
+		<p:panel header="Detalle de Habitaciones" id="panel1">
 			<p:panelGrid columns="4" border="1">
 				<h:form id="form2">
 					<h:outputText value="Tipo habitación" />
-					<p:selectOneMenu value="#{beanReserva.idTipoHabitacion}">
+					<p:selectOneMenu value="#{beanReserva.idTipoHabitacion}" disabled="#{beanReserva.activForm==false}">
 					<f:selectItem itemLabel="Seleccione" itemValue="-1"
 						noSelectionOption="true" />
 					<f:selectItems value="#{beanReserva.tipoHabitaciones}"  />
@@ -82,7 +87,13 @@
 							noSelectionOption="true" />
 					<f:selectItems value="#{beanReserva.listaHabitacionesSI}" />
 					</p:selectOneMenu>
-					<h:outputText value="#{beanReserva.habitacion}" />
+					<h:outputText value="Días:" />
+					<p:spinner value="#{beanReserva.dias}" min="1" />
+					<p:outputLabel for="fecha" value="Fecha:" />
+    			    <p:calendar id="fecha" value="#{beanReserva.fecha}" />
+   					<p:commandButton value="adicionar"
+						action="#{beanReserva.insertarDetalle()}" update="form2"
+						icon="fa fa-plus" />
 				</h:form>
 			<!-- <h:commandButton  value="Agregar" /> -->	
 			</p:panelGrid>
@@ -97,5 +108,33 @@
    window.onhashchange=function(){window.location.hash="no-back-button";}
   }
   </script>
+  <script type="text/javascript">    
+    PrimeFaces.locales['de'] = {
+        closeText: 'Schließen',
+        prevText: 'Zurück',
+        nextText: 'Weiter',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+        weekHeader: 'Woche',
+        FirstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Nur Zeit',
+        timeText: 'Zeit',
+        hourText: 'Stunde',
+        minuteText: 'Minute',
+        secondText: 'Sekunde',
+        currentText: 'Aktuelles Datum',
+        ampm: false,
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        allDayText: 'Ganzer Tag'
+    };
+</script>
 </body> 
 </html>
