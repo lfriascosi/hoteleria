@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.sound.midi.Soundbank;
 
 import org.wildfly.security.sasl.util.UsernamePasswordHashUtil;
 
@@ -64,14 +65,26 @@ public class ManagerParametros {
     }
 
 	public double getValorParametroDouble(String nombreParametro) throws Exception {
-  		return (findParametroById(nombreParametro).getValorparametro());
+  		return (findParametroName(nombreParametro).getValorparametro());
   	}
 
-	public FacParametro findParametroById(String nombreParametro) throws Exception{
-		FacParametro p=(FacParametro)managerDAO.findById(FacParametro.class, nombreParametro);
+	public FacParametro findParametroName(String nombreParametro) throws Exception{
+		FacParametro p=(FacParametro)managerDAO.findParametroName(FacParametro.class, nombreParametro);
   		if(p==null)
   			throw new Exception("No existe el parametro "+nombreParametro);
   		return p;
+  	}
+
+	public int getValorParametroInteger(String nombreParametro) throws Exception {
+		int valor = (int)findParametroName(nombreParametro).getValorparametro();
+  		return valor;
+  	}
+
+	public void actualizarParametro(String nombreParametro,int valorParametro) throws Exception {
+  		FacParametro p=findParametroName(nombreParametro);
+  		double v= (double)valorParametro;
+  		p.setValorparametro(v);
+  		managerDAO.actualizar(p);
   	}
 
 }

@@ -59,6 +59,10 @@ public class ManagerSeguridad {
 		return usuario;
 	}
 	
+	public InvUsuario findUsuarioPerId(Integer codigoUsuario) throws Exception {
+		InvUsuario usuario=(InvUsuario)managerDAO.findById(InvUsuario.class, codigoUsuario);
+		return usuario;
+	}
 	 public InvUsuario registrarUsuario(InvUsuario usuario) throws Exception {
 		 	System.out.println("-------------------------------------- Antes ----------------------------");
 	    	InvUsuario usuarios = new InvUsuario();

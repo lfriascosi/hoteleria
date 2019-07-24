@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import hoteleria.model.entities.FacParametro;
 import hoteleria.model.entities.FacReserva;
 import hoteleria.model.entities.InvRole;
 import hoteleria.model.entities.InvUsuario;
@@ -211,7 +212,8 @@ public class ManagerDAO {
 	 * @param pObjeto El objeto a insertar.
 	 * @throws Exception
 	 */
-	public void insertar(Object pObjeto) throws Exception {		
+	public void insertar(Object pObjeto) throws Exception {	
+		System.out.println("IMRPIMENDOOO :  "+pObjeto.toString());
 		if (pObjeto == null)
 			throw new Exception("No se puede insertar un objeto null.");
 		try {
@@ -359,6 +361,29 @@ public class ManagerDAO {
 		return valorMax.longValue();
 	}
     
+	
+
+	@SuppressWarnings("rawtypes")
+	public Object findParametroName(Class clase, Object pID) throws Exception {
+		mostrarLog(this.getClass(),"findById", clase.getSimpleName() + " : " + pID);
+		if (pID == null)
+			throw new Exception("Debe especificar el codigo para buscar el dato.");
+		Object o;
+		try {
+			 // o = em.find(clase, pID);
+			String consulta="select u from FacParametro u where nombreparametro='"+pID+"'";
+	    	Query q = em.createQuery(consulta,FacParametro.class);
+	    	 System.out.println("CONSULTADO PARAMETRO");
+	    	List<FacParametro> parametros = q.getResultList();
+	    	
+	    	  o = parametros.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("El valor '" + pID + "' no existe en nuestros registros");
+		}
+		return o;
+	}
+	
    
     
 }

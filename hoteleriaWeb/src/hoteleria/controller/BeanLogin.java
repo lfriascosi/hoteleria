@@ -22,6 +22,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 @javax.enterprise.context.SessionScoped
 public class BeanLogin implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private int idUsuario;
 	private String codigoUsuario;
 	private String clave;
 	private String tipoUsuario;
@@ -50,6 +51,7 @@ public class BeanLogin implements Serializable{
 		try {
 			loginDTO=managerSeguridad.accederSistema(codigoUsuario, clave);
 			//verificamos el acceso del usuario:
+			idUsuario = loginDTO.getIdUsuario();
 			tipoUsuario=loginDTO.getTipoUsuario();
 			correo = loginDTO.getCorreo(); 
 			usuario = loginDTO.getUsuario(); // DigestUtils.sha256Hex(loginDTO.getUsuario());
@@ -87,6 +89,14 @@ public class BeanLogin implements Serializable{
         return null;
     }
 	
+	
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public String irLogin() {
 		return "/login.xhtml?faces-redirect=true";
 	}

@@ -74,7 +74,7 @@ public class BeanReserva implements Serializable {
 	 */
 	public String insertarDetalle(){
 		if(facturaCabTmpGuardada==true){
-			JSFUtil.crearMensajeWaring("La reserva ya fue guardada.");
+			JSFUtil.crearMensajeWaring("La reserva ya está realizada.");
 			return "";
 		}
 		try {
@@ -88,6 +88,65 @@ public class BeanReserva implements Serializable {
 		return "";
 	}
 	
+	/**
+	 * Action que almacena en la base de datos una factura temporal creada en memoria.
+	 * Hace uso del componente {@link facturacion.model.manager.ManagerFacturacion ManagerFacturacion} de la capa model.
+	 * @return outcome para la navegacion.
+	 */
+	public String guardarFactura(){
+		if(facturaCabTmpGuardada==true){
+			JSFUtil.crearMensajeWaring("La reserva ya está realizada.");
+			return "";
+		}
+		try {
+			managerReserva.guardarFacturaTemporal(beanLogin.getIdUsuario(),facturaCabTmp);
+			facturaCabTmpGuardada=true;
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+		
+		return "";
+	}
+	
+	
+	public FacReserva getFacturaCabTmp() {
+			return facturaCabTmp;
+		}
+
+		public void setFacturaCabTmp(FacReserva facturaCabTmp) {
+			this.facturaCabTmp = facturaCabTmp;
+		}
+
+		public boolean isFacturaCabTmpGuardada() {
+			return facturaCabTmpGuardada;
+		}
+
+		public void setFacturaCabTmpGuardada(boolean facturaCabTmpGuardada) {
+			this.facturaCabTmpGuardada = facturaCabTmpGuardada;
+		}
+
+		
+		
+	public Integer getIdCliente() {
+			return idCliente;
+		}
+
+		public void setIdCliente(Integer idCliente) {
+			this.idCliente = idCliente;
+		}
+
+		public void setDias(Integer dias) {
+			this.dias = dias;
+		}
+
+		public void setFecha(Date fecha) {
+			this.fecha = fecha;
+		}
+
+		public void setActivForm(boolean activForm) {
+			this.activForm = activForm;
+		}
+
 	public Date getFecha() {
 		return fecha;
 	}

@@ -67,8 +67,11 @@
 					value="Crear nueva reserva" 
 					icon="fa fa-file-o" update="form1: form2"
 					disabled="#{beanReserva.activForm==true}"/>
+	<p:commandButton value="Guardar factura" icon="fa fa-save"
+					action="#{beanReserva.guardarFactura()}" update="@form" />
 	</h:form>
 		
+
 		<p:panel header="Detalle de Habitaciones" id="panel1">
 			<p:panelGrid columns="4" border="1">
 				<h:form id="form2">
@@ -77,12 +80,11 @@
 					<f:selectItem itemLabel="Seleccione" itemValue="-1"
 						noSelectionOption="true" />
 					<f:selectItems value="#{beanReserva.tipoHabitaciones}"  />
-					<p:ajax update=":form3"></p:ajax>
+					<p:ajax update="sHab"></p:ajax>
 					</p:selectOneMenu>
-				</h:form>
-				<h:form id="form3">
+				
 					<h:outputText value="Habitación: " />
-					<p:selectOneMenu value="#{beanReserva.idHabitacion}">
+					<p:selectOneMenu value="#{beanReserva.idHabitacion}" id="sHab">
 					<f:selectItem itemLabel="Seleccione" itemValue="-1"
 							noSelectionOption="true" />
 					<f:selectItems value="#{beanReserva.listaHabitacionesSI}" />
@@ -94,6 +96,50 @@
    					<p:commandButton value="adicionar"
 						action="#{beanReserva.insertarDetalle()}" update="form2"
 						icon="fa fa-plus" />
+					<p:dataTable value="#{beanReserva.facturaCabTmp.facDetalles}"
+						var="d" id="tablaFacturaDets">
+						
+						<p:column style="width:110px" headerText="TIPO">
+							<h:outputText value="#{d.invHabitacione.invTiposhabitacione.nombretipohabitacion}" />
+						</p:column>
+						<p:column style="width:40px" headerText="PISO">
+							<h:outputText value="#{d.invHabitacione.numeropiso}" />
+						</p:column>
+						<p:column style="width:40px" headerText="HABITACIÓN">
+							<h:outputText value="#{d.invHabitacione.numerohabitacion}" />
+						</p:column>
+						<p:column style="width:40px" headerText="DÍAS">
+							<h:outputText value="#{d.diasestadia}" />
+						</p:column>
+						<p:column style="width:100px" headerText="FECHA">
+							<h:outputText value="#{d.fechauso}" />
+						</p:column>
+						<p:column style="width:80px;text-align:right"
+							headerText="PRECIO">
+							<h:outputText value="#{d.precioUnit}"
+								style="text-align:right" />
+							<f:facet name="footer">
+								<h:panelGrid columns="2"
+									style="font-weight: bold; text-align:right">
+									<h:outputText value="SUMA:" />
+									<h:outputText value="#{beanReserva.facturaCabTmp.subtotal}">
+										<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+											currencySymbol="$" />
+									</h:outputText>
+									<h:outputText value="IVA:" />
+									<h:outputText value="#{beanReserva.facturaCabTmp.valorIva}">
+										<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+											currencySymbol="$" />
+									</h:outputText>
+									<h:outputText value="TOTAL:" />
+									<h:outputText value="#{beanReserva.facturaCabTmp.total}">
+										<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+											currencySymbol="$" />
+									</h:outputText>
+								</h:panelGrid>
+							</f:facet>
+						</p:column>
+					</p:dataTable>
 				</h:form>
 			<!-- <h:commandButton  value="Agregar" /> -->	
 			</p:panelGrid>

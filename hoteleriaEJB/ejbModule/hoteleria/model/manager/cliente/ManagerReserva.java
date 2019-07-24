@@ -12,9 +12,14 @@ import javax.ejb.Stateless;
 
 import hoteleria.model.entities.FacReserva;
 import hoteleria.model.entities.InvHabitacione;
+import hoteleria.model.entities.InvRole;
+import hoteleria.model.entities.InvUsuario;
+import hoteleria.model.manager.ManagerDAO;
 import hoteleria.model.manager.ManagerHabitaciones;
 import hoteleria.model.manager.ManagerParametros;
+import hoteleria.model.manager.ManagerSeguridad;
 import hoteleria.model.entities.FacDetalle;
+import hoteleria.model.entities.FacParametro;
 
 /**
  * Session Bean implementation class ManagerReserva
@@ -26,6 +31,10 @@ public class ManagerReserva {
 	    private ManagerHabitaciones managerHabitaciones;
     	@EJB
 	    private ManagerParametros managerParametros;
+    	@EJB
+	    private ManagerSeguridad managerSeguridad;
+    	@EJB
+	    private ManagerDAO managerDAO;
 
     Calendar calendario = new GregorianCalendar();
     /**
@@ -46,6 +55,7 @@ public class ManagerReserva {
 		facturaCabTmp.setFechareserva(new Date());
 		facturaCabTmp.setHorareserva(getHora());
 		facturaCabTmp.setEstadopago(0);
+		
 		facturaCabTmp.setFacDetalles(new ArrayList<FacDetalle>());
 		return facturaCabTmp;
 	}
@@ -88,7 +98,10 @@ public class ManagerReserva {
 		fd.setDiasestadia(dias);
 		fd.setFechauso(fecha);
 		facturaCabTmp.getFacDetalles().add(fd);
-		
+		System.out.println("AQUI SE CREARON LOS DETALLES" + fd.getDiasestadia());
+		for (FacDetalle r : facturaCabTmp.getFacDetalles()) {
+  	      System.out.println("TIPO HAB: "+r.getInvHabitacione().getInvTiposhabitacione().getNombretipohabitacion());
+  	  }
 		//verificamos los campos calculados:
 		calcularFacturaTmp(facturaCabTmp);
 	}
@@ -111,9 +124,12 @@ public class ManagerReserva {
 		valorIVA=sumaSubtotales*porcentajeIVA/100;
 		totalFactura=sumaSubtotales+valorIVA;
 		
+
 		facturaCabTmp.setSubtotal(new BigDecimal(sumaSubtotales));
 		facturaCabTmp.setValorIva(new BigDecimal(valorIVA));
 		facturaCabTmp.setTotal(new BigDecimal(totalFactura)); 
+		facturaCabTmp.setFacParametro(getPorcentajeDesc());
+		
 	}
 
 	/**
@@ -124,5 +140,79 @@ public class ManagerReserva {
   	public double getPorcentajeIVA() throws Exception{
   		return managerParametros.getValorParametroDouble("valor_iva");
   	}
+  	
+  	public FacParametro getPorcentajeDesc() throws Exception{
+  		return managerParametros.findParametroName("valor_desc");
+  	}
+  	
+  	/**
+	 * Guarda en la base de datos una factura.
+	 * @param IdUsuario Codigo del usuario que genera la factura.
+	 * @param facturaCabTmp factura temporal creada en memoria.
+	 * @throws Exception problemas ocurridos en la insercion.
+	 */
+	public void guardarFacturaTemporal(Integer IdUsuario,FacReserva facturaCabTmp) throws Exception{
+		
+		if(facturaCabTmp==null)
+			throw new Exception("Debe crear una factura primero.");
+		if(facturaCabTmp.getFacDetalles()==null || facturaCabTmp.getFacDetalles().size()==0)
+			throw new Exception("Debe ingresar los productos en la factura.");
+		//obtenemos el numero de la nueva factura:
+		
+		//asignacion del usuario que crea la factura
+		//obtenemos el numero de la nueva factura:
+		InvUsuario usuario=managerSeguridad.findUsuarioPerId(IdUsuario);
+		//obtenemos el numero de la nueva factura:
+		facturaCabTmp.setInvUsuario(usuario);
+		
+		facturaCabTmp.setFechareserva(new Date());
+
+		//obtenemos el numero de la nueva factura:
+		//obtenemos el numero de la nueva factura:
+		int contFacturas;
+		contFacturas=getContadorFacturas();
+		contFacturas++;
+		facturaCabTmp.setCodigoreserva(Integer.toString(contFacturas));
+		
+		//verificamos los campos calculados:
+		calcularFacturaTmp(facturaCabTmp);
+		
+		
+		for(FacDetalle det:facturaCabTmp.getFacDetalles()){
+			det.setFacReserva(facturaCabTmp);
+		}
+		
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("ANTES DE INSERTAR");
+		
+		//guardamos la factura completa en la bdd:
+		managerDAO.insertar(facturaCabTmp);
+		System.out.println("LUEGO DE INSERTAR");
+		System.out.println("----------------------------------------------------------------");
+		//actualizamos los parametros contadores de facturas:
+		actualizarContFacturas(contFacturas);
+		
+		facturaCabTmp=null;		
+		
+	}
+	
+	/**
+	 * Retorna el valor actual del contador de facturas. 
+	 * Este contador es un parametro del sistema.
+	 * @return ultimo valor del contador de facturas
+	 * @throws Exception
+	 */
+	private int getContadorFacturas() throws Exception{
+		return managerParametros.getValorParametroInteger("cont_reservas");
+	}
+
+		/**
+	 * Actualiza el valor del contador de facturas.
+	 * @param nuevoContadorFacturas nuevo valor del contador.
+	 * @throws Exception
+	 */
+	private void actualizarContFacturas(int nuevoContadorFacturas) throws Exception{
+		managerParametros.actualizarParametro("cont_reservas", nuevoContadorFacturas);
+	}
 
 }
