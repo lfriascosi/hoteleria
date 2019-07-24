@@ -2,6 +2,7 @@ package hoteleria.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,13 @@ public class FacReserva implements Serializable {
 	private Date fechareserva;
 
 	private String horareserva;
+
+	private BigDecimal subtotal;
+
+	private BigDecimal total;
+
+	@Column(name="valor_iva")
+	private BigDecimal valorIva;
 
 	//bi-directional many-to-one association to FacDetalle
 	@OneToMany(mappedBy="facReserva")
@@ -85,6 +93,30 @@ public class FacReserva implements Serializable {
 
 	public void setHorareserva(String horareserva) {
 		this.horareserva = horareserva;
+	}
+
+	public BigDecimal getSubtotal() {
+		return this.subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public BigDecimal getTotal() {
+		return this.total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+	public BigDecimal getValorIva() {
+		return this.valorIva;
+	}
+
+	public void setValorIva(BigDecimal valorIva) {
+		this.valorIva = valorIva;
 	}
 
 	public List<FacDetalle> getFacDetalles() {

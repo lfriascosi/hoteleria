@@ -2,6 +2,7 @@ package hoteleria.model.manager;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +21,8 @@ import hoteleria.model.entities.FacParametro;
 public class ManagerParametros {
 	@PersistenceContext
 	private EntityManager em;
+	@EJB
+    private ManagerDAO managerDAO;
 	
     public ManagerParametros() {
         // TODO Auto-generated constructor stub
@@ -59,5 +62,16 @@ public class ManagerParametros {
     	h.setDescripcion(parametro.getDescripcion());
     	em.merge(h);
     }
+
+	public double getValorParametroDouble(String nombreParametro) throws Exception {
+  		return (findParametroById(nombreParametro).getValorparametro());
+  	}
+
+	public FacParametro findParametroById(String nombreParametro) throws Exception{
+		FacParametro p=(FacParametro)managerDAO.findById(FacParametro.class, nombreParametro);
+  		if(p==null)
+  			throw new Exception("No existe el parametro "+nombreParametro);
+  		return p;
+  	}
 
 }

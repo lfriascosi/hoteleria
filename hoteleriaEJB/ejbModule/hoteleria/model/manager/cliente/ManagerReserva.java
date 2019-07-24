@@ -1,5 +1,6 @@
 package hoteleria.model.manager.cliente;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,7 @@ import javax.ejb.Stateless;
 import hoteleria.model.entities.FacReserva;
 import hoteleria.model.entities.InvHabitacione;
 import hoteleria.model.manager.ManagerHabitaciones;
+import hoteleria.model.manager.ManagerParametros;
 import hoteleria.model.entities.FacDetalle;
 
 /**
@@ -22,6 +24,8 @@ import hoteleria.model.entities.FacDetalle;
 public class ManagerReserva {
     	@EJB
 	    private ManagerHabitaciones managerHabitaciones;
+    	@EJB
+	    private ManagerParametros managerParametros;
 
     Calendar calendario = new GregorianCalendar();
     /**
@@ -103,14 +107,22 @@ public class ManagerReserva {
 			sumaSubtotales+= det.getPrecioUnit();
 		}
 		
-	/*	porcentajeIVA=getPorcentajeIVA();
+		porcentajeIVA=getPorcentajeIVA();
 		valorIVA=sumaSubtotales*porcentajeIVA/100;
 		totalFactura=sumaSubtotales+valorIVA;
 		
 		facturaCabTmp.setSubtotal(new BigDecimal(sumaSubtotales));
 		facturaCabTmp.setValorIva(new BigDecimal(valorIVA));
-		facturaCabTmp.setBaseCero(new BigDecimal(0));//no calculamos la base cero en este ejemplo.
-		facturaCabTmp.setTotal(new BigDecimal(totalFactura)); */
+		facturaCabTmp.setTotal(new BigDecimal(totalFactura)); 
 	}
+
+	/**
+  	 * Obtiene el valor actual para el porcentaje de impuesto IVA.
+  	 * @return valor del IVA
+	 * @throws Exception 
+  	 */
+  	public double getPorcentajeIVA() throws Exception{
+  		return managerParametros.getValorParametroDouble("valor_iva");
+  	}
 
 }
