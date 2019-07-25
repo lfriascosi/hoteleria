@@ -98,7 +98,9 @@
 						icon="fa fa-plus" />
 					<p:dataTable value="#{beanReserva.facturaCabTmp.facDetalles}"
 						var="d" id="tablaFacturaDets">
-						
+						<p:column style="width:110px" headerText="FOTO">
+							<h:graphicImage style="width:300px;" value="../imagenes/cama.jpg" />
+						</p:column>
 						<p:column style="width:110px" headerText="TIPO">
 							<h:outputText value="#{d.invHabitacione.invTiposhabitacione.nombretipohabitacion}" />
 						</p:column>

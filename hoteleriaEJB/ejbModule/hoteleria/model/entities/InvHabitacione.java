@@ -33,8 +33,6 @@ public class InvHabitacione implements Serializable {
 
 	private String fotografia;
 
-	private Integer idtipohabitacion;
-
 	private String numerohabitacion;
 
 	private String numeropiso;
@@ -48,6 +46,11 @@ public class InvHabitacione implements Serializable {
 	//bi-directional one-to-one association to InvTiposhabitacione
 	@OneToOne
 	@JoinColumn(name="idhabitacion")
+	private InvTiposhabitacione invTiposhabitacione1;
+
+	//bi-directional many-to-one association to InvTiposhabitacione
+	@ManyToOne
+	@JoinColumn(name="idtipohabitacion")
 	private InvTiposhabitacione invTiposhabitacione;
 
 	public InvHabitacione() {
@@ -101,14 +104,6 @@ public class InvHabitacione implements Serializable {
 		this.fotografia = fotografia;
 	}
 
-	public Integer getIdtipohabitacion() {
-		return this.idtipohabitacion;
-	}
-
-	public void setIdtipohabitacion(Integer idtipohabitacion) {
-		this.idtipohabitacion = idtipohabitacion;
-	}
-
 	public String getNumerohabitacion() {
 		return this.numerohabitacion;
 	}
@@ -153,6 +148,14 @@ public class InvHabitacione implements Serializable {
 		facDetalle.setInvHabitacione(null);
 
 		return facDetalle;
+	}
+
+	public InvTiposhabitacione getInvTiposhabitacione1() {
+		return this.invTiposhabitacione1;
+	}
+
+	public void setInvTiposhabitacione1(InvTiposhabitacione invTiposhabitacione1) {
+		this.invTiposhabitacione1 = invTiposhabitacione1;
 	}
 
 	public InvTiposhabitacione getInvTiposhabitacione() {

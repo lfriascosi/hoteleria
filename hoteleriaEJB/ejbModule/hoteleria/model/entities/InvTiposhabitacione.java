@@ -3,6 +3,7 @@ package hoteleria.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -29,8 +30,12 @@ public class InvTiposhabitacione implements Serializable {
 	private String nombretipohabitacion;
 
 	//bi-directional one-to-one association to InvHabitacione
-	@OneToOne(mappedBy="invTiposhabitacione")
+	@OneToOne(mappedBy="invTiposhabitacione1")
 	private InvHabitacione invHabitacione;
+
+	//bi-directional many-to-one association to InvHabitacione
+	@OneToMany(mappedBy="invTiposhabitacione")
+	private List<InvHabitacione> invHabitaciones;
 
 	//bi-directional one-to-one association to InvObjetoshabitacione
 	@OneToOne(mappedBy="invTiposhabitacione")
@@ -77,6 +82,28 @@ public class InvTiposhabitacione implements Serializable {
 
 	public void setInvHabitacione(InvHabitacione invHabitacione) {
 		this.invHabitacione = invHabitacione;
+	}
+
+	public List<InvHabitacione> getInvHabitaciones() {
+		return this.invHabitaciones;
+	}
+
+	public void setInvHabitaciones(List<InvHabitacione> invHabitaciones) {
+		this.invHabitaciones = invHabitaciones;
+	}
+
+	public InvHabitacione addInvHabitacione(InvHabitacione invHabitacione) {
+		getInvHabitaciones().add(invHabitacione);
+		invHabitacione.setInvTiposhabitacione(this);
+
+		return invHabitacione;
+	}
+
+	public InvHabitacione removeInvHabitacione(InvHabitacione invHabitacione) {
+		getInvHabitaciones().remove(invHabitacione);
+		invHabitacione.setInvTiposhabitacione(null);
+
+		return invHabitacione;
 	}
 
 	public InvObjetoshabitacione getInvObjetoshabitacione() {
