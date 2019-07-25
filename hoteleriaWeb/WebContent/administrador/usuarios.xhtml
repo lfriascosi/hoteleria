@@ -88,7 +88,7 @@
 				<p:column headerText="Teléfono">
 					<h:outputText value="#{usuarios.telefono}" />
 				</p:column>
-				<p:column headerText="Fecha creación">
+				<!-- <p:column headerText="Fecha creación">
 					<h:outputText value="#{usuarios.fechacreacion}" />
 				</p:column>
 				<p:column headerText="Fecha actualización">
@@ -96,7 +96,7 @@
 				</p:column>
 				<p:column headerText="Estado usuario">
 					<h:outputText value="#{usuarios.estado}" />
-				</p:column>
+				</p:column> -->
 				<p:column headerText="OPCIONES" priority="1">
 					<p:commandButton icon="fa fa-close" title="eliminar" update="@form"
 						actionListener="#{beanUsuarios.actionListenerELiminarUsuario(usuarios.idusuario)}">
