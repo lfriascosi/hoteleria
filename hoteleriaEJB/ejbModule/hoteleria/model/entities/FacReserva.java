@@ -29,6 +29,9 @@ public class FacReserva implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechareserva;
 
+	@Temporal(TemporalType.DATE)
+	private Date fechasalida;
+
 	private String horareserva;
 
 	private BigDecimal subtotal;
@@ -85,6 +88,14 @@ public class FacReserva implements Serializable {
 
 	public void setFechareserva(Date fechareserva) {
 		this.fechareserva = fechareserva;
+	}
+
+	public Date getFechasalida() {
+		return this.fechasalida;
+	}
+
+	public void setFechasalida(Date fechasalida) {
+		this.fechasalida = fechasalida;
 	}
 
 	public String getHorareserva() {

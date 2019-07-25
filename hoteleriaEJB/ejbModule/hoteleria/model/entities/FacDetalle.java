@@ -20,12 +20,16 @@ public class FacDetalle implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAC_DETALLES_IDDETALLE_GENERATOR")
 	private Integer iddetalle;
 
+	private Integer adultos;
+
 	private Integer diasestadia;
 
 	private Integer estadoreserva;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechauso;
+
+	private Integer ninios;
 
 	@Column(name="precio_unit")
 	private double precioUnit;
@@ -51,6 +55,14 @@ public class FacDetalle implements Serializable {
 		this.iddetalle = iddetalle;
 	}
 
+	public Integer getAdultos() {
+		return this.adultos;
+	}
+
+	public void setAdultos(Integer adultos) {
+		this.adultos = adultos;
+	}
+
 	public Integer getDiasestadia() {
 		return this.diasestadia;
 	}
@@ -73,6 +85,14 @@ public class FacDetalle implements Serializable {
 
 	public void setFechauso(Date fechauso) {
 		this.fechauso = fechauso;
+	}
+
+	public Integer getNinios() {
+		return this.ninios;
+	}
+
+	public void setNinios(Integer ninios) {
+		this.ninios = ninios;
 	}
 
 	public double getPrecioUnit() {
