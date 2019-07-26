@@ -22,6 +22,9 @@ public class InvHabitacione implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Integer idhabitacion;
 
+	@Column(nullable=false)
+	private Integer capacidad;
+
 	@Column(length=500)
 	private String descripcion;
 
@@ -69,6 +72,14 @@ public class InvHabitacione implements Serializable {
 
 	public void setIdhabitacion(Integer idhabitacion) {
 		this.idhabitacion = idhabitacion;
+	}
+
+	public Integer getCapacidad() {
+		return this.capacidad;
+	}
+
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
 	}
 
 	public String getDescripcion() {

@@ -2,7 +2,6 @@ package hoteleria.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
 
 

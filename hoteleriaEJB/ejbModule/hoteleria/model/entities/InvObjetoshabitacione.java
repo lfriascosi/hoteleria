@@ -15,10 +15,10 @@ public class InvObjetoshabitacione implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INV_OBJETOSHABITACIONES_IDTIPOHABITACION_GENERATOR", sequenceName="SEQ_INV_OBJETOSHABITACIONES",allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_OBJETOSHABITACIONES_IDTIPOHABITACION_GENERATOR")
+	@SequenceGenerator(name="INV_OBJETOSHABITACIONES_IDOBJETOSHABITACIONES_GENERATOR", sequenceName="SEQ_INV_OBJETOSHABITACIONES",allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_OBJETOSHABITACIONES_IDOBJETOSHABITACIONES_GENERATOR")
 	@Column(unique=true, nullable=false)
-	private Integer idtipohabitacion;
+	private Integer idobjetoshabitaciones;
 
 	@Column(nullable=false)
 	private Integer cantidad;
@@ -30,18 +30,18 @@ public class InvObjetoshabitacione implements Serializable {
 
 	//bi-directional one-to-one association to InvTiposhabitacione
 	@OneToOne
-	@JoinColumn(name="idtipohabitacion", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="idtipohabitacion", nullable=false)
 	private InvTiposhabitacione invTiposhabitacione;
 
 	public InvObjetoshabitacione() {
 	}
 
-	public Integer getIdtipohabitacion() {
-		return this.idtipohabitacion;
+	public Integer getIdobjetoshabitaciones() {
+		return this.idobjetoshabitaciones;
 	}
 
-	public void setIdtipohabitacion(Integer idtipohabitacion) {
-		this.idtipohabitacion = idtipohabitacion;
+	public void setIdobjetoshabitaciones(Integer idobjetoshabitaciones) {
+		this.idobjetoshabitaciones = idobjetoshabitaciones;
 	}
 
 	public Integer getCantidad() {
