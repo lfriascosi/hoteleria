@@ -19,8 +19,10 @@ public class InvObjeto implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_OBJETOS_IDOBJETO_GENERATOR", sequenceName="SEQ_INV_OBJETOS",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_OBJETOS_IDOBJETO_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idobjeto;
 
+	@Column(length=50)
 	private String descripcion;
 
 	@Temporal(TemporalType.DATE)
@@ -29,6 +31,7 @@ public class InvObjeto implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
+	@Column(nullable=false, length=30)
 	private String nombreobjeto;
 
 	//bi-directional many-to-one association to InvObjetoshabitacione

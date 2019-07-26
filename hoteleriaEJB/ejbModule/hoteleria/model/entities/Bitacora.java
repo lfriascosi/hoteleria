@@ -11,6 +11,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="bitacora")
 @NamedQuery(name="Bitacora.findAll", query="SELECT b FROM Bitacora b")
 public class Bitacora implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,20 +19,28 @@ public class Bitacora implements Serializable {
 	@Id
 	@SequenceGenerator(name="BITACORA_IDBITACORA_GENERATOR", sequenceName="SEQ_BITACORA",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BITACORA_IDBITACORA_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idbitacora;
 
+	@Column(nullable=false, length=40)
 	private String descripcionevento;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date fechaevento;
 
-	private Time horaevento;
+	@Column(nullable=false, length=10)
+	private String horaevento;
 
+	@Column(nullable=false, length=50)
 	private String ipusuario;
+
+	@Column(nullable=false, length=100)
+	private String metodo;
 
 	//bi-directional many-to-one association to InvUsuario
 	@ManyToOne
-	@JoinColumn(name="idusuario")
+	@JoinColumn(name="idusuario", nullable=false)
 	private InvUsuario invUsuario;
 
 	public Bitacora() {
@@ -61,11 +70,11 @@ public class Bitacora implements Serializable {
 		this.fechaevento = fechaevento;
 	}
 
-	public Time getHoraevento() {
+	public String getHoraevento() {
 		return this.horaevento;
 	}
 
-	public void setHoraevento(Time horaevento) {
+	public void setHoraevento(String horaevento) {
 		this.horaevento = horaevento;
 	}
 
@@ -75,6 +84,14 @@ public class Bitacora implements Serializable {
 
 	public void setIpusuario(String ipusuario) {
 		this.ipusuario = ipusuario;
+	}
+
+	public String getMetodo() {
+		return this.metodo;
+	}
+
+	public void setMetodo(String metodo) {
+		this.metodo = metodo;
 	}
 
 	public InvUsuario getInvUsuario() {

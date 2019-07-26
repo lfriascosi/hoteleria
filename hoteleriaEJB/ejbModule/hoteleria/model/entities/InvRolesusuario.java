@@ -17,16 +17,17 @@ public class InvRolesusuario implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_ROLESUSUARIOS_IDROLUSUARIO_GENERATOR", sequenceName="SEQ_INV_ROLESUSUARIOS",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_ROLESUSUARIOS_IDROLUSUARIO_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idrolusuario;
 
 	//bi-directional many-to-one association to InvRole
 	@ManyToOne
-	@JoinColumn(name="idrol")
+	@JoinColumn(name="idrol", nullable=false)
 	private InvRole invRole;
 
 	//bi-directional many-to-one association to InvUsuario
 	@ManyToOne
-	@JoinColumn(name="idusuario")
+	@JoinColumn(name="idusuario", nullable=false)
 	private InvUsuario invUsuario;
 
 	public InvRolesusuario() {

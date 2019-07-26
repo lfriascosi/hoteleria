@@ -20,25 +20,32 @@ public class FacReserva implements Serializable {
 	@Id
 	@SequenceGenerator(name="FAC_RESERVAS_IDRESERVA_GENERATOR", sequenceName="SEQ_FAC_RESERVAS",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAC_RESERVAS_IDRESERVA_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idreserva;
 
+	@Column(length=17)
 	private String codigoreserva;
 
+	@Column(nullable=false)
 	private Integer estadopago;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date fechareserva;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechasalida;
 
+	@Column(nullable=false, length=10)
 	private String horareserva;
 
+	@Column(nullable=false, precision=12, scale=2)
 	private BigDecimal subtotal;
 
+	@Column(nullable=false, precision=12, scale=2)
 	private BigDecimal total;
 
-	@Column(name="valor_iva")
+	@Column(name="valor_iva", nullable=false, precision=12, scale=2)
 	private BigDecimal valorIva;
 
 	//bi-directional many-to-one association to FacDetalle
@@ -47,12 +54,12 @@ public class FacReserva implements Serializable {
 
 	//bi-directional many-to-one association to FacParametro
 	@ManyToOne
-	@JoinColumn(name="descuento")
+	@JoinColumn(name="descuento", nullable=false)
 	private FacParametro facParametro;
 
 	//bi-directional many-to-one association to InvUsuario
 	@ManyToOne
-	@JoinColumn(name="idusuario")
+	@JoinColumn(name="idusuario", nullable=false)
 	private InvUsuario invUsuario;
 
 	public FacReserva() {

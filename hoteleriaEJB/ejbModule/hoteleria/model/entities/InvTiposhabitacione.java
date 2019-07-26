@@ -19,6 +19,7 @@ public class InvTiposhabitacione implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_TIPOSHABITACIONES_IDTIPOHABITACION_GENERATOR", sequenceName="SEQ_INV_TIPOSHABITACIONES",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_TIPOSHABITACIONES_IDTIPOHABITACION_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idtipohabitacion;
 
 	@Temporal(TemporalType.DATE)
@@ -27,6 +28,7 @@ public class InvTiposhabitacione implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
+	@Column(nullable=false, length=50)
 	private String nombretipohabitacion;
 
 	//bi-directional one-to-one association to InvHabitacione

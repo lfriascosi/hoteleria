@@ -19,8 +19,10 @@ public class InvRole implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_ROLES_IDROL_GENERATOR", sequenceName="SEQ_INV_ROLES",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_ROLES_IDROL_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idrol;
 
+	@Column(length=100)
 	private String descripcion;
 
 	@Temporal(TemporalType.DATE)
@@ -29,8 +31,10 @@ public class InvRole implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
+	@Column(nullable=false, length=15)
 	private String nombrerol;
 
+	@Column(nullable=false, length=20)
 	private String nombrerolvista;
 
 	//bi-directional many-to-one association to InvRolesusuario

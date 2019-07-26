@@ -19,16 +19,22 @@ public class InvUsuario implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_USUARIOS_IDUSUARIO_GENERATOR", sequenceName="SEQ_INV_USUARIOS",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_USUARIOS_IDUSUARIO_GENERATOR")
+	@Column(unique=true, nullable=false)
 	private Integer idusuario;
 
+	@Column(nullable=false, length=50)
 	private String apellidosusuario;
 
+	@Column(nullable=false, length=300)
 	private String clave;
 
+	@Column(nullable=false, length=200)
 	private String correo;
 
+	@Column(length=100)
 	private String direccion;
 
+	@Column(nullable=false)
 	private Integer estado;
 
 	@Temporal(TemporalType.DATE)
@@ -37,8 +43,10 @@ public class InvUsuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
+	@Column(nullable=false, length=50)
 	private String nombresusuario;
 
+	@Column(length=20)
 	private String telefono;
 
 	//bi-directional many-to-one association to Bitacora

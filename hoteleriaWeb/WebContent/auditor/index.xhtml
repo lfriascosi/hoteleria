@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Bitacoras</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Bitacora" action="index" icon="fa fa-cog"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br />
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+	<h:form id="form2">
+		<p:dataTable border="1" value="#{beanAuditor.listaBitacoras}"
+			var="b" paginator="true" rows="6" id="tabla1" reflow="true">
+			<p:column headerText="ID" style="width:80px">
+				<h:outputText value="#{b.idbitacora}"></h:outputText>
+			</p:column>
+			<p:column headerText="USUARIO">
+				<h:outputText value="#{b.invUsuario.nombresusuario} #{b.invUsuario.apellidosusuario}"></h:outputText>
+			</p:column>
+			<p:column headerText="DESCRIPCIÓN EVENTO">
+				<h:outputText value="#{b.descripcionevento}"></h:outputText>
+			</p:column>
+			<p:column headerText="FECHA" >
+				<h:outputText value="#{b.fechaevento} #{b.horaevento}"></h:outputText>
+			</p:column>
+			<p:column headerText="DIRECCIÓN IP">
+				<h:outputText value="#{b.ipusuario}"></h:outputText>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</body>
+</html>

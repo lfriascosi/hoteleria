@@ -9,12 +9,12 @@
 		type="preRenderView"></f:event>
 </f:metadata>
 <h:head>
-<f:facet name="first">
+	<f:facet name="first">
 		<meta name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no " />
 		<title>Recepción</title>
 	</f:facet>
-	
+
 </h:head>
 <body onload="nobackbutton();">
 	<h:form>
@@ -30,8 +30,68 @@
 		</p:menubar>
 	</h:form>
 	<br />
-	<h1 align="center">Reservas</h1>
 	<h:form id="form1">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<p:panel collapsed="#{beanReservas.panelColapso}">
+			<f:facet name="header">
+				<p:commandButton value="Nueva reserva" icon="fa fa-plus"
+					update="@form"
+					actionListener="#{beanReservas.actionListenerColapsarPanel()}"></p:commandButton>
+			</f:facet>
+
+			<p:panelGrid columns="8">
+				<h:outputText value="Factura:" />
+				<p:inputText value="" />
+				<h:outputText value="Cliente" />
+				<h:panelGroup>
+					<p:selectOneMenu value="#{beanReservas.cedulaCliente}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione..." itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanReservas.listaClientesSI}" />
+						<p:ajax update="cedulaCliente"
+							listener="#{beanReservas.asignarCliente()}"></p:ajax>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="Estado pago" />
+				<p:selectOneMenu value="">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="" />
+				</p:selectOneMenu>
+				<h:outputText value="Descuento" />
+				<p:selectOneMenu value="">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="" />
+				</p:selectOneMenu>
+				<h:outputText value="Fecha" />
+				<p:calendar navigator="true" pattern="yyyy-MMM-dd" />
+				<h:outputText value="Habitación" />
+				<p:selectOneMenu value="">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="" />
+				</p:selectOneMenu>
+				<h:outputText value="Días estadía" />
+				<p:spinner></p:spinner>
+				<h:outputText value="Estado reserva" />
+				<p:selectOneMenu value="">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="" />
+				</p:selectOneMenu>
+				<p:commandButton value="Guardar" icon="fa fa-save"
+					update="@form,:form2"></p:commandButton>
+			</p:panelGrid>
+
+		</p:panel>
+	</h:form>
+	<br />
+	<h1 align="center">Reservas</h1>
+	<h:form id="form2">
 		<p:panel header="Datos de personalizados">
 			<p:dataTable value="#{beanReservas.listaFacDetalles}" var="detalles">
 				<p:column headerText="Codigo reserva" style="width:50px">
@@ -65,7 +125,16 @@
 					<h:outputText value="#{detalles.fechauso}" />
 				</p:column>
 				<p:column headerText="Estado reserva" style="width:50px">
-					<h:outputText value="#{beanReservas.estadoReserva(detalles.estadoreserva)}" />
+					<h:outputText
+						value="#{beanReservas.estadoReserva(detalles.estadoreserva)}" />
+				</p:column>
+				<p:column headerText="OPCIONES" priority="1">
+					<p:commandButton icon="fa fa-close" title="eliminar">
+						<p:confirm header="Confimacion" message="Desea eliminar"
+							icon="fa fa-exclamation-triangle">
+						</p:confirm>
+					</p:commandButton>
+					<p:commandButton icon="fa fa-edit" title="Editar"></p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>

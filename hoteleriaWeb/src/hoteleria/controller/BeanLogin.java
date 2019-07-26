@@ -9,6 +9,7 @@ import javax.inject.Named;
 import hoteleria.model.dto.LoginDTO;
 import hoteleria.model.entities.InvRole;
 import hoteleria.model.entities.InvRolesusuario;
+import hoteleria.model.manager.ManagerAuditor;
 import hoteleria.model.manager.ManagerSeguridad;
 import hoteleria.model.util.ModelUtil;
 
@@ -38,6 +39,8 @@ public class BeanLogin implements Serializable{
 	private ManagerSeguridad managerSeguridad;
 	private LoginDTO loginDTO;
 
+	@EJB
+	private ManagerAuditor managerAuditor;
 	@PostConstruct
 	public void inicializar() {
 		loginDTO=new LoginDTO();
@@ -69,6 +72,7 @@ public class BeanLogin implements Serializable{
 			
 			//redireccion dependiendo del tipo de usuario:
 			// return loginDTO.getRutaAcceso()+"?faces-redirect=true";
+			managerAuditor.crearEvento(idUsuario, this.getClass(), "accederSistema", "Acceso a login");
 			return "roles?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +123,9 @@ public class BeanLogin implements Serializable{
 			} else if(this.rolSeleccionado.equals("Administrador")) {
 				loginDTO.setRutaAcceso("/administrador/indexadmin.xhtml");
 			} else if(this.rolSeleccionado.equals("Gerente")) {
-				loginDTO.setRutaAcceso("/Gerente/index.xhtml");	
+				loginDTO.setRutaAcceso("/Gerente/index.xhtml");
+			} else if(this.rolSeleccionado.equals("Auditor")) {
+				loginDTO.setRutaAcceso("/auditor/index.xhtml");	
 			}else {
 				FacesContext contex = FacesContext.getCurrentInstance();
 	            contex.getExternalContext().redirect("index.html" );
