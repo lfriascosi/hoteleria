@@ -8,10 +8,10 @@
 		<class>hoteleria.model.entities.FacReserva</class>
 		<class>hoteleria.model.entities.InvHabitacione</class>
 		<class>hoteleria.model.entities.InvObjeto</class>
-		<class>hoteleria.model.entities.InvObjetoshabitacione</class>
 		<class>hoteleria.model.entities.InvRole</class>
 		<class>hoteleria.model.entities.InvRolesusuario</class>
 		<class>hoteleria.model.entities.InvTiposhabitacione</class>
 		<class>hoteleria.model.entities.InvUsuario</class>
+		<class>hoteleria.model.entities.InvObjetoshabitacione</class>
 	</persistence-unit>
 </persistence>

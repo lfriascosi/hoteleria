@@ -61,6 +61,7 @@ public class BeanLogin implements Serializable{
 			listaRoles = loginDTO.getRoles();
 			listadoRoles = new ArrayList<String>();
 			nominaRol = new ArrayList<InvRole>();
+			System.out.println("CANT ROLES: "+listaRoles.size());
 			for(InvRolesusuario rolUsu:listaRoles) {
 				// InvRole rol = new InvRole();
 				// rol=rolUsu.getInvRole();
@@ -72,8 +73,20 @@ public class BeanLogin implements Serializable{
 			
 			//redireccion dependiendo del tipo de usuario:
 			// return loginDTO.getRutaAcceso()+"?faces-redirect=true";
+<<<<<<< Upstream, based on origin/master
 			managerAuditor.crearEvento(idUsuario, this.getClass(), "accederSistema", "Acceso a login");
 			return "roles?faces-redirect=true";
+=======
+			if(listadoRoles.size()>1) {
+				System.out.println("ROL Q TIENE:"+listadoRoles.get(0));
+				return "roles?faces-redirect=true";
+			}else {
+				System.out.println("ROL Q TIENE: "+listadoRoles.get(0));
+				this.rolSeleccionado = listadoRoles.get(0);
+				return ir();
+			}
+			
+>>>>>>> 0a54ac3 Reservación Cliente
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.crearMensajeERROR(e.getMessage());
@@ -112,6 +125,7 @@ public class BeanLogin implements Serializable{
 	}
 	
 	public String ir() {
+		System.out.println("  -- IR  -- ");
 		try{
 			//dependiendo del tipo de usuario, configuramos la ruta de acceso a las pags web:		
 			if(this.rolSeleccionado.equals("Recepcionista")) {
@@ -132,6 +146,7 @@ public class BeanLogin implements Serializable{
 				
 			}
 			//redireccion dependiendo del tipo de usuario:
+			System.out.println("ACa vamoos:"+loginDTO.getRutaAcceso());
 			 return loginDTO.getRutaAcceso()+"?faces-redirect=true";
             
 		}catch(  Exception e ){

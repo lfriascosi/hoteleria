@@ -30,7 +30,13 @@ public class FacReserva implements Serializable {
 	private Integer estadopago;
 
 	@Temporal(TemporalType.DATE)
+<<<<<<< Upstream, based on origin/master
 	@Column(nullable=false)
+=======
+	private Date fechaentrada;
+
+	@Temporal(TemporalType.DATE)
+>>>>>>> 0a54ac3 Reservación Cliente
 	private Date fechareserva;
 
 	@Temporal(TemporalType.DATE)
@@ -87,6 +93,14 @@ public class FacReserva implements Serializable {
 
 	public void setEstadopago(Integer estadopago) {
 		this.estadopago = estadopago;
+	}
+
+	public Date getFechaentrada() {
+		return this.fechaentrada;
+	}
+
+	public void setFechaentrada(Date fechaentrada) {
+		this.fechaentrada = fechaentrada;
 	}
 
 	public Date getFechareserva() {

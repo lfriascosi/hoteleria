@@ -22,10 +22,15 @@ public class InvHabitacione implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Integer idhabitacion;
 
+<<<<<<< Upstream, based on origin/master
 	@Column(nullable=false)
 	private Integer capacidad;
 
 	@Column(length=500)
+=======
+	private Integer capacidad;
+
+>>>>>>> 0a54ac3 Reservación Cliente
 	private String descripcion;
 
 	@Column(nullable=false)
@@ -180,8 +185,8 @@ public class InvHabitacione implements Serializable {
 		return this.invTiposhabitacione;
 	}
 
-	public void setInvTiposhabitacione(InvTiposhabitacione invTiposhabitacione) {
-		this.invTiposhabitacione = invTiposhabitacione;
+	public void setInvTiposhabitacione(InvTiposhabitacione invTiposhabitacione2) {
+		this.invTiposhabitacione = invTiposhabitacione2;
 	}
 
 }

@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import hoteleria.model.entities.FacReserva;
 import hoteleria.model.entities.InvHabitacione;
@@ -27,6 +31,8 @@ import hoteleria.model.entities.FacParametro;
 @Stateless
 @LocalBean
 public class ManagerReserva {
+		@PersistenceContext
+		private EntityManager em;
     	@EJB
 	    private ManagerHabitaciones managerHabitaciones;
     	@EJB
@@ -50,10 +56,12 @@ public class ManagerReserva {
 	 * Esta informacion solo se mantiene en memoria.
 	 * @return la nueva factura temporal.
 	 */
-	public FacReserva crearFacturaTmp(){
+	public FacReserva crearFacturaTmp(Date fechaEntrada, Date fechaSalida){
 		FacReserva facturaCabTmp=new FacReserva();
 		facturaCabTmp.setFechareserva(new Date());
 		facturaCabTmp.setHorareserva(getHora());
+		facturaCabTmp.setFechaentrada(fechaEntrada);
+		facturaCabTmp.setFechasalida(fechaSalida);
 		facturaCabTmp.setEstadopago(0);
 		
 		facturaCabTmp.setFacDetalles(new ArrayList<FacDetalle>());
@@ -75,28 +83,30 @@ public class ManagerReserva {
 	 * @param cantidad cantidad del producto.
 	 * @throws Exception problemas ocurridos al momento de insertar el item detalle.
 	 */
-	public void agregarDetalleFacturaTmp(FacReserva facturaCabTmp,Integer idHabitacion,Integer dias, Date fecha) throws Exception{
+	public void agregarDetalleFacturaTmp(FacReserva facturaCabTmp,Integer idHabitacion,Date fechaI, Date fechaS) throws Exception{
 		InvHabitacione h;
 		FacDetalle fd;	
 		
 		if(facturaCabTmp==null)
-			throw new Exception("Error primero debe crear una nueva factura.");
+			throw new Exception("Primero debe crear una nueva factura.");
 		if(idHabitacion==null||idHabitacion.intValue()<0)
-			throw new Exception("Error debe especificar el codigo de la habitación.");
-		if(dias==null)
-			throw new Exception("Error primero debe indicar los días de estadía.");
-		if(fecha==null||idHabitacion.intValue()<0)
-			throw new Exception("Error debe especificar la fecha de estadía.");
-	
-		
+			throw new Exception("Debe especificar el codigo de la habitación.");
+		if(fechaI==null||idHabitacion.intValue()<0)
+			throw new Exception("Debe especificar la fecha de ingreso.");
+		if(fechaS==null||idHabitacion.intValue()<0)
+			throw new Exception("Error debe especificar la fecha de salida.");
+		if(validarFechas(fechaI,fechaS) == false || idHabitacion.intValue()<0)
+			throw new Exception("Ingreso incorrecto de fechas");
+		System.out.println("FECHA CAPTURADA:"+fechaI+" - " + fechaS);
+		facturaCabTmp.setFechaentrada(fechaI);
+		facturaCabTmp.setFechasalida(fechaS);
 		//buscamos la habitación:
 		h=managerHabitaciones.findTheHabitacionById(idHabitacion);
 		//creamos un nuevo detalle y llenamos sus propiedades:
 		fd=new FacDetalle();
 		fd.setPrecioUnit(h.getPrecio());
 		fd.setInvHabitacione(h);
-		fd.setDiasestadia(dias);
-		fd.setFechauso(fecha);
+		fd.setFechauso(new Date());
 		facturaCabTmp.getFacDetalles().add(fd);
 		System.out.println("AQUI SE CREARON LOS DETALLES" + fd.getDiasestadia());
 		for (FacDetalle r : facturaCabTmp.getFacDetalles()) {
@@ -106,6 +116,20 @@ public class ManagerReserva {
 		calcularFacturaTmp(facturaCabTmp);
 	}
 
+	 public boolean validarFechas(Date fechaEntrada, Date fechaSalida){
+			Date fa = new Date();
+			System.out.println("Fecha entrada: "+fechaEntrada+ " Fecha salida: "+fechaSalida);
+			if(fechaEntrada== null || fechaSalida==null) {
+				System.out.println("Obligatorio ingresar fechas");
+				return false;
+			}else {
+				if(fechaEntrada.before(fechaSalida) && (fechaEntrada.equals(fa) || fechaEntrada.after(fa))) 
+					return true;
+				else 
+					return false;
+			}
+			
+		} 
 	/**
 	 * Realiza los calculos de subtotales, impuestos y totales.
 	 * @param facturaCabTmp Factura temporal creada en memoria.
@@ -215,4 +239,9 @@ public class ManagerReserva {
 		managerParametros.actualizarParametro("cont_reservas", nuevoContadorFacturas);
 	}
 
+	public List<FacReserva> findMisReservas(Integer IdUsuario) {
+		String consulta = "select d from FacReserva d where idusuario='"+IdUsuario+"'";
+		Query q = em.createQuery(consulta, FacReserva.class);
+		return q.getResultList();
+	}
 }

@@ -17,7 +17,10 @@ public class InvObjetoshabitacione implements Serializable {
 	@Id
 	@SequenceGenerator(name="INV_OBJETOSHABITACIONES_IDOBJETOSHABITACIONES_GENERATOR", sequenceName="SEQ_INV_OBJETOSHABITACIONES",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INV_OBJETOSHABITACIONES_IDOBJETOSHABITACIONES_GENERATOR")
+<<<<<<< Upstream, based on origin/master
 	@Column(unique=true, nullable=false)
+=======
+>>>>>>> 0a54ac3 Reservación Cliente
 	private Integer idobjetoshabitaciones;
 
 	@Column(nullable=false)

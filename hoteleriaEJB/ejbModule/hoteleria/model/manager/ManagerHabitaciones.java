@@ -51,6 +51,12 @@ public class ManagerHabitaciones {
 
 	}    
     
+    public List<InvHabitacione> findHabitacionesPerCapacidad(Integer th) {
+		String consulta = "select a from InvHabitacione a where capacidad='"+th+"'";
+		Query q = em.createQuery(consulta, InvHabitacione.class);
+		return q.getResultList();
+
+	}  
     
     public InvTiposhabitacione findHabitacionById(int idtipohabitacion) {
 		return em.find(InvTiposhabitacione.class, idtipohabitacion);
