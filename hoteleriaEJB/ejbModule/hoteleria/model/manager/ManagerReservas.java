@@ -11,23 +11,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import hoteleria.model.entities.FacDetalle;
-<<<<<<< Upstream, based on origin/master
-<<<<<<< Upstream, based on origin/master
+
 //import hoteleria.model.entities.FacReserva;
 //import hoteleria.model.entities.InvUsuario;
-=======
-=======
-<<<<<<< HEAD
->>>>>>> f443bb9 Fix
+
 import hoteleria.model.entities.FacParametro;
-<<<<<<< Upstream, based on origin/master
->>>>>>> 0a54ac3 Reservación Cliente
-=======
-=======
+
 //import hoteleria.model.entities.FacReserva;
 //import hoteleria.model.entities.InvUsuario;
->>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
->>>>>>> f443bb9 Fix
+
 
 /**
  * Session Bean implementation class ManagerReservas
@@ -48,8 +40,7 @@ public class ManagerReservas {
 		return q.getResultList();
 	}
 
-<<<<<<< Upstream, based on origin/master
-<<<<<<< Upstream, based on origin/master
+
 //	public List<InvUsuario> findAllUsuarios() {
 //		String consulta2 = "select c from (select from InvUsuario as a join InvRolesusuario as e on e.idusuario=a.idusuario join InvRole as u on e.idrol=u.idrol where u.nombrerol='cli' )as c";
 //		Query q = em.createQuery(consulta2, InvUsuario.class);
@@ -98,11 +89,7 @@ public class ManagerReservas {
 //			throw new Exception("Error al asignar cliente: " + e.getMessage());
 //		}
 //	}
-=======
->>>>>>> 0a54ac3 Reservación Cliente
-=======
-<<<<<<< HEAD
-=======
+
 //	public List<InvUsuario> findAllUsuarios() {
 //		String consulta2 = "select c from (select from InvUsuario as a join InvRolesusuario as e on e.idusuario=a.idusuario join InvRole as u on e.idrol=u.idrol where u.nombrerol='cli' )as c";
 //		Query q = em.createQuery(consulta2, InvUsuario.class);
@@ -151,7 +138,5 @@ public class ManagerReservas {
 //			throw new Exception("Error al asignar cliente: " + e.getMessage());
 //		}
 //	}
->>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
->>>>>>> f443bb9 Fix
 
 }
