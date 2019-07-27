@@ -29,18 +29,32 @@ public class Bitacora implements Serializable {
 	private Date fechaevento;
 
 <<<<<<< Upstream, based on origin/master
+<<<<<<< Upstream, based on origin/master
 	@Column(nullable=false, length=10)
 =======
 >>>>>>> 0a54ac3 Reservación Cliente
+=======
+<<<<<<< HEAD
+=======
+	@Column(nullable=false, length=10)
+>>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
+>>>>>>> f443bb9 Fix
 	private String horaevento;
 
 	@Column(nullable=false, length=50)
 	private String ipusuario;
 
 <<<<<<< Upstream, based on origin/master
+<<<<<<< Upstream, based on origin/master
 	@Column(nullable=false, length=100)
 =======
 >>>>>>> 0a54ac3 Reservación Cliente
+=======
+<<<<<<< HEAD
+=======
+	@Column(nullable=false, length=100)
+>>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
+>>>>>>> f443bb9 Fix
 	private String metodo;
 
 	//bi-directional many-to-one association to InvUsuario

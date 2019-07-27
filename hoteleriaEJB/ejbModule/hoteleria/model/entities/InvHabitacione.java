@@ -23,14 +23,27 @@ public class InvHabitacione implements Serializable {
 	private Integer idhabitacion;
 
 <<<<<<< Upstream, based on origin/master
+<<<<<<< Upstream, based on origin/master
 	@Column(nullable=false)
+=======
+<<<<<<< HEAD
+>>>>>>> f443bb9 Fix
 	private Integer capacidad;
 
+<<<<<<< Upstream, based on origin/master
 	@Column(length=500)
 =======
 	private Integer capacidad;
 
 >>>>>>> 0a54ac3 Reservación Cliente
+=======
+=======
+	@Column(nullable=false)
+	private Integer capacidad;
+
+	@Column(length=500)
+>>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
+>>>>>>> f443bb9 Fix
 	private String descripcion;
 
 	@Column(nullable=false)

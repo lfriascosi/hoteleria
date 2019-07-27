@@ -74,9 +74,13 @@ public class BeanLogin implements Serializable{
 			//redireccion dependiendo del tipo de usuario:
 			// return loginDTO.getRutaAcceso()+"?faces-redirect=true";
 <<<<<<< Upstream, based on origin/master
+<<<<<<< Upstream, based on origin/master
 			managerAuditor.crearEvento(idUsuario, this.getClass(), "accederSistema", "Acceso a login");
 			return "roles?faces-redirect=true";
 =======
+=======
+<<<<<<< HEAD
+>>>>>>> f443bb9 Fix
 			if(listadoRoles.size()>1) {
 				System.out.println("ROL Q TIENE:"+listadoRoles.get(0));
 				return "roles?faces-redirect=true";
@@ -86,7 +90,14 @@ public class BeanLogin implements Serializable{
 				return ir();
 			}
 			
+<<<<<<< Upstream, based on origin/master
 >>>>>>> 0a54ac3 Reservación Cliente
+=======
+=======
+			managerAuditor.crearEvento(idUsuario, this.getClass(), "accederSistema", "Acceso a login");
+			return "roles?faces-redirect=true";
+>>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
+>>>>>>> f443bb9 Fix
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.crearMensajeERROR(e.getMessage());

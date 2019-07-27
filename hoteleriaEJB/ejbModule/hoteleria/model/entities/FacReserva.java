@@ -31,12 +31,22 @@ public class FacReserva implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 <<<<<<< Upstream, based on origin/master
+<<<<<<< Upstream, based on origin/master
 	@Column(nullable=false)
 =======
+=======
+<<<<<<< HEAD
+>>>>>>> f443bb9 Fix
 	private Date fechaentrada;
 
 	@Temporal(TemporalType.DATE)
+<<<<<<< Upstream, based on origin/master
 >>>>>>> 0a54ac3 Reservación Cliente
+=======
+=======
+	@Column(nullable=false)
+>>>>>>> branch 'master' of https://github.com/lfriascosi/hoteleria.git
+>>>>>>> f443bb9 Fix
 	private Date fechareserva;
 
 	@Temporal(TemporalType.DATE)
