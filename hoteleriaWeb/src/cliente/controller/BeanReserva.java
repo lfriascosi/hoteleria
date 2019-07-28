@@ -21,6 +21,7 @@ import hoteleria.model.entities.InvTiposhabitacione;
 import hoteleria.model.manager.cliente.ManagerReserva;
 import hoteleria.model.manager.ManagerHabitaciones;
 import hoteleria.model.manager.ManagerSeguridad;
+import hoteleria.model.manager.ManagerUsuarios;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -40,7 +41,8 @@ public class BeanReserva implements Serializable {
 	private ManagerReserva managerReserva;
 	@EJB
 	private ManagerHabitaciones managerHabitaciones;
-	
+	@EJB
+	private ManagerUsuarios managerUsuarios;  // recepcionista
 
 	private Integer idHabitacion = 0;
 	private Integer idTipoHabitacion=0;
@@ -55,6 +57,7 @@ public class BeanReserva implements Serializable {
 	private boolean facturaCabTmpGuardada;
 	private boolean activForm=false;
 	private boolean verDeshacer = false;
+	private boolean activGuardar=false;
 	
 	
 	private Integer adultos = 0;	
@@ -71,6 +74,24 @@ public class BeanReserva implements Serializable {
 		
 	}
 	
+	public void resetParams() {
+		activForm = false;
+		activGuardar=false;
+		verDeshacer = false;
+		facturaCabTmpGuardada=false;
+		listaHabitaciones = new ArrayList<InvHabitacione>();
+		listaHabitacionesRESP = new ArrayList<InvHabitacione>();
+		numeroAdultos = new ArrayList<Integer>(); 								
+		numeroNiños = new ArrayList<Integer>();	
+		maxNiños = 0;	
+		maxAdultos = 4;
+		adultos = 0;	
+		niños = 0;	
+		fechaEntrada = null;
+		fechaSalida = null;
+		
+	}
+	
 	@PostConstruct
 	public void inicializar() {
 		//this.crearNuevaReserva();
@@ -84,6 +105,7 @@ public class BeanReserva implements Serializable {
 			idHabitacion=0;
 			dias=0;
 			fecha=null;
+			activGuardar = true;
 			//fechaEntrada = null;
 			//fechaSalida = null;
 			facturaCabTmpGuardada=false;
@@ -97,22 +119,7 @@ public class BeanReserva implements Serializable {
 			return ""; */
 	}
 	
-	/* public boolean validarFechas(){
-		Date fa = new Date();
-		System.out.println("Fecha entrada: "+this.fechaEntrada+ " Fecha salida: "+this.fechaSalida);
-		if(this.fechaEntrada== null || this.fechaSalida==null) {
-			System.out.println("Obligatorio ingresar fechas");
-			JSFUtil.crearMensajeWaring("Obligatorio ingresar fechas");
-			return false;
-		}else if
-		(this.fechaEntrada.before(this.fechaSalida)) {
-			return true;
-		}else if(this.fechaEntrada.before(fa) && this.fechaSalida.before(fa)) {
-			return true;
-		}
-		return false;
-	} */
-	
+
 	
 	public void llenarListaNiños() {
 		if(this.maxNiños>=0) {
@@ -162,6 +169,16 @@ public class BeanReserva implements Serializable {
 		
 	}
 	
+	
+	
+	public boolean isActivGuardar() {
+			return activGuardar;
+		}
+
+		public void setActivGuardar(boolean activGuardar) {
+			this.activGuardar = activGuardar;
+		}
+
 	public void updStock(Integer idHabitacion) {
 		System.out.println("ACTUALIZANDO -----");
 		
@@ -199,6 +216,9 @@ public class BeanReserva implements Serializable {
 		try {
 			managerReserva.guardarFacturaTemporal(beanLogin.getIdUsuario(),facturaCabTmp);
 			facturaCabTmpGuardada=true;
+			resetParams();
+			JSFUtil.crearMensajeInfo("Reserva Guardada");
+			return "./reservaciones.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
@@ -416,6 +436,18 @@ public class BeanReserva implements Serializable {
 		
 		for(InvTiposhabitacione th:listadoTipoHabitaciones){
 			SelectItem item=new SelectItem(th.getIdtipohabitacion(),th.getNombretipohabitacion());
+			// System.out.println("HABITACIOOON: "+h.getIdhabitacion()+" Descripcioon: "+h.getDescripcion());
+			listadoSI.add(item);
+		}
+		return listadoSI;
+	}
+	
+	public List<SelectItem> getClientes(){
+		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
+		List<InvUsuario> listadoUsuarios=managerUsuarios.findAllInvUsuarios();
+		
+		for(InvUsuario u:listadoUsuarios){
+			SelectItem item=new SelectItem(u.getIdusuario(),u.getNombresusuario());
 			// System.out.println("HABITACIOOON: "+h.getIdhabitacion()+" Descripcioon: "+h.getDescripcion());
 			listadoSI.add(item);
 		}

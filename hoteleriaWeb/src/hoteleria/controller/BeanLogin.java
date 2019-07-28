@@ -128,9 +128,9 @@ public class BeanLogin implements Serializable{
 			if(this.rolSeleccionado.equals("Recepcionista")) {
 				//FacesContext contex = FacesContext.getCurrentInstance();
 	            // contex.getExternalContext().redirect("../administrador/usuarios.xhtml" );
-				loginDTO.setRutaAcceso("/recepcionista/reservas.xhtml");
+				loginDTO.setRutaAcceso("/recepcionista/reservacion.xhtml");
 			} else if(this.rolSeleccionado.equals("Cliente")) {
-				loginDTO.setRutaAcceso("/cliente/index.xhtml");
+				loginDTO.setRutaAcceso("/cliente/inicio.xhtml");
 			} else if(this.rolSeleccionado.equals("Administrador")) {
 				loginDTO.setRutaAcceso("/administrador/indexadmin.xhtml");
 			} else if(this.rolSeleccionado.equals("Gerente")) {

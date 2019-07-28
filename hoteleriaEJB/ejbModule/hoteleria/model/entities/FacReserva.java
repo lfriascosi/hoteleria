@@ -162,7 +162,6 @@ public class FacReserva implements Serializable {
 	public FacDetalle addFacDetalle(FacDetalle facDetalle) {
 		getFacDetalles().add(facDetalle);
 		facDetalle.setFacReserva(this);
-
 		return facDetalle;
 	}
 

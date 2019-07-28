@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<h:head>
+	<title>Bello Amanecer</title>
+</h:head>  
+<body onload="nobackbutton();"> 
+	<h:form>
+	<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
+		<p:menubar>
+			<p:menuitem value="Cliente" style="Color:maroon;"></p:menuitem>
+			<p:menuitem value="Reservar" action="index" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Reservaciones" action="reservaciones" icon="fa fa-bars"></p:menuitem>
+			<f:facet name="options">
+				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+			</f:facet>
+		</p:menubar>
+		</h:form>
+		<div class="jumbotron" style="text-align:center;"><h3 class="text-secondary">BIENVENIDO A BELLO AMANECER</h3></div> 
+
+<!-- Bloquea el boton de regresar del navegador -->     
+	<script>
+  function nobackbutton(){
+   window.location.hash="no-back-button";
+   window.location.hash="Again-No-back-button" //chrome
+   window.onhashchange=function(){window.location.hash="no-back-button";}
+  }
+  </script>
+</body> 
+</html>

@@ -244,4 +244,10 @@ public class ManagerReserva {
 		Query q = em.createQuery(consulta, FacReserva.class);
 		return q.getResultList();
 	}
+	
+	public List<FacDetalle> findDetallesReservas(Integer IdReserva) {
+		String consulta = "select d from FacDetalle d where idreserva='"+IdReserva+"'";
+		Query q = em.createQuery(consulta, FacDetalle.class);
+		return q.getResultList();
+	}
 }
