@@ -81,8 +81,8 @@ public class BeanReserva implements Serializable {
 		facturaCabTmpGuardada=false;
 		listaHabitaciones = new ArrayList<InvHabitacione>();
 		listaHabitacionesRESP = new ArrayList<InvHabitacione>();
-		numeroAdultos = new ArrayList<Integer>(); 								
-		numeroNiños = new ArrayList<Integer>();	
+		// numeroAdultos = new ArrayList<Integer>(); 								
+		// numeroNiños = new ArrayList<Integer>();	
 		maxNiños = 0;	
 		maxAdultos = 4;
 		adultos = 0;	

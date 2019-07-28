@@ -5,7 +5,15 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.wildfly.security.mechanism.digest.DigestUtil;
 
 import habitaciones.controller.JSFUtil;
 import hoteleria.model.entities.InvUsuario;
@@ -25,39 +33,72 @@ public class BeanRegistro implements Serializable{
 	private String correo;
 	private String clave;
 	private InvUsuario usuario = new InvUsuario(); 
+	private boolean statusForm = false;
+	@Inject
+	private BeanLogin beanLogin;
 	
-	public void registrarUsuario() {
+	public String encrypt(String clave) {
+		String cryptd = DigestUtils.sha1Hex(clave);
+		return cryptd;
+	}
+	public String registrarUsuario() {
 		try {
 			usuario.setNombresusuario(nombres);
 			usuario.setApellidosusuario(apellidos);
 			usuario.setDireccion(domicilio);
 			usuario.setTelefono(telefono);
 			usuario.setCorreo(correo);
-			usuario.setClave(clave);
+			usuario.setClave(encrypt(clave));
 			usuario.setEstado(1);
 			usuario.setFechacreacion(new Date());
 			usuario.setFechaactualizacion(new Date());
 			usuario = managerSeguridad.registrarUsuario(usuario);
 			if(usuario==null) {
-				throw new Exception("No se encuentran llenos todos los datos");}
-			else {
-				JSFUtil.crearMensajeInfo("Usuario registrado ahora Inicie la Sesión.");
-				nombres="";
-				apellidos="";
-				domicilio="";
-				telefono="";
-				correo="";
-				clave="";
+			//	throw new Exception("");
+				JSFUtil.crearMensajeError("No se encuentran llenos todos los datos");
 			}
-			// return "login?faces-redirect=true";
+			else {
+						// JSFUtil.crearMensajeInfo("Usuario registrado ahora Inicie la Sesión.");
+						nombres="";
+						apellidos="";
+						domicilio="";
+						telefono="";
+						correo="";
+						clave="";
+						beanLogin.setMsj("Usuario Registrado");
+						return "/login.xhtml?faces-redirect=true";
+				}
+			
+			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError("Error al registrar, verifique el formato de los valores");
 			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public void validatePass(String p){
+		try {
+			if (((String)p).length()<8) {
+		    	 // throw new Exception("No se encuentran llenos todos los datos");
+		    	  // JSFUtil.crearMensajeError("La contraseña debe tener al menos 8 caracteres ");
+		      }else {
+		    	  statusForm = true;
+		      }
+		}catch (Exception e) {
+			      JSFUtil.crearMensajeError("La contraseña debe tener minimo 8 digitos");
+			//e.printStackTrace();
 		}
 	}
 	
 	
 	
+	public boolean isStatusForm() {
+		return statusForm;
+	}
+	public void setStatusForm(boolean statusForm) {
+		this.statusForm = statusForm;
+	}
 	public String getNombres() {
 		return nombres;
 	}

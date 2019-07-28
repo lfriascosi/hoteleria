@@ -51,9 +51,9 @@
 					size="30" maxlength="20"
 					requiredMessage="Debe ingresar su correo." />
 				<h:outputText value="Clave:" /><label style="Color:red;">*</label>
-				<p:password value="#{beanRegistro.clave}" required="true" size="30"
-					maxlength="20" requiredMessage="Debe registrar una clave de acceso.">
-					<f:validateLength minimum="8"></f:validateLength>	
+				<p:password id="pass" value="#{beanRegistro.clave}" required="true" size="30"
+					maxlength="20" requiredMessage="Debe registrar una clave de acceso." >
+					 <f:validateLength minimum="8"></f:validateLength>
 				</p:password>
 				<p:commandButton value="Confirmar" 
 					action="#{beanRegistro.registrarUsuario()}" update="mensajes" />

@@ -38,7 +38,9 @@ public class ManagerSeguridad {
 	 * un error con la consulta a la base de datos.
 	 */
 	public LoginDTO accederSistema(String codigoUsuario,String clave) throws Exception{
+		
 		InvUsuario usuario=(InvUsuario)managerDAO.findUser(InvUsuario.class, codigoUsuario);
+		System.out.println("Clave BBDD:"+usuario.getClave()+" y Clave ACCESO:"+clave);
 		if(usuario==null)
 			throw new Exception("Error en usuario y/o clave.");
 		

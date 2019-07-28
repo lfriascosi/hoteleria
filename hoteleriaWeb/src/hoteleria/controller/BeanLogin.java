@@ -2,8 +2,10 @@ package hoteleria.controller;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import hoteleria.model.dto.LoginDTO;
@@ -35,6 +37,7 @@ public class BeanLogin implements Serializable{
 	private InvRole rol;
 	private List<InvRole> nominaRol = new ArrayList<InvRole>();
 	private boolean acceso=false;
+	private String msj = "";
 	@EJB
 	private ManagerSeguridad managerSeguridad;
 	private LoginDTO loginDTO;
@@ -49,10 +52,25 @@ public class BeanLogin implements Serializable{
 	 * Action que permite el acceso al sistema.
 	 * @return
 	 */
+	
+	public String encrypt(String clave) {
+		String cryptd = DigestUtils.sha1Hex(clave);
+		return cryptd;
+	}
+	
+	
+	
+	
+	public String getMsj() {
+		return msj;
+	}
+	public void setMsj(String msj) {
+		this.msj = msj;
+	}
 	public String accederSistema(){
 		acceso=false;
 		try {
-			loginDTO=managerSeguridad.accederSistema(codigoUsuario, clave);
+			loginDTO=managerSeguridad.accederSistema(codigoUsuario, encrypt(clave));
 			//verificamos el acceso del usuario:
 			idUsuario = loginDTO.getIdUsuario();
 			tipoUsuario=loginDTO.getTipoUsuario();
@@ -159,7 +177,21 @@ public class BeanLogin implements Serializable{
 	public String salirSistema(){
 		System.out.println("salirSistema");
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		System.out.println("SALE Y USUARIO: "+codigoUsuario);
 		return "/index.html?faces-redirect=true";
+	}
+
+	public void showMessages() {
+		System.out.println("SALE Y USUARIO: "+codigoUsuario);
+		System.out.println("ELMENSAJE:"+msj);
+		System.out.println("Ad12345678:" +encrypt("Ad12345678"));
+		System.out.println("Ge12345678:" + encrypt("Ge12345678"));
+		System.out.println("Re12345678:" + encrypt("Re12345678"));
+		System.out.println("Au12345678:" + encrypt("Au12345678"));
+		if(msj != "") {
+			JSFUtil.crearMensaje(FacesMessage.SEVERITY_INFO,msj,null);
+			msj="";
+		}
 	}
 	
 	public void actionVerificarLogin(){
@@ -187,7 +219,22 @@ public class BeanLogin implements Serializable{
 		}
 	}
 	
-	
+	public void actionVerificarLogin_ForLogin(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String requestPath=ec.getRequestPathInfo();
+		try {
+			//si ya pasó por login:
+			if(codigoUsuario == null){
+				showMessages();
+				
+			}else{
+				ec.redirect(ec.getRequestContextPath() + "/faces" + loginDTO.getRutaAcceso()+"?faces-redirect=true");
+				// return;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public List<String> getListadoRoles() {
 		return listadoRoles;

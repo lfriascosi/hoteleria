@@ -4,6 +4,16 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 public class JSFUtil {
+	
+	private String mensaje = "";
+	
+	
+	public String getMensaje() {
+		return mensaje;
+	}
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
 	public static void crearMensajeInfo(String mensaje) {
 		FacesMessage msg = new FacesMessage();
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
