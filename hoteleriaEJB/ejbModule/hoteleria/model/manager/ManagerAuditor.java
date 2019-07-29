@@ -36,6 +36,10 @@ public class ManagerAuditor {
 		Query q = em.createQuery(consulta2, Bitacora.class);
 		return q.getResultList();
 	}
+    public InvUsuario findInvUsuarioById() {
+    	int id=19;
+		return em.find(InvUsuario.class, id);
+	}
     
     @SuppressWarnings("rawtypes")
 	public void mostrarLog(Class clase, String nombreMetodo, String mensaje) {

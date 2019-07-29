@@ -14,7 +14,8 @@
 	</p:growl>
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Bitacora" action="index" icon="fa fa-cog"></p:menuitem>
+			<p:menuitem value="Bitacora" action="index" icon="fa fa-home"></p:menuitem>
+			<p:menuitem value="Perfil" action="perfil" icon="fa fa-user"></p:menuitem>
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
 					icon="fa fa-sign-out" />
@@ -26,18 +27,22 @@
 		<p:autoUpdate />
 	</p:messages>
 	<h:form id="form2">
-		<p:dataTable border="1" value="#{beanAuditor.listaBitacoras}"
-			var="b" paginator="true" rows="6" id="tabla1" reflow="true">
-			<p:column headerText="ID" style="width:80px">
+		<p:dataTable border="1" value="#{beanAuditor.listaBitacoras}" var="b"
+			paginator="true" rows="15" rowsPerPageTemplate="10,15,30,50" id="tabla1" reflow="true">
+			<p:column headerText="ID" sortBy="#{b.idbitacora}" style="width:80px">
 				<h:outputText value="#{b.idbitacora}"></h:outputText>
 			</p:column>
 			<p:column headerText="USUARIO">
-				<h:outputText value="#{b.invUsuario.nombresusuario} #{b.invUsuario.apellidosusuario}"></h:outputText>
+				<h:outputText
+					value="#{b.invUsuario.nombresusuario} #{b.invUsuario.apellidosusuario}"></h:outputText>
+			</p:column>
+			<p:column headerText="METODO EVENTO">
+				<h:outputText value="#{b.metodo}"></h:outputText>
 			</p:column>
 			<p:column headerText="DESCRIPCIÓN EVENTO">
 				<h:outputText value="#{b.descripcionevento}"></h:outputText>
 			</p:column>
-			<p:column headerText="FECHA" >
+			<p:column headerText="FECHA" sortBy="#{b.fechaevento},#{b.horaevento}">
 				<h:outputText value="#{b.fechaevento} #{b.horaevento}"></h:outputText>
 			</p:column>
 			<p:column headerText="DIRECCIÓN IP">

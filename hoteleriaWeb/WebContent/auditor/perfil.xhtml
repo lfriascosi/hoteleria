@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Bitacoras</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Bitacora" action="index" icon="fa fa-home"></p:menuitem>
+			<p:menuitem value="Perfil" action="perfil" icon="fa fa-user"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br />
+	<p:messages>
+		<p:autoUpdate />
+	</p:messages>
+
+	<h:form id="form2">
+		<p:panel header="Datos auditor" style="position: absolute;top:30%;left:35%;width:500px;">
+			<p:panelGrid columns="2"
+				>
+				<h:outputText value="Nombre" />
+				<h:outputLabel value="#{beanAuditor.usuario.nombresusuario}" />
+				<h:outputText value="Apellido" />
+				<p:outputLabel value="#{beanAuditor.usuario.apellidosusuario}" />
+				<h:outputText value="Correo" />
+				<p:outputLabel value="#{beanAuditor.usuario.correo}" />
+				<h:outputText value="Dirección" />
+				<p:outputLabel value="#{beanAuditor.usuario.direccion}" />
+				<h:outputText value="Telefono" />
+				<p:outputLabel value="#{beanAuditor.usuario.telefono}" />
+				<h:outputText value="Fecha registro" />
+				<p:outputLabel value="#{beanAuditor.usuario.fechacreacion}" />
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+</body>
+</html>

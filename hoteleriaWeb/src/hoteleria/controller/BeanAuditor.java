@@ -9,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import hoteleria.model.entities.Bitacora;
+import hoteleria.model.entities.InvUsuario;
 import hoteleria.model.manager.ManagerAuditor;
 
 @Named
@@ -18,10 +19,12 @@ public class BeanAuditor implements Serializable {
 	@EJB
 	private ManagerAuditor managerAuditor;
 	private List<Bitacora> listaBitacoras;
+	private InvUsuario usuario;
 
 	@PostConstruct
 	public void inicializar() {
 		listaBitacoras = managerAuditor.findAllBitacoras();
+		usuario=managerAuditor.findInvUsuarioById();
 	}
 
 	public List<Bitacora> getListaBitacoras() {
@@ -30,6 +33,14 @@ public class BeanAuditor implements Serializable {
 
 	public void setListaBitacoras(List<Bitacora> listaBitacoras) {
 		this.listaBitacoras = listaBitacoras;
+	}
+
+	public InvUsuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(InvUsuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
