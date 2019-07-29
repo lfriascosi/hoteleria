@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -60,6 +62,7 @@ public class BeanReserva implements Serializable {
 	private boolean activGuardar=false;
 	
 	
+	
 	private Integer adultos = 0;	
 	private Integer niños = 0;				
 	private List<Integer> numeroAdultos = new ArrayList<Integer>(); 								
@@ -75,6 +78,7 @@ public class BeanReserva implements Serializable {
 	}
 	
 	public void resetParams() {
+		System.out.println("Reset params");
 		activForm = false;
 		activGuardar=false;
 		verDeshacer = false;
@@ -94,6 +98,7 @@ public class BeanReserva implements Serializable {
 	
 	@PostConstruct
 	public void inicializar() {
+		// System.out.println(facturaCabTmp.getFacDetalles().size());
 		//this.crearNuevaReserva();
 		llenarListaAdultos();llenarListaNiños();
 	}
@@ -151,7 +156,7 @@ public class BeanReserva implements Serializable {
 	 * @return
 	 */
 	public void insertarDetalle(Integer idHabitacion){
-		System.out.println("VAMOS A RESERVAR");
+		System.out.println("insertarDetalle()");
 		if(facturaCabTmpGuardada==true){
 			JSFUtil.crearMensajeWaring("La reserva ya está realizada.");
 			
@@ -216,8 +221,8 @@ public class BeanReserva implements Serializable {
 		try {
 			managerReserva.guardarFacturaTemporal(beanLogin.getIdUsuario(),facturaCabTmp);
 			facturaCabTmpGuardada=true;
-			resetParams();
-			JSFUtil.crearMensajeInfo("Reserva Guardada");
+			this.resetParams();
+			beanLogin.setMsj("Reserva Guardada");
 			return "./reservaciones.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
@@ -227,15 +232,21 @@ public class BeanReserva implements Serializable {
 	}
 	
 	public void buscarHabitacion() {	
-		int c = adultos + niños;
-		
-		if(c == 3) {
-			c = 4;
+		if(adultos == 0 && niños >0) {
+			JSFUtil.crearMensajeError("Los niños deben ser acompañados por una persona adulta");
+		}else {
+			int c = adultos + niños;
+			
+			if(c == 3) {
+				c = 4;
 		}
 		listaHabitaciones = managerHabitaciones.findHabitacionesPerCapacidad(c);
+		}
 	}
 	
-	
+	public String irReservar() {
+			return "/index.xhtml?faces-redirect=true";
+	}
 	
 	
 	

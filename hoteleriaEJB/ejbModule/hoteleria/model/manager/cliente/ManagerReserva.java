@@ -123,6 +123,9 @@ public class ManagerReserva {
 				System.out.println("Obligatorio ingresar fechas");
 				return false;
 			}else {
+				if(fechaEntrada.equals(fa) && fechaSalida.after(fechaEntrada)) {
+					return true;
+				}
 				if(fechaEntrada.before(fechaSalida) && (fechaEntrada.equals(fa) || fechaEntrada.after(fa))) 
 					return true;
 				else 
@@ -178,9 +181,9 @@ public class ManagerReserva {
 	public void guardarFacturaTemporal(Integer IdUsuario,FacReserva facturaCabTmp) throws Exception{
 		
 		if(facturaCabTmp==null)
-			throw new Exception("Debe crear una factura primero.");
+			throw new Exception("Primero habilite la reservación.");
 		if(facturaCabTmp.getFacDetalles()==null || facturaCabTmp.getFacDetalles().size()==0)
-			throw new Exception("Debe ingresar los productos en la factura.");
+			throw new Exception("Debe seleccionar habitaciones");
 		//obtenemos el numero de la nueva factura:
 		
 		//asignacion del usuario que crea la factura
@@ -203,7 +206,9 @@ public class ManagerReserva {
 		
 		
 		for(FacDetalle det:facturaCabTmp.getFacDetalles()){
+			System.out.println("Detalle Reserva: "+det.getInvHabitacione().getDescripcion());
 			det.setFacReserva(facturaCabTmp);
+			// managerDAO.insertar(det);
 		}
 		
 		System.out.println("----------------------------------------------------------------");

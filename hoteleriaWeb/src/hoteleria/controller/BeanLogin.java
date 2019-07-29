@@ -146,7 +146,7 @@ public class BeanLogin implements Serializable{
 			if(this.rolSeleccionado.equals("Recepcionista")) {
 				//FacesContext contex = FacesContext.getCurrentInstance();
 	            // contex.getExternalContext().redirect("../administrador/usuarios.xhtml" );
-				loginDTO.setRutaAcceso("/recepcionista/reservacion.xhtml");
+				loginDTO.setRutaAcceso("/recepcionista/inicio.xhtml");
 			} else if(this.rolSeleccionado.equals("Cliente")) {
 				loginDTO.setRutaAcceso("/cliente/inicio.xhtml");
 			} else if(this.rolSeleccionado.equals("Administrador")) {
@@ -203,16 +203,21 @@ public class BeanLogin implements Serializable{
 				ec.redirect(ec.getRequestContextPath() + "/index.html");
 			}else{
 				//validar las rutas de acceso:
-				if(requestPath.contains("/recepcionista") && loginDTO.getRutaAcceso().startsWith("/recepcionista"))
-					return;
-				if(requestPath.contains("/cliente") && loginDTO.getRutaAcceso().startsWith("/cliente"))
-					return;
-				if(requestPath.contains("/Gerente") && loginDTO.getRutaAcceso().startsWith("/Gerente"))
-					return;
-				if(requestPath.contains("/administrador") && loginDTO.getRutaAcceso().startsWith("/administrador"))
-					return;
+				if(requestPath.contains("/recepcionista") && loginDTO.getRutaAcceso().startsWith("/recepcionista")) {
+					showMessages();
+					return;}
+				if(requestPath.contains("/cliente") && loginDTO.getRutaAcceso().startsWith("/cliente")) {
+					showMessages();
+					return;}
+				if(requestPath.contains("/Gerente") && loginDTO.getRutaAcceso().startsWith("/Gerente")) {
+					showMessages();
+					return;}
+				if(requestPath.contains("/administrador") && loginDTO.getRutaAcceso().startsWith("/administrador")) {
+					showMessages();
+					return;}else {
 				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
 				ec.redirect(ec.getRequestContextPath() + "/index.html");
+					}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

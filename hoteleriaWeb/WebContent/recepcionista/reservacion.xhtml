@@ -14,7 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<h:head><title>Recepcionista</title>
+<h:head><title>Bello Amanecer</title>
 <style type="text/css">
     .animated .ui-progressbar-value { 
         background-image: url("#{resource['demo/images/pbar-ani.gif']}"); 
@@ -109,18 +109,28 @@
 				</h:panelGrid>
 				<p:panel id="panel1">
 			<p:outputPanel columns="4" border="1">
-			<h:form id="form3">
+			
 			<p:outputPanel>
 			
-				<h:outputText value="TOTAL: "  style="Color:maroon;"/>
-					<h:outputText value="#{beanReservas.facturaCabTmp.total}">
-										<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
-											currencySymbol="$" />
-									</h:outputText>
+				<strong><h:outputText value="SUBTOTAL " style="Color:green;" /></strong>
+						<h:outputText value="#{beanReservas.facturaCabTmp.subtotal}">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+								currencySymbol="$" />
+						</h:outputText><br></br>
+					<strong><h:outputText value="IVA: " style="Color:blue;" /></strong>
+						<h:outputText value="#{beanReservas.facturaCabTmp.valorIva}">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+								currencySymbol="$" />
+						</h:outputText><br></br>
+						<strong><h:outputText value="TOTAL: " style="Color:maroon;" /></strong>
+						<h:outputText value="#{beanReservas.facturaCabTmp.total}">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+								currencySymbol="$" />
+						</h:outputText><br></br>
 					<p:commandButton value="Deshacer Reservas"
-						action="#{beanReservas.deshacerReservas()}" update="form2,form3"
+						action="#{beanReservas.deshacerReservas()}" update="form2"
 						icon="fa fa-cancel" disabled="#{beanReservas.verDeshacer==false}" />
-					 <p:dataTable value="#{beanReservas.facturaCabTmp.facDetalles}" style="width:510px"
+					 <p:dataTable emptyMessage="Agregue habitaciones" value="#{beanReservas.facturaCabTmp.facDetalles}" style="width:510px"
 						var="d" id="tablaFacturaDets">
 						<p:column headerText="Tipo Habitación">
 							<h:outputText value=" #{d.invHabitacione.invTiposhabitacione.nombretipohabitacion}" />
@@ -135,7 +145,7 @@
 						
 					</p:dataTable> <br></br>
 					</p:outputPanel>
-				</h:form>
+				
 				</p:outputPanel>
 				</p:panel>
 				</h:panelGroup>
@@ -153,12 +163,9 @@
 						<h:outputText value="#{habitaciones.numeropiso}" /><br></br>
 						<strong><h:outputText value="Precio: " /></strong>
 						<h:outputText value="#{habitaciones.precio}" /><br></br>
-					<p:commandButton icon="fa fa-check" value="reservar" title="Reservar" update="form2:form3,form2"
-						actionListener="#{beanReservas.insertarDetalle(habitaciones.idhabitacion)}">
-						
-					</p:commandButton>
-		
-				
+						<p:commandButton icon="fa fa-check" value="reservar" title="Reservar" update="form2"
+							actionListener="#{beanReservas.insertarDetalle(habitaciones.idhabitacion)}">
+						</p:commandButton>
 					</p:column>					
 				</p:dataTable>
 				</h:form>

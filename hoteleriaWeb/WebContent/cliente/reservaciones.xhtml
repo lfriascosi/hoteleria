@@ -34,15 +34,16 @@
 	</h:form>
 	<br/>
 	<h:form id="form">
-	
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
 	<p:commandButton value="Actualizar Lista" 
 			 update="listaReservas" action="#{beanMisReservas.obtenerMisReservas()}" 
 			 icon="fa fa-list"/>
 			 
-			<p:panel header="Mis Reservaciones">
-				<p:dataTable id="listaReservas" value="#{beanMisReservas.listaMisReservas}" style="width:50%;position:relative;left:25%;" reflow="true"
+				<p:dataTable paginator="true" rows="5" emptyMessage="Actualice la lista porfavor" id="listaReservas" value="#{beanMisReservas.listaMisReservas}" style="width:50%;position:relative;left:25%;" reflow="true"
 					var="r" >
-					<p:column headerText="Fecha Reserva" 
+					<p:column headerText="Habitaciones Reservadas" 
 						filterMatchMode="contains" priority="1">
 						<strong>Fecha: </strong><h:outputText value="#{r.fechareserva}" /><br></br>
 						<strong>Hora: </strong><h:outputText value="#{r.horareserva}" /><br></br>
@@ -54,7 +55,7 @@
 						<br></br>
 							
 							<strong>Detalles: </strong>
-							<p:dataTable id="detalles" value="#{beanMisReservas.extraerDetalles(r.idreserva)}"  reflow="true"
+							<p:dataTable id="detalles" emptyMessage="No hay habitaciones" value="#{beanMisReservas.extraerDetalles(r.idreserva)}"  reflow="true"
 								var="d" >
 								<p:column headerText="tipo Habitación" 
 									filterMatchMode="contains" priority="1">
@@ -66,7 +67,7 @@
 					</p:column>
 					
 				</p:dataTable>
-			</p:panel>
+			
 		</h:form> 
 </body> 
 </html>

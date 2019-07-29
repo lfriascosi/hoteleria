@@ -3,7 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+xmlns:p="http://primefaces.org/ui">
 <f:metadata>
 	<f:event listener="#{beanLogin.actionVerificarLogin()}"
 		type="preRenderView"></f:event>
@@ -25,9 +25,9 @@
     }
 </style>
 		<p:menubar>
-			<p:menuitem value="Cliente" style="Color:maroon;"></p:menuitem>
-			<p:menuitem value="Reservar" action="index" icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Reservaciones" action="reservaciones" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Recepcionista" style="Color:maroon;"></p:menuitem>
+			<p:menuitem value="Reservar" action="reservación" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Reservaciones" action="reservas" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
 				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
@@ -35,10 +35,9 @@
 		</p:menubar>
 		</h:form>
 		<div class="jumbotron" style="text-align:center;"><h3 class="text-secondary">HOTEL BELLO AMANECER</h3>
-		<h5 class="text-secondary">Nos complace servirte</h5></div>
+		<h5 class="text-secondary">RECEPCIÓN</h5></div>
 	
-		<h:graphicImage style="width:670px;height:400px" value="../suites/images/Familiar.jpg" />
-		<h:graphicImage style="width:670px;height:400px;" value="../suites/images/Individual.jpg" />
+			
 						 
 
 <!-- Bloquea el boton de regresar del navegador -->     
@@ -50,4 +49,7 @@
   }
   </script>
 </body> 
+      
+
+ 
 </html>

@@ -1,44 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <f:metadata>
 	<f:event listener="#{beanLogin.actionVerificarLogin()}"
 		type="preRenderView"></f:event>
 </f:metadata>
-    <meta charset="utf-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <h:head>
 	<title>Bello Amanecer</title>
-</h:head> 
-<body> 
-<h:form>
-<style type="text/css">
-    .value {
-        font-weight: bold;
-    }
+</h:head>
+<body>
+	<h:form>
+		<style type="text/css">
+.value {
+	font-weight: bold;
+}
 </style>
 		<p:menubar>
 			<p:menuitem value="Cliente" style="Color:maroon;"></p:menuitem>
 			<p:menuitem value="Reservar" action="index" icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Reservaciones" action="reservaciones" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Reservaciones" action="reservaciones"
+				icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
-				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
-				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+				<p:outputLabel value="#{beanLogin.usuario}"
+					style="Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
 			</f:facet>
 		</p:menubar>
 	</h:form>
-	<br/>
+	<br />
 
 	<div class="Container">
-	<!-- <div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div> -->
-	<p:growl>
+		<!-- <div class="jumbotron"><h3 class="text-secondary">CLIENTE</h3></div> -->
+		<p:growl>
 			<p:autoUpdate />
 		</p:growl>
 		<!-- <h:form id="form">
@@ -63,73 +71,97 @@
 				</p:dataTable>
 			</p:panel>
 		</h:form> -->
-		
-	<h:form id="form1">
-	<div class="alert alert-secondary">
-			  <strong>Reservar Habitaciones</strong>
-	</div>
-	 <p:commandButton action="#{beanReserva.crearNuevaReserva()}"
-					value="Crear nueva reserva" 
-					icon="fa fa-file-o" update="form1: form2"
-					disabled="#{beanReserva.activForm==true}"/> 
-	<p:commandButton value="Guardar factura" icon="fa fa-save"
-					action="#{beanReserva.guardarFactura()}" update="@form" disabled="#{beanReserva.activGuardar==false}"/>
-	</h:form>
-		
+
+		<h:form id="form1">
+			<p:commandButton action="#{beanReserva.crearNuevaReserva()}"
+				value="Crear nueva reserva" icon="fa fa-file-o"
+				update="form1: form2" disabled="#{beanReserva.activForm==true}" />
+			<p:commandButton value="Confirmar Reserva" icon="fa fa-save"
+				action="#{beanReserva.guardarFactura()}" update="@form"
+				disabled="#{beanReserva.activGuardar==false}" />
+		</h:form>
+		 <br></br>
+				<div class="alert alert-secondary">
+				<strong>Resúmen Habitaciones</strong>
+
+			</div> 
 		
 		<p:panel id="panel1">
-			<p:outputPanel columns="4" border="1">
-			<h:form id="form3">
-			<p:outputPanel>
-			
-				<h:outputText value="TOTAL: "  style="Color:maroon;"/>
-					<h:outputText value="#{beanReserva.facturaCabTmp.total}">
-										<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
-											currencySymbol="$" />
-									</h:outputText>
-					<p:commandButton value="Deshacer Reservas"
-						action="#{beanReserva.deshacerReservas()}" update="form2,form3"
-						icon="fa fa-cancel" disabled="#{beanReserva.verDeshacer==false}" />
-					 <p:dataTable value="#{beanReserva.facturaCabTmp.facDetalles}" style="width:510px"
-						var="d" id="tablaFacturaDets">
-						<p:column>
-							<h:outputText value="Habitacion #{d.invHabitacione.invTiposhabitacione.nombretipohabitacion}
-							nro: #{d.invHabitacione.numerohabitacion}, piso#{d.invHabitacione.numeropiso} " />
-						</p:column>
+			<p:outputPanel columns="8" border="3">
+				<h:form id="form3">
+					<p:outputPanel>
+					<strong><h:outputText value="SUBTOTAL " style="Color:green;" /></strong>
+						<h:outputText value="#{beanReserva.facturaCabTmp.subtotal}">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+								currencySymbol="$" />
+						</h:outputText><br></br>
+					<strong><h:outputText value="IVA: " style="Color:blue;" /></strong>
+						<h:outputText value="#{beanReserva.facturaCabTmp.valorIva}">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+								currencySymbol="$" />
+						</h:outputText><br></br>
+						<strong><h:outputText value="TOTAL: " style="Color:maroon;" /></strong>
+						<h:outputText value="#{beanReserva.facturaCabTmp.total}">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+								currencySymbol="$" />
+						</h:outputText><br></br>
 						
-					</p:dataTable> <br></br>
+						<p:commandButton value="Deshacer Habitaciones"
+							action="#{beanReserva.deshacerReservas()}" update="form2,form3"
+							icon="fa fa-cancel" disabled="#{beanReserva.verDeshacer==false}" />
+						<p:dataTable  emptyMessage="Debe seleccionar habitaciones"
+							value="#{beanReserva.facturaCabTmp.facDetalles}"
+							style="width:510px" var="d" id="tablaFacturaDets">
+							<p:column headerText="Detalles">
+								<h:outputText
+									value="Habitacion #{d.invHabitacione.invTiposhabitacione.nombretipohabitacion}
+							nro: #{d.invHabitacione.numerohabitacion}, piso#{d.invHabitacione.numeropiso} " /><br></br>
+							<h:outputText value="Precio $ #{d.invHabitacione.precio}" />
+							</p:column>
+
+						</p:dataTable>
+						<br></br>
 					</p:outputPanel>
+				
+					
 				</h:form>
-				</p:outputPanel>
-				</p:panel>
-				<div class="alert alert-secondary">
-			  		<strong>Disponiblidad Habitaciones</strong>
-				</div>
-				<p:panel id="panel2">
-				<p:outputPanel columns="4" border="1">
+			</p:outputPanel>
+		</p:panel><br></br>
+			<div class="alert alert-secondary">
+			<strong>Seleccionar Habitaciones</strong>
+		</div>
+		<p:panel id="panel2">
+			<p:outputPanel columns="4" border="1">
 				<h:form id="form2">
-				<h:panelGrid columns="6" cellpadding="10">
-					<p:outputLabel for="fecha" value="Fecha Ingreso:" />
-    			    <p:calendar id="fecha" value="#{beanReserva.fechaEntrada}" disabled="#{beanReserva.activGuardar==false}"/>
-					<p:outputLabel for="fechaSalida" value="Fecha Salida:" />
-    			    <p:calendar id="fechaSalida" value="#{beanReserva.fechaSalida}" disabled="#{beanReserva.activGuardar==false}"/>
-    			    </h:panelGrid>
-				<h:panelGroup>
 					<h:panelGrid columns="6" cellpadding="10">
-					<h:outputText value="Adultos:" />
-					<p:selectOneMenu value="#{beanReserva.adultos}" id="sadultos" disabled="#{beanReserva.activGuardar==false}">
-					<f:selectItems value="#{beanReserva.numeroAdultos}" />
-					<p:ajax event="valueChange" listener="#{beanReserva.actCuposNiños()}" update="sniños"></p:ajax>
-					</p:selectOneMenu>
-					<h:outputText value="Niños:" />
-					<p:selectOneMenu value="#{beanReserva.niños}" id="sniños" disabled="#{beanReserva.activGuardar==false}">
-					<f:selectItems value="#{beanReserva.numeroNiños}" />
-					<p:ajax event="valueChange" listener="#{beanReserva.actCuposAdultos()}" update="sadultos"></p:ajax>
-					</p:selectOneMenu>
-					<p:commandButton value="Buscar" disabled="#{beanReserva.activGuardar==false}"
-						action="#{beanReserva.buscarHabitacion()}" update="form2"
-						icon="fa fa-search" />
-									<!-- <h:outputText value="Tipo habitación" />
+						<p:outputLabel for="fecha" value="Fecha Ingreso:" />
+						<p:calendar id="fecha" value="#{beanReserva.fechaEntrada}"
+							disabled="#{beanReserva.activGuardar==false}" />
+						<p:outputLabel for="fechaSalida" value="Fecha Salida:" />
+						<p:calendar id="fechaSalida" value="#{beanReserva.fechaSalida}"
+							disabled="#{beanReserva.activGuardar==false}" />
+					</h:panelGrid>
+					<h:panelGroup>
+						<h:panelGrid columns="6" cellpadding="10">
+							<h:outputText value="Adultos:" />
+							<p:selectOneMenu value="#{beanReserva.adultos}" id="sadultos"
+								disabled="#{beanReserva.activGuardar==false}">
+								<f:selectItems value="#{beanReserva.numeroAdultos}" />
+								<p:ajax event="valueChange"
+									listener="#{beanReserva.actCuposNiños()}" update="sniños"></p:ajax>
+							</p:selectOneMenu>
+							<h:outputText value="Niños:" />
+							<p:selectOneMenu value="#{beanReserva.niños}" id="sniños"
+								disabled="#{beanReserva.activGuardar==false}">
+								<f:selectItems value="#{beanReserva.numeroNiños}" />
+								<p:ajax event="valueChange"
+									listener="#{beanReserva.actCuposAdultos()}" update="sadultos"></p:ajax>
+							</p:selectOneMenu>
+							<p:commandButton value="Buscar"
+								disabled="#{beanReserva.activGuardar==false}"
+								action="#{beanReserva.buscarHabitacion()}" update="form2"
+								icon="fa fa-search" />
+							<!-- <h:outputText value="Tipo habitación" />
 					<p:selectOneMenu value="#{beanReserva.idTipoHabitacion}" disabled="#{beanReserva.activForm==false}">
 					<f:selectItem itemLabel="Seleccione" itemValue="-1"
 						noSelectionOption="true" />
@@ -143,38 +175,42 @@
 							noSelectionOption="true" />
 					<f:selectItems value="#{beanReserva.listaHabitacionesSI}" />
 					</p:selectOneMenu> -->
-					</h:panelGrid>
-				</h:panelGroup>
-					<p:dataTable value="#{beanReserva.listaHabitaciones}" reflow="true"
-					var="habitaciones" >
-					<p:column>
-							<h:graphicImage style="width:400px;" value="../imagenes/cama.jpg" />
+						</h:panelGrid>
+					</h:panelGroup>
+					<p:dataTable  emptyMessage="Esperando consulta..." value="#{beanReserva.listaHabitaciones}" reflow="true"
+						var="habitaciones">
+						<p:column>
+							<h:graphicImage style="width:400px;" value="../suites/images/Individual.jpg" />
 						</p:column>
-					<p:column 
-						filterMatchMode="contains" priority="1">
-						<h:outputText value="Habitación #{habitaciones.descripcion}" /><br></br>
-						<strong><h:outputText value="Nro: " /></strong>
-						<h:outputText value="#{habitaciones.numerohabitacion}" /><br></br>
-						<strong><h:outputText value="Nro Piso: " /></strong>
-						<h:outputText value="#{habitaciones.numeropiso}" /><br></br>
-						<strong><h:outputText value="Precio: " /></strong>
-						<h:outputText value="#{habitaciones.precio}" /><br></br>
-					<p:commandButton icon="fa fa-check" value="reservar" title="Reservar" update="form3,form2"
-						actionListener="#{beanReserva.insertarDetalle(habitaciones.idhabitacion)}">
-						
-					</p:commandButton>
-		
-				
-					</p:column>					
-				</p:dataTable>
+						<p:column filterMatchMode="contains" priority="1">
+							<h:outputText value="Habitación #{habitaciones.descripcion}" />
+							<br></br>
+							<strong><h:outputText value="Nro: " /></strong>
+							<h:outputText value="#{habitaciones.numerohabitacion}" />
+							<br></br>
+							<strong><h:outputText value="Nro Piso: " /></strong>
+							<h:outputText value="#{habitaciones.numeropiso}" />
+							<br></br>
+							<strong><h:outputText value="Precio: " /></strong>
+							<h:outputText value="#{habitaciones.precio}" />
+							<br></br>
+							<p:commandButton icon="fa fa-check" value="reservar"
+								title="Reservar" update="form3,form2"
+								actionListener="#{beanReserva.insertarDetalle(habitaciones.idhabitacion)}">
+
+							</p:commandButton>
+
+
+						</p:column>
+					</p:dataTable>
 				</h:form>
-				
-			<!-- <h:commandButton  value="Agregar" /> -->	
+
+				<!-- <h:commandButton  value="Agregar" /> -->
 			</p:outputPanel>
 		</p:panel>
 	</div>
 
-<!-- Bloquea el boton de regresar del navegador -->     
+	<!-- Bloquea el boton de regresar del navegador -->
 	<script>
   function nobackbutton(){
    window.location.hash="no-back-button";
@@ -182,7 +218,7 @@
    window.onhashchange=function(){window.location.hash="no-back-button";}
   }
   </script>
-  <script type="text/javascript">    
+	<script type="text/javascript">    
     PrimeFaces.locales['de'] = {
         closeText: 'Schließen',
         prevText: 'Zurück',
@@ -210,5 +246,5 @@
         allDayText: 'Ganzer Tag'
     };
 </script>
-</body> 
+</body>
 </html>

@@ -40,9 +40,9 @@
 				<p:password value="#{beanLogin.clave}" required="true" size="20"
 					maxlength="10" requiredMessage="Debe ingresar su contraseña." />
 				<p:commandButton value="Ingresar" icon="fa fa-key"
-					action="#{beanLogin.accederSistema()}" update="mensajes" />
+					action="#{beanLogin.accederSistema()}"  />
 			</h:panelGrid>
-			<p:messages id="mensajes" />
+			
 		</p:panel>
 	</h:form>
 </body> 

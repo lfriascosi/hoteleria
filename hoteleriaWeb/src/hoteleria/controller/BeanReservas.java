@@ -168,6 +168,9 @@ public class BeanReservas implements Serializable {
 	private List<Integer> numeroNiños = new ArrayList<Integer>();																		
 	private Integer maxNiños = 0;	
 	private Integer maxAdultos = 4;
+	@Inject
+	private BeanLogin beanLogin;
+	
 	
 	public void resetParams() {
 		activForm = false;
@@ -176,8 +179,8 @@ public class BeanReservas implements Serializable {
 		facturaCabTmpGuardada=false;
 		listaHabitaciones = new ArrayList<InvHabitacione>();
 		listaHabitacionesRESP = new ArrayList<InvHabitacione>();
-		numeroAdultos = new ArrayList<Integer>(); 								
-		numeroNiños = new ArrayList<Integer>();	
+		//numeroAdultos = new ArrayList<Integer>(); 								
+		//numeroNiños = new ArrayList<Integer>();	
 		maxNiños = 0;	
 		maxAdultos = 4;
 		adultos = 0;	
@@ -316,8 +319,10 @@ public class BeanReservas implements Serializable {
 			managerReservas.guardarFacturaTemporalRecep(idCliente,facturaCabTmp);
 			facturaCabTmpGuardada=true;
 			resetParams();
-			JSFUtil.crearMensajeInfo("Reserva Guardada");
-			return "./reservas.xhtml?faces-redirect=true";
+			// JSFUtil.crearMensajeInfo("Reserva Guardada");
+			beanLogin.setMsj("Reserva Guardada");
+
+			 return "./reservas.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
