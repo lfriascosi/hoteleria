@@ -16,7 +16,7 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Gerente" action="index" icon="fa fa-gears"></p:menuitem>
-			<p:menuitem value="Clientes" action="usuarios" icon="fa fa-group"></p:menuitem>
+			<p:menuitem value="Clientes" action="cliente" icon="fa fa-group"></p:menuitem>
 			<p:menuitem value="Reservas" action="gerente" icon="fa fa-bed"></p:menuitem>
 			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>
 			<p:menuitem value="Lista de Precios" action="precios" icon="fa fa-bars"></p:menuitem>
@@ -28,32 +28,51 @@
 	</h:form>
 	<br/>
 	<h:form id="form2">
-		<p:panel header="Listado de reservas">
-	<p:dataTable value="#{beanReserva.listaHabitaciones}" var="detalles">
+		<p:panel header="Listado de clientes">
+		
+	<p:dataTable value="#{beanGerencia.listaclientes}" var="clientes">
 				
-				<p:column headerText="Código reserva" style="width:50px">
-					<h:outputText value="#{detalles.descripcion}" />
+				<p:column headerText="Nombre Usuario">
+					<h:outputText value="#{clientes.invUsuario.nombresusuario} #{clientes.invUsuario.apellidosusuario}" />
 				</p:column>
-				<p:column headerText="Nombre usuario">
+				
+				<p:column headerText="Correo">
+					<h:outputText value="#{clientes.invUsuario.correo}" />
+				</p:column>
+				<p:column headerText="Dirección">
 					<h:outputText
-						value="#{detalles.}" />
+						value="#{clientes.invUsuario.direccion}" />
 				</p:column>
-				<p:column headerText="Número habitación">
-					<h:outputText value="#{detalles.invHabitacione.numerohabitacion}" />
+				<p:column headerText="Teléfono">
+					<h:outputText value="#{clientes.invUsuario.telefono}" />
 				</p:column>
-				<p:column headerText="Tipo habitación">
+				<p:column headerText="Fecha Creación">
+					<h:outputText value="#{clientes.invUsuario.fechacreacion}" />
+				</p:column>
+				
+				<p:column headerText="Rol del Usuario">
 					<h:outputText
-						value="#{detalles.invHabitacione.invTiposhabitacione.nombretipohabitacion}" />
+						value="#{clientes.invRole.nombrerolvista}" />
 				</p:column>
-				<p:column headerText="Dias de estadia">
-					<h:outputText value="#{detalles.diasestadia}" />
+				<!-- <p:column headerText="Correo">
+					<h:outputText value="#{clientes.correo}" />
 				</p:column>
-				<p:column headerText="Fecha uso">
-					<h:outputText value="#{detalles.fechauso}" />
+				<p:column headerText="Dirección">
+					<h:outputText
+						value="#{clientes.direccion}" />
 				</p:column>
-				<p:column headerText="Estado reserva" style="width:50px">
-					<h:outputText value="#{detalles.estadoreserva}" />
+				<p:column headerText="Teléfono">
+					<h:outputText value="#{clientes.telefono}" />
 				</p:column>
+				<p:column headerText="Fecha Creación">
+					<h:outputText value="#{clientes.fechacreacion}" />
+				</p:column>
+				<p:column headerText="Fecha Actualización" style="width:50px">
+					<h:outputText value="#{clientes.fechaactualizacion}" />
+				</p:column>
+				<p:column headerText="Estado" style="width:50px">
+					<h:outputText value="#{clientes.estado}" />
+				</p:column>  -->
 			</p:dataTable>
 		</p:panel>
 	</h:form>

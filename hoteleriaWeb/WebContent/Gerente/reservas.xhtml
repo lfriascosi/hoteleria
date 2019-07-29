@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<h:head><title>Listado</title></h:head> 
+<body> 
+<h:form>
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
+		<p:menubar>
+			<p:menuitem value="Gerente" style="Color:maroon;" action="usuarios"></p:menuitem>
+			<p:menuitem value="Clientes" action="cliente" icon="fa fa-group"></p:menuitem>
+			<p:menuitem value="Reservas" action="reservas" icon="fa fa-bed"></p:menuitem>
+			<p:menuitem value="Finanzas" action="finanzas" icon="fa fa-bar-chart"></p:menuitem>
+			<f:facet name="options">
+				<p:outputLabel value="#{beanLogin.usuario}" style= "Color: #5f6a6a ; padding-right:2px;"></p:outputLabel>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br/>
+			<h:form id="form">
+			<p:commandButton value="Actualizar Lista" 
+			 update="listaReservas" action="#{beanListadoReservas.obtenerFacturas()}" 
+			 icon="fa fa-list"/>
+			
+				
+		
+			<p:dataTable value="#{beanListadoReservas.listadoReservas}" style="width:50%;position:relative;left:25%;" reflow="true"
+					var="r" paginator="true" rows="5" id="listaReservas">
+					<p:column headerText="Registro Reservas"
+						filterMatchMode="contains" priority="1">
+						<strong>Fecha: </strong><h:outputText value="#{r.invUsuario.nombresusuario} #{r.invUsuario.apellidosusuario}" /><br></br>
+						<strong>Fecha: </strong><h:outputText value="#{r.fechareserva}" /><br></br>
+						<strong>Hora: </strong><h:outputText value="#{r.horareserva}" /><br></br>
+						<strong>Estado Pago: </strong><h:outputText value="#{beanListadoReservas.estadoPago(r.estadopago)}" /><br></br>
+						<strong>Total: </strong><h:outputText value="#{r.total}" /><br></br>
+						<strong>Fecha de Entrada: </strong><h:outputText value="#{r.fechaentrada}" /><br></br>
+						<strong>Fecha de Salida: </strong><h:outputText value="#{r.fechasalida}" /><br></br>
+						<p:column headerText="Deetalles" priority="3">
+						<br></br>
+							
+							<strong>Detalles: </strong>
+							<p:dataTable id="detalles" value="#{beanListadoReservas.extraerDetalles(r.idreserva)}"  reflow="true"
+								var="d" >
+								<p:column headerText="tipo Habitación" 
+									filterMatchMode="contains" priority="1">
+									<h:outputText value="Habitación #{d.invHabitacione.descripcion}, Nro #{d.invHabitacione.numerohabitacion},
+									 Piso #{d.invHabitacione.numeropiso}, Precio: $ #{d.invHabitacione.precio}" />
+								</p:column>
+							</p:dataTable>
+					</p:column>
+					</p:column>
+					
+				</p:dataTable>
+			
+		</h:form> 
+		
+</body> 
+</html>
