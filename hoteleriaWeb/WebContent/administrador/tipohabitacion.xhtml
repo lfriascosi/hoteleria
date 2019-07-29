@@ -12,8 +12,9 @@
 	<f:facet name="first">
 		<meta name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no " />
-		<title>Manejo de datos de parametros</title>
+		<title>Manejo de datos de tipos de habitaciones</title>
 	</f:facet>
+
 </h:head>
 <body>
 	<p:growl>
@@ -39,56 +40,59 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<h2 style="Color: maroon;">Parámetros</h2>
+	<h2 style="Color: maroon;">Tipo habitaciones</h2>
 	<h:form id="form1">
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
-		<p:panel collapsed="#{beanParametros.panelColapsado}">
+		<p:panel collapsed="#{beanTipoHabitacio.panelColapsado}">
 			<f:facet name="header">
-				<p:commandButton value="Nuevo parámetro" icon="fa fa-plus"
+				<p:commandButton value="Nuevo tipo habitación" icon="fa fa-plus"
 					update="@form"
-					actionListener="#{beanParametros.actionListenerCOlapsarPanel()}">
-				</p:commandButton>
+					actionListener="#{beanTipoHabitacio.actionListenerCOlapsarPanel()}"></p:commandButton>
 			</f:facet>
 			<p:panelGrid columns="2">
-				<h:outputText value="Nombre parámetro" />
-				<p:inputText value="#{beanParametros.parametro.nombreparametro}" />
-				<h:outputText value="Valor parametro" />
-				<p:inputText value="#{beanParametros.parametro.valorparametro}" />
-				<h:outputText value="Descripcion parametro" />
-				<p:inputText value="#{beanParametros.parametro.descripcion}" />
+
+				<h:outputText value="Tipo de habitación:" />
+				<p:inputText
+					value="#{beanTipoHabitacio.tipohabitacion.nombretipohabitacion}"></p:inputText>
 				<p:commandButton value="Insertar" icon="fa fa-save"
 					update="@form,:form2"
-					actionListener="#{beanParametros.actionListenerInsertarParametros()}">
-				</p:commandButton>
+					actionListener="#{beanTipoHabitacio.actionListenerInsertarTipoHabitacion()}"></p:commandButton>
 			</p:panelGrid>
 		</p:panel>
 	</h:form>
 	<br />
 	<h:form id="form2">
-		<p:panel header="Datos de parámetros">
-			<p:dataTable value="#{beanParametros.listaParametros}"
-				var="parametros">
-				<p:column headerText="Nombre parámetro">
-					<h:outputText value="#{parametros.nombreparametro}" />
+		<p:panel header="Datos de tipo Habitacion">
+			<p:dataTable value="#{beanTipoHabitacio.listaTipoHabitacion}"
+				reflow="true" var="tipohabitaciones" paginator="true" rows="5">
+				<p:column headerText="Tipo Habitación"
+					filterBy="#{tipohabitaciones.nombretipohabitacion}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText
+						value="#{tipohabitaciones.nombretipohabitacion}" />
 				</p:column>
-				<p:column headerText="Valor parámetro">
-					<h:outputText value="#{parametros.valorparametro}" />
+				<p:column headerText="Fecha de Creación"
+					filterBy="#{tipohabitaciones.fechacreacion}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText
+						value="#{tipohabitaciones.fechacreacion}" />
 				</p:column>
-				<p:column headerText="Descripción parámetro">
-					<h:outputText value="#{parametros.descripcion}" />
+				<p:column headerText="Fecha Actualización" priority="2">
+					<h:outputText
+						value="#{tipohabitaciones.fechaactualizacion}" />
 				</p:column>
 				<p:column headerText="OPCIONES" priority="1">
 					<p:commandButton icon="fa fa-close" title="eliminar" update="@form"
-						actionListener="#{beanParametros.actionListenerELiminarParametro(parametros.idparametro)}">
+						actionListener="#{beanTipoHabitacio.actionListenerELiminarTipoHabitaciones(tipohabitaciones.idtipohabitacion)}">
 						<p:confirm header="Confimacion" message="Desea eliminar"
-							icon="fa fa-exclamation-triangle"></p:confirm>
+							icon="fa fa-exclamation-triangle">
+						</p:confirm>
 					</p:commandButton>
 					<p:commandButton icon="fa fa-edit" title="Editar"
-						actionListener="#{beanParametros.actionListenerSelecionarParametro(parametros)}"
-						update=":formEdicion" oncomplete="PF('dlgEdicion').show();">
-					</p:commandButton>
+						actionListener="#{beanTipoHabitacio.actionListenerSelecionarTipoHabitacion(tipohabitaciones)}"
+						update=":formEdicion" oncomplete="PF('dlgEdicion').show();"></p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -99,23 +103,16 @@
 			<p:growl>
 				<p:autoUpdate />
 			</p:growl>
-			<h:outputText value="Id parámetro" />
-			<h:outputText
-				value="#{beanParametros.parametroSeleccionado.idparametro}" />
+
 			<p:panelGrid columns="2">
-				<h:outputText value="Nombre parśmetro" />
+				<h:outputText value="Tipo Habitación:" />
 				<p:inputText
-					value="#{beanParametros.parametroSeleccionado.nombreparametro}" />
-				<h:outputText value="Valor parámetro" />
-				<p:inputText
-					value="#{beanParametros.parametroSeleccionado.valorparametro}" />
-				<h:outputText value="Descripcion parámetro" />
-				<p:inputText
-					value="#{beanParametros.parametroSeleccionado.descripcion}" />
+					value="#{beanTipoHabitacio.tipohabitacionSeleccionada.nombretipohabitacion}" />
+
 			</p:panelGrid>
 			<p:commandButton value="Actualizar" icon="fa fa-save"
 				update="@form,:form2"
-				actionListener="#{beanParametros.actionListenerActualizarParametro()}" />
+				actionListener="#{beanTipoHabitacio.actionListenerActualizarTipoHabitacion()}" />
 		</h:form>
 	</p:dialog>
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -123,6 +120,9 @@
 			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
 		<p:commandButton value="NO" type="button"
 			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+
 	</p:confirmDialog>
 </body>
 </html>
+
+

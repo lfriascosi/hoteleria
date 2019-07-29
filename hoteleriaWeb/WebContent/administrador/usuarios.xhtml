@@ -20,18 +20,22 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-	<p:menubar>
-			<p:menuitem value="Administrador" action="index" icon="fa fa-wrench"></p:menuitem>
-			<p:menuitem value="Habitaciones" action="habitaciones" icon="fa fa-bed"></p:menuitem>
-			<p:menuitem value="Usuarios" action="usuarios" icon="fa fa-user-plus"></p:menuitem>
+		<p:menubar>
+			<p:menuitem value="Administrador" action="indexadmin" icon="fa fa-home"></p:menuitem>
+			<p:menuitem value="Objetos" action="objetos" icon="fa fa-building"></p:menuitem>
+			<p:menuitem value="Tipos de habitaciones" action="tipohabitacion" icon="fa fa-building-o"></p:menuitem>
 			
+			<p:menuitem value="Habitaciones" action="habitaciones" icon="fa fa-bank"></p:menuitem>
+			<p:menuitem value="Usuarios" action="usuarios" icon="fa fa-group"></p:menuitem>
+			<p:menuitem value="Parametros" action="parametros" icon="fa fa-bed"></p:menuitem>
+
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
 					icon="fa fa-sign-out" />
 			</f:facet>
 		</p:menubar>
-		</h:form>
-		<h2 style="Color:maroon;">Usuarios</h2>
+	</h:form>
+	<h2 style="Color: maroon;">Usuarios</h2>
 	<h:form id="form1">
 		<p:messages>
 			<p:autoUpdate />
@@ -58,12 +62,12 @@
 				<p:inputText value="#{beanUsuarios.usuario.estado}" />
 				<h:outputText value="Telefono usuario" />
 				<p:inputText value="#{beanUsuarios.usuario.telefono}" />
-				<h:outputText value="Fecha creación:" />
-				<p:calendar value="#{beanUsuarios.usuario.fechacreacion}"
-					navigator="true" pattern="yyyy-MMM-dd" />
-				<h:outputText value="Fecha Actualizacion:" />
-				<p:calendar value="#{beanUsuarios.usuario.fechaactualizacion}"
-					navigator="true" pattern="yyyy-MMM-dd" />
+				<h:outputText value="Tipo Rol" />
+				<p:selectOneMenu value="#{beanUsuarios.idrol}">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="#{beanUsuarios.roles}" />
+				</p:selectOneMenu>
 				<p:commandButton value="Insertar" icon="fa fa-save"
 					update="@form,:form2"
 					actionListener="#{beanUsuarios.actionListenerInsertarUsuario()}">
@@ -74,38 +78,46 @@
 	<br />
 	<h:form id="form2">
 		<p:panel header="Datos de usuarios">
-			<p:dataTable value="#{beanUsuarios.listaInvUsuarios}" var="usuarios">
-				<p:column headerText="Nombre usuario">
-					<h:outputText
-						value="#{usuarios.nombresusuario} #{usuarios.apellidosusuario}" />
+			<p:dataTable value="#{beanUsuarios.listaRolesUsuario}" reflow="true"
+				var="usuarios" paginator="true" rows="10"
+				rowsPerPageTemplate="2,5,10,15" lazy="true">
+				<p:column headerText="Apellido">
+					<h:outputText value="#{usuarios.invUsuario.apellidosusuario}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{usuarios.invUsuario.nombresusuario}" />
 				</p:column>
 				<p:column headerText="Correo">
-					<h:outputText value="#{usuarios.correo}" />
+					<h:outputText value="#{usuarios.invUsuario.correo}" />
 				</p:column>
 				<p:column headerText="Dirección">
-					<h:outputText value="#{usuarios.direccion}" />
+					<h:outputText value="#{usuarios.invUsuario.direccion}" />
 				</p:column>
 				<p:column headerText="Teléfono">
-					<h:outputText value="#{usuarios.telefono}" />
+					<h:outputText value="#{usuarios.invUsuario.telefono}" />
 				</p:column>
-				<!-- <p:column headerText="Fecha creación">
-					<h:outputText value="#{usuarios.fechacreacion}" />
+				<p:column headerText="Fecha creación">
+					<h:outputText value="#{usuarios.invUsuario.fechacreacion}" />
 				</p:column>
 				<p:column headerText="Fecha actualización">
-					<h:outputText value="#{usuarios.fechaactualizacion}" />
+					<h:outputText value="#{usuarios.invUsuario.fechaactualizacion}" />
 				</p:column>
-				<p:column headerText="Estado usuario">
-					<h:outputText value="#{usuarios.estado}" />
-				</p:column> -->
-				<p:column headerText="OPCIONES" priority="1">
-					<p:commandButton icon="fa fa-close" title="eliminar" update="@form"
-						actionListener="#{beanUsuarios.actionListenerELiminarUsuario(usuarios.idusuario)}">
-						<p:confirm header="Confimacion" message="Desea eliminar"
-							icon="fa fa-exclamation-triangle"></p:confirm>
-					</p:commandButton>
-					<p:commandButton icon="fa fa-edit" title="Editar"
+				<p:column headerText="Estado" style="width:50px">
+					<h:outputText value="#{usuarios.invUsuario.estado}" />
+				</p:column>
+				<p:column headerText="Rol" style="width:100px">
+					<h:outputText value="#{usuarios.invRole.nombrerolvista}" />
+				</p:column>
+				<p:column headerText="OPCIONES" priority="1" style="width:220px">
+
+					<p:commandButton value="Editar" icon="fa fa-edit" title="Editar"
 						actionListener="#{beanUsuarios.actionListenerSelecionarUsuarios(usuarios)}"
 						update=":formEdicion" oncomplete="PF('dlgEdicion').show();">
+					</p:commandButton>
+					<p:commandButton value="Agregar rol" icon="fa fa-plus-circle"
+						title="Agregar"
+						actionListener="#{beanUsuarios.actionListenerSelecionarUsuarios(usuarios)}"
+						update=":formEdicionAu" oncomplete="PF('dlgEdicionAu').show();">
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -117,38 +129,73 @@
 			<p:growl>
 				<p:autoUpdate />
 			</p:growl>
-			<h:outputText value="Id usuario" />
-			<h:outputText value="#{beanUsuarios.usuarioSeleccionada.idusuario}" />
+			<h:outputText value="Id usuario " />
+			<h:outputText
+				value="#{beanUsuarios.usuarioSeleccionada.invUsuario.idusuario}" />
 			<p:panelGrid columns="2">
 				<h:outputText value="Apellido usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.apellidosusuario}" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.apellidosusuario}" />
 				<h:outputText value="Nombre usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.nombresusuario}" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.nombresusuario}" />
 				<h:outputText value="Clave usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.clave}" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.clave}" />
 				<h:outputText value="Correo usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.correo}" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.correo}" />
 				<h:outputText value="Direccion usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.direccion}" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.direccion}" />
 				<h:outputText value="Estado usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.estado}" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.estado}" />
 				<h:outputText value="Telefono usuario" />
-				<p:inputText value="#{beanUsuarios.usuarioSeleccionada.telefono}" />
-				<h:outputText value="Fecha Actualizacion:" />
-				<p:calendar value="#{beanUsuarios.usuarioSeleccionada.fechaactualizacion}"
-					navigator="true" pattern="yyyy-MMM-dd" />
+				<p:inputText
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.telefono}" />
+				<h:outputText value="Tipo Rol" />
+				<p:selectOneMenu value="#{beanUsuarios.idrol}">
+					<f:selectItem
+						itemLabel="#{beanUsuarios.usuarioSeleccionada.invRole.nombrerolvista}"
+						itemValue="-1" noSelectionOption="true" />
+					<f:selectItems value="#{beanUsuarios.roles}" />
+				</p:selectOneMenu>
 			</p:panelGrid>
-			<p:commandButton value="Actualizar" icon="fa fa-save" 
+			<p:commandButton value="Actualizar" icon="fa fa-save"
 				update="@form,:form2"
-				actionListener="#{beanUsuarios.actionListenerActualizarUsuario()}"/>
+				actionListener="#{beanUsuarios.actionListenerActualizarUsuario()}" />
 		</h:form>
 	</p:dialog>
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		<p:commandButton value="Si" type="button"
-			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
-		<p:commandButton value="NO" type="button"
-			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	<p:dialog header="Editar información" widgetVar="dlgEdicionAu"
+		modal="true">
+		<h:form id="formEdicionAu">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
 
-	</p:confirmDialog>
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Nombre usuario" />
+				<p:outputLabel
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.apellidosusuario} #{beanUsuarios.usuarioSeleccionada.invUsuario.nombresusuario}" />
+
+				<h:outputText value="Correo usuario" />
+				<p:outputLabel
+					value="#{beanUsuarios.usuarioSeleccionada.invUsuario.correo}" />
+
+				<h:outputText value="Tipo Rol" />
+				<p:selectOneMenu value="#{beanUsuarios.idrol}">
+					<f:selectItem itemLabel="Seleccione" itemValue="-1"
+						noSelectionOption="true" />
+					<f:selectItems value="#{beanUsuarios.roles}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+			<p:commandButton value="Agregar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanUsuarios.actionListenerInsertarRolUsuario()}" />
+		</h:form>
+	</p:dialog>
+
 </body>
 </html>
