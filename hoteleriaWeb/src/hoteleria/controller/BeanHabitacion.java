@@ -67,7 +67,7 @@ public class BeanHabitacion implements Serializable {
 
 	public void actionListenerActualizarHabitacion() {
 		try {
-			managerAdministrador.actualizarHabitacion(habitacionSeleccionada, idtipohabitacion);
+			managerAdministrador.actualizarHabitacion(habitacionSeleccionada,idtipohabitacion);
 			listaHabitacion = managerAdministrador.findAllInvHabitacione();
 			JSFUtil.crearMensajeInfo("Datos actualizados");
 		} catch (Exception e) {
