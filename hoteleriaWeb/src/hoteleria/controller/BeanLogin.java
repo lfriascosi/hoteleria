@@ -224,8 +224,9 @@ public class BeanLogin implements Serializable{
 		String requestPath=ec.getRequestPathInfo();
 		try {
 			//si ya pasó por login:
-			if(codigoUsuario == null){
+			if(codigoUsuario == null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())){
 				showMessages();
+				return;
 				
 			}else{
 				ec.redirect(ec.getRequestContextPath() + "/faces" + loginDTO.getRutaAcceso()+"?faces-redirect=true");
